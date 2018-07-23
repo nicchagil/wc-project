@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo
+		http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="wc-user-service-provider-application" />
+
+	<!-- 暴露服务地址 -->
+	<!-- 使用multicast广播注册中心 -->
+	<dubbo:registry address="multicast://224.5.6.7:1234" />
+
+	<!-- 服务协议 -->
+	<!-- dubbo协议、20880端口 -->
+	<dubbo:protocol name="dubbo" port="20880" />
+
+	<!-- 暴露的服务接口 -->
+	<dubbo:service interface="com.nicchagil.util.dubbo.common.UserDubboService"
+		ref="userDubboService" />
+
+	<!-- 本地服务 -->
+	<bean id="userDubboService" class="com.nicchagil.util.dubbo.provider.UserDubboServiceImpl" />
+	
+</beans>
