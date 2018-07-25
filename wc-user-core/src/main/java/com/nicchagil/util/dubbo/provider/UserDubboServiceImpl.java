@@ -2,11 +2,13 @@ package com.nicchagil.util.dubbo.provider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
 import com.nicchagil.util.dubbo.common.UserDubboService;
 
+@Service
 public class UserDubboServiceImpl implements UserDubboService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
