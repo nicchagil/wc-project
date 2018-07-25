@@ -7,6 +7,7 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.spring.ServiceBean;
+import com.nicchagil.util.dubbo.common.DubboCommonConstants;
 import com.nicchagil.util.dubbo.common.UserDubboService;
 import com.nicchagil.util.dubbo.provider.UserDubboServiceImpl;
 import com.nicchagil.util.spring.ApplicationContextUtils;
@@ -17,23 +18,23 @@ public class DubboConfiguration {
 	@Bean
 	public ApplicationConfig applicationConfig() {
 		ApplicationConfig applicationConfig = new ApplicationConfig();
-		applicationConfig.setName("wc-user");
+		applicationConfig.setName(DubboCommonConstants.A_PROVIDER_APPLICATION_NAME);
 		return applicationConfig;
 	}
 	
 	@Bean
 	public RegistryConfig registryConfig() {
 		RegistryConfig registryConfig = new RegistryConfig();
-		registryConfig.setProtocol("zookeeper");
-		registryConfig.setAddress("127.0.0.1:2181");
-		registryConfig.setClient("zkclient");
+		registryConfig.setProtocol(DubboCommonConstants.MAIN_REGISTRY_PROTOCOL);
+		registryConfig.setAddress(DubboCommonConstants.MAIN_REGISTRY_ADDRESS);
+		registryConfig.setClient(DubboCommonConstants.MAIN_REGISTRY_CLIENT);
 		return registryConfig;
 	}
 	
 	@Bean
 	public ProtocolConfig protocolConfig() {
 		ProtocolConfig protocolConfig = new ProtocolConfig();
-		protocolConfig.setName("dubbo");
+		protocolConfig.setName(DubboCommonConstants.MAIN_RPC_PROTOCOL);
 		protocolConfig.setPort(20880);
 		return protocolConfig;
 	}
@@ -41,7 +42,7 @@ public class DubboConfiguration {
 	@Bean
 	public ServiceBean userDubboService() {
 		ServiceBean serviceBean = new ServiceBean();
-		serviceBean.setProxy("jdk");
+		serviceBean.setProxy(DubboCommonConstants.SERVICE_PROVIDER_PROXY);
 		serviceBean.setInterface(UserDubboService.class);
 		serviceBean.setRef(ApplicationContextUtils.getBean(UserDubboServiceImpl.class));
 		serviceBean.setTimeout(1000);
