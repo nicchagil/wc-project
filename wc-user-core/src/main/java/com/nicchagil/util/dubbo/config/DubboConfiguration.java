@@ -35,7 +35,7 @@ public class DubboConfiguration {
 	public ProtocolConfig protocolConfig() {
 		ProtocolConfig protocolConfig = new ProtocolConfig();
 		protocolConfig.setName(DubboCommonConstants.MAIN_RPC_PROTOCOL);
-		protocolConfig.setPort(20880);
+		protocolConfig.setPort(DubboCommonConstants.MAIN_RPC_SERVICE_PROVIDER_PORT);
 		return protocolConfig;
 	}
 	
