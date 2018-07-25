@@ -10,8 +10,11 @@
 	<dubbo:application name="wc-user-service-provider-application" />
 
 	<!-- 暴露服务地址 -->
-	<!-- 使用multicast广播注册中心，注册订阅失败时报错 -->
+	<!-- 使用multicast广播注册中心，注册订阅失败时报错
 	<dubbo:registry address="multicast://224.5.6.7:1234" check="true" />
+	 -->
+	<!-- 使用ZooKeeper注册中心，注册订阅失败时报错 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181?client=zkclient" check="false" />
 
 	<!-- 服务协议 -->
 	<!-- dubbo协议、20880端口 -->
