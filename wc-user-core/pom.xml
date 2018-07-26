@@ -207,6 +207,13 @@
 		    <artifactId>zkclient</artifactId>
 		    <version>0.1</version>
 		</dependency>
+		
+		<!-- Curator -->
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-framework</artifactId>
+		    <version>4.0.1</version><!-- 我使用的ZooKeeper是3.4.12版本的 -->
+		</dependency>
         
 	</dependencies>
 
