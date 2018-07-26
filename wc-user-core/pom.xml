@@ -214,6 +214,18 @@
 		    <artifactId>curator-framework</artifactId>
 		    <version>4.0.1</version><!-- 我使用的ZooKeeper是3.4.12版本的 -->
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-recipes</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-client</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
         
 	</dependencies>
 
