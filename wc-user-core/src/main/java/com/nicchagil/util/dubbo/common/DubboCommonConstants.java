@@ -20,9 +20,6 @@ public class DubboCommonConstants {
 	/** 服务提供者和消费者间的传输协议 **/
 	public static final String MAIN_RPC_PROTOCOL = "dubbo";
 	
-	/** 服务提供者和消费者间的传输协议 **/
-	public static Integer MAIN_RPC_SERVICE_PROVIDER_PORT = 28800;
-	
 	/** 服务提供者代理模式 **/
 	public static final String SERVICE_PROVIDER_PROXY = "jdk";
 	

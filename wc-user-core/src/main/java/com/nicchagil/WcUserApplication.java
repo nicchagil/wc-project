@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.nicchagil.designpattern.strategy.spring.UseStrategyService;
 import com.nicchagil.designpattern.strategy.spring.UseStrategyService.SomethingEnum;
-import com.nicchagil.util.dubbo.common.DubboCommonConstants;
 import com.nicchagil.util.log.test.LogPrintTest;
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
@@ -26,12 +25,6 @@ public class WcUserApplication {
 	 * @param args 0:配置dubbo的监听端口
 	 */
 	public static void main(String[] args) {
-		/* 配置dubbo的监听端口 */
-		if (args != null && args.length > 0) {
-			String dubboPort = args[0];
-			DubboCommonConstants.MAIN_RPC_SERVICE_PROVIDER_PORT = Integer.valueOf(dubboPort);
-		}
-		
 		ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(WcUserApplication.class, args);
 		
 		/* 以下为调试日志打印 */

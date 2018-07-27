@@ -1,5 +1,6 @@
 package com.nicchagil.util.dubbo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -7,6 +8,7 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.spring.ServiceBean;
+import com.nicchagil.util.dubbo.DubboProperties;
 import com.nicchagil.util.dubbo.common.DubboCommonConstants;
 import com.nicchagil.util.dubbo.common.UserDubboService;
 import com.nicchagil.util.dubbo.provider.UserDubboServiceImpl;
@@ -14,6 +16,9 @@ import com.nicchagil.util.spring.ApplicationContextUtils;
 
 @Configuration
 public class DubboConfiguration {
+	
+	@Autowired
+	private DubboProperties dubboProperties;
 	
 	@Bean
 	public ApplicationConfig applicationConfig() {
@@ -35,7 +40,7 @@ public class DubboConfiguration {
 	public ProtocolConfig protocolConfig() {
 		ProtocolConfig protocolConfig = new ProtocolConfig();
 		protocolConfig.setName(DubboCommonConstants.MAIN_RPC_PROTOCOL);
-		protocolConfig.setPort(DubboCommonConstants.MAIN_RPC_SERVICE_PROVIDER_PORT);
+		protocolConfig.setPort(this.dubboProperties.getPort());
 		return protocolConfig;
 	}
 	
