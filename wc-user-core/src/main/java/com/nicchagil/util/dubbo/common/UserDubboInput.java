@@ -24,6 +24,11 @@ public class UserDubboInput implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/* 添加无参数的构造方法才能序列化、反序列化 */
+	public UserDubboInput() {
+		super();
+	}
 
 	public UserDubboInput(Integer id, String name) {
 		super();

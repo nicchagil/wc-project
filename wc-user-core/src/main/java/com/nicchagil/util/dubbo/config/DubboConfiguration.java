@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
 import com.alibaba.dubbo.config.spring.ServiceBean;
 import com.nicchagil.util.datetime.DateTimeUtils;
 import com.nicchagil.util.dubbo.DubboProperties;
@@ -47,14 +48,26 @@ public class DubboConfiguration {
 	}
 	
 	@Bean
-	public ServiceBean userDubboService() {
-		ServiceBean serviceBean = new ServiceBean();
+	public ServiceBean<UserDubboService> userDubboProviderService() {
+		ServiceBean<UserDubboService> serviceBean = new ServiceBean<>();
 		serviceBean.setProxy(this.dubboProperties.serviceProviderProxy);
 		serviceBean.setInterface(UserDubboService.class);
 		serviceBean.setRef(ApplicationContextUtils.getBean(UserDubboServiceImpl.class));
+		serviceBean.setVersion(this.dubboProperties.getServiceVersion());
 		serviceBean.setTimeout(1000);
 		serviceBean.setRetries(2);
 		return serviceBean;
+	}
+	
+	@Bean
+	public ReferenceBean<UserDubboService> userDubboConsumerService() {
+		ReferenceBean<UserDubboService> referenceBean = new ReferenceBean<>();
+		referenceBean.setInterface(UserDubboService.class);
+		referenceBean.setVersion(this.dubboProperties.getServiceVersion());
+		referenceBean.setTimeout(1000);
+		referenceBean.setRetries(2);
+		referenceBean.setCheck(false);
+		return referenceBean;
 	}
 
 }
