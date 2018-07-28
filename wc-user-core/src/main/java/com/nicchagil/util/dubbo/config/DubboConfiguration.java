@@ -57,6 +57,7 @@ public class DubboConfiguration {
 		serviceBean.setVersion(this.dubboProperties.getServiceVersion());
 		serviceBean.setTimeout(1000);
 		serviceBean.setRetries(2);
+		serviceBean.setExport(this.dubboProperties.isProviderEnable());
 		return serviceBean;
 	}
 	

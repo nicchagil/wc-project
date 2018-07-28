@@ -7,6 +7,12 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "dubbo")
 public class DubboProperties {
 	
+	/** 是否启用提供者（启动禁用主要用于调试、测试） **/
+	private boolean providerEnable;
+	
+	/** 是否启用消费者（启动禁用主要用于调试、测试） **/
+	private boolean consumerEnable;
+	
 	/** 注册中心协议 **/
 	private String registryProtocol;
 	
@@ -27,6 +33,22 @@ public class DubboProperties {
 	
 	/** 服务版本 **/
 	public String serviceVersion;
+	
+	public boolean isProviderEnable() {
+		return providerEnable;
+	}
+
+	public void setProviderEnable(boolean providerEnable) {
+		this.providerEnable = providerEnable;
+	}
+
+	public boolean isConsumerEnable() {
+		return consumerEnable;
+	}
+
+	public void setConsumerEnable(boolean consumerEnable) {
+		this.consumerEnable = consumerEnable;
+	}
 
 	public String getRegistryProtocol() {
 		return registryProtocol;
