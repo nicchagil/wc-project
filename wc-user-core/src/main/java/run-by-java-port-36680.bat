@@ -1,0 +1,3 @@
+set dateTimeStr=%date:~0,4%-%date:~5,2%-%date:~8,2%T%time:~0,2%:%time:~3,2%:%time:~6,2%
+set CLASSPATH=D:/git_workspace/wc-user/wc-user-core/target/dependency/*;D:/git_workspace/wc-user/wc-user-core/target/classes;%CLASSPATH%
+java -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:./gc.log -XX:+UseG1GC -Xms1024m -Xmx1024m -Xss1024k -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./dump/ com.nicchagil.WcUserApplication
