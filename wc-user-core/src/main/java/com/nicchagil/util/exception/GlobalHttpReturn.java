@@ -9,7 +9,7 @@ import com.nicchagil.util.spring.ApplicationContextUtils;
 
 public class GlobalHttpReturn <T> {
 	
-	/** 代码 **/
+	/** 提示代码 **/
 	private String code;
 	
 	/** 提示信息 **/
@@ -21,24 +21,46 @@ public class GlobalHttpReturn <T> {
 	public String getCode() {
 		return code;
 	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public String getMsg() {
 		return msg;
 	}
 	
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	
 	public T getData() {
 		return data;
 	}
-
-	public GlobalHttpReturn setData(T data) {
+	
+	public void setData(T data) {
 		this.data = data;
+	}
+	
+	public GlobalHttpReturn<T> withData(T data) {
+		this.data = data;
+		return this;
+	}
+
+	public GlobalHttpReturn<T> withCode(String code) {
+		this.code = code;
+		return this;
+	}
+	
+	public GlobalHttpReturn<T> withMsg(String msg) {
+		this.msg = msg;
 		return this;
 	}
 
 	/**
 	 * 通过指定枚举设置代码和提示信息
 	 */
-	public GlobalHttpReturn setExceptionCodeEnum(ExceptionCodeEnum exceptionCodeEnum) {
+	public GlobalHttpReturn<T> setExceptionCodeEnum(ExceptionCodeEnum exceptionCodeEnum) {
 		this.code = exceptionCodeEnum.name();
 		
 		/* 设置系统语言的提示信息 */

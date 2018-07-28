@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
 import com.nicchagil.util.dubbo.common.UserDubboService;
+import com.nicchagil.util.exception.ExceptionCodeEnum;
+import com.nicchagil.util.exception.GlobalHttpReturn;
 
 @RestController
 @RequestMapping("/user/dubbo")
@@ -18,8 +20,11 @@ public class UserDubboConsumerController {
 	private UserDubboService userDubboService;
 
 	@GetMapping("/getByCriteria")
-    public UserDubboOutput get() {
-		return this.userDubboService.getByCriteria(new UserDubboInput(123, "NK"));
+    public GlobalHttpReturn<UserDubboOutput> getByCriteria(Integer id, String name) {
+		GlobalHttpReturn<UserDubboOutput> globalHttpReturn = new GlobalHttpReturn<>();
+		
+		return globalHttpReturn.withCode(ExceptionCodeEnum.SUCCESS_00001.name())
+				.withData(this.userDubboService.getByCriteria(new UserDubboInput(id, name)));
 	}
 
 }

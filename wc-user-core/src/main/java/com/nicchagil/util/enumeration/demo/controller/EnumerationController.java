@@ -43,7 +43,7 @@ public class EnumerationController {
 		Class<?> clazz = map.get(enumName);
 		Object[] objs = EnumUtils.getEnumValuesByEnumClass(clazz);
 		
-		return new GlobalHttpReturn().setData(objs);
+		return new GlobalHttpReturn<Object[]>().withData(objs);
 	}
 	
 }
