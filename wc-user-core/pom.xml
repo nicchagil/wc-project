@@ -230,14 +230,21 @@
 	
 	<profiles>
 		<profile>
-			<!-- 开发环境 -->
-			<id>dev</id>
+			<!-- 开发环境A -->
+			<id>dev-port-36680</id>
 			<properties>
-				<env>dev</env>
+				<env>dev-port-36680</env>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+		</profile>
+		<profile>
+			<!-- 开发环境B -->
+			<id>dev-port-36681</id>
+			<properties>
+				<env>dev-port-36681</env>
+			</properties>
 		</profile>
 		<profile>
 			<!-- 测试环境 -->
