@@ -2,6 +2,7 @@ package com.nicchagil.util.dubbo.config;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,7 +58,16 @@ public class DubboConfiguration {
 		serviceBean.setVersion(this.dubboProperties.getServiceVersion());
 		serviceBean.setTimeout(1000);
 		serviceBean.setRetries(2);
+		
+		/* 是否暴露接口 */
 		serviceBean.setExport(this.dubboProperties.isProviderEnable());
+		
+		/* 是否TOKEN验证 */
+		serviceBean.setToken(this.dubboProperties.isTokenEnable());
+		if (this.dubboProperties.isTokenEnable() && StringUtils.isNotBlank(this.dubboProperties.getTokenPassword())) {
+			serviceBean.setToken(this.dubboProperties.getTokenPassword());
+		}
+		
 		return serviceBean;
 	}
 	

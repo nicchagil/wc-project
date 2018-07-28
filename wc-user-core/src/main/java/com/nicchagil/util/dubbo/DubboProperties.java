@@ -13,6 +13,12 @@ public class DubboProperties {
 	/** 是否启用消费者（启动禁用主要用于调试、测试） **/
 	private boolean consumerEnable;
 	
+	/** 是否启用令牌，以避免消费者绕过注册中心直接访问提供者 **/
+	private boolean tokenEnable;
+	
+	/** 令牌密码，如启用令牌情况下此属性为空，则使用动态密码 **/
+	private String tokenPassword;
+	
 	/** 注册中心协议 **/
 	private String registryProtocol;
 	
@@ -48,6 +54,22 @@ public class DubboProperties {
 
 	public void setConsumerEnable(boolean consumerEnable) {
 		this.consumerEnable = consumerEnable;
+	}
+	
+	public boolean isTokenEnable() {
+		return tokenEnable;
+	}
+
+	public void setTokenEnable(boolean tokenEnable) {
+		this.tokenEnable = tokenEnable;
+	}
+
+	public String getTokenPassword() {
+		return tokenPassword;
+	}
+
+	public void setTokenPassword(String tokenPassword) {
+		this.tokenPassword = tokenPassword;
 	}
 
 	public String getRegistryProtocol() {
