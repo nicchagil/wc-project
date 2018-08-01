@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.nicchagil.designpattern.strategy.spring.UseStrategyService;
@@ -14,6 +15,7 @@ import com.nicchagil.util.log.test.LogPrintTest;
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
 @SpringBootApplication
+@ComponentScan(basePackages="com.nicchagil")
 @MapperScan("com.nicchagil.orm.mapper")
 @EnableScheduling
 public class WcUserApplication {
