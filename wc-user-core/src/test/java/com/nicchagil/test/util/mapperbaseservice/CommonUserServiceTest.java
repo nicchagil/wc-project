@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nicchagil.orm.mapper.UserMapper;
-import com.nicchagil.test.BaseSpringBootTest;
 import com.nicchagil.util.mapperbaseservice.CommonUserService;
+import com.nicchagil.util.test.BaseSpringBootTest;
 
 public class CommonUserServiceTest extends BaseSpringBootTest {
 	
