@@ -24,28 +24,64 @@ public class QuickFuzzySearchRedisService {
 	
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
+	
+	/**
+	 * 构建索引（TODO 事务未完全写好）
+	 */
+	public void buildIndexWithTransaction() {
+		/* 开始事务 */
+		this.redisTemplate.multi();
+		this.logger.info("开始事务 OK");
+		
+		this.buildIndex();
+		
+		/* 执行事务 */
+		List<Object> list = this.redisTemplate.exec();
+		this.logger.info("执行事务 OK");
+	}
 
 	/**
 	 * 构建索引
 	 */
 	public void buildIndex() {
+		this.logger.info("开始构建索引");
+		
+		Set<String> keySet = this.redisTemplate.keys(PREFIX_KEY + "*");
+		for (String key : keySet) {
+			this.redisTemplate.delete(key);
+		}
+		this.logger.info("删除原来的KEY OK");
+		
 		List<User> userList = Lists.newArrayList();
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 100000; i++) {
+			if (Integer.valueOf(66666).equals(i)) {
+				userList.add(new User(i, "nick"));
+			}
+			if (Integer.valueOf(77777).equals(i)) {
+				userList.add(new User(i, "viki"));
+			}
+			
 			userList.add(new User(i, String.valueOf(i)));
 		}
+		this.logger.info("初始化模拟数据OK");
 		
 		EveryWordTokenizer tokenizer = new EveryWordTokenizer();
 		SetOperations<String, String> setOperations = this.redisTemplate.opsForSet();
 		
-		for (User user : userList) {
+		for (int i = 0; i < userList.size(); i++) {
+			User user = userList.get(i);
 			List<String> indexList = tokenizer.participle(user.getName());
 			
 			for (String index : indexList) {
-				setOperations.add(PREFIX_KEY + index, String.valueOf(user.getId()));
+				setOperations.add(PREFIX_KEY + index, String.valueOf(user.getName()));
+			}
+			
+			if (i % 1000 == 0) {
+				this.logger.info("进度：{}", i);
 			}
 		}
 		
-		this.logger.info("ok..");
+		this.logger.info("结束构建索引");
 	}
 	
 	/**

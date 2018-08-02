@@ -24,7 +24,7 @@ public class QuickFuzzySearchRedisController {
 	 */
 	@GetMapping("/buildIndex") // /fuzzysearch/redis/buildIndex
 	public void buildIndex() {
-		this.quickFuzzySearchRedisService.buildIndex();
+		this.quickFuzzySearchRedisService.buildIndexWithTransaction();
 	}
 	
 	/**
