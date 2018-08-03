@@ -1,13 +1,16 @@
 package com.nicchagil.util.redis.springredistemplate;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.curator.shaded.com.google.common.collect.Lists;
+import org.apache.curator.shaded.com.google.common.collect.Maps;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
@@ -27,6 +30,22 @@ public class RedisTemplateTest extends BaseSpringBootTest {
 		
 		valueOperations.set("hello", "world");
 		this.logger.info("result : {}", valueOperations.get("hello"));
+	}
+	
+	@Test
+	public void hashSetAndGetTest() {
+		HashOperations<String, String, String> hashOperations = this.redisTemplate.opsForHash();
+		
+		Map<String, String> map = Maps.newHashMap();
+		map.put("name", "Nick Huang");
+		map.put("age", "20");
+		
+		hashOperations.putAll("id:123", map);
+		
+		this.logger.info("name : {}", hashOperations.get("id:123", "name"));
+		this.logger.info("age : {}", hashOperations.get("id:123", "age"));
+		
+		this.logger.info("result : {}", hashOperations.multiGet("id:123", Lists.newArrayList("name", "age")));
 	}
 	
 	@Test

@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import com.nicchagil.util.index.tokenizer.EveryWordTokenizer;
+import com.nicchagil.util.random.RandomStringGenerater;
 import com.nicchagil.util.redis.springredistemplate.RedisBasicService;
 
 @Service
@@ -62,7 +63,7 @@ public class QuickFuzzySearchRedisService {
 				userList.add(new User(i, "viki"));
 			}
 			
-			userList.add(new User(i, String.valueOf(i)));
+			userList.add(new User(i, RandomStringGenerater.generateRandomString(8, RandomStringGenerater.LETTER_AND_SYMBOL)));
 		}
 		this.logger.info("初始化模拟数据OK");
 		
