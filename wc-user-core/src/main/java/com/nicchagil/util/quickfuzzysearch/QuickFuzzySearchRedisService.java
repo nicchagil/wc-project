@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Service;
 
 import com.nicchagil.util.index.tokenizer.EveryWordTokenizer;
+import com.nicchagil.util.redis.springredistemplate.RedisBasicService;
 
 @Service
 public class QuickFuzzySearchRedisService {
@@ -24,6 +25,9 @@ public class QuickFuzzySearchRedisService {
 	
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
+	
+	@Autowired
+	private RedisBasicService redisBasicService;
 	
 	/**
 	 * 构建索引（TODO 事务未完全写好）
@@ -46,11 +50,8 @@ public class QuickFuzzySearchRedisService {
 	public void buildIndex() {
 		this.logger.info("开始构建索引");
 		
-		Set<String> keySet = this.redisTemplate.keys(PREFIX_KEY + "*");
-		for (String key : keySet) {
-			this.redisTemplate.delete(key);
-		}
-		this.logger.info("删除原来的KEY OK");
+		long deleteNum = this.redisBasicService.delete(PREFIX_KEY + "*");
+		this.logger.info("删除原来的KEY完成，删除条数：{}", deleteNum);
 		
 		List<User> userList = Lists.newArrayList();
 		for (int i = 0; i < 100000; i++) {
