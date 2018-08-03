@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nicchagil.util.redis.springredistemplate.RedisBasicService;
+
 @RestController
 @RequestMapping("/fuzzysearch/redis")
 public class QuickFuzzySearchRedisController {
@@ -18,6 +20,17 @@ public class QuickFuzzySearchRedisController {
 	
 	@Autowired
 	private QuickFuzzySearchRedisService quickFuzzySearchRedisService;
+	
+	@Autowired
+	private RedisBasicService redisBasicService;
+	
+	/**
+	 * 根据KEY的表达式删除记录
+	 */
+	@GetMapping("/delete") // /fuzzysearch/redis/delete
+	public Long delete(String keyPattern) {
+		return this.redisBasicService.delete(keyPattern);
+	}
 	
 	/**
 	 * 构建索引

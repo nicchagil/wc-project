@@ -10,13 +10,23 @@
 	$(document).ready(function() {
 		// 空
 	});
+	
+	function deleteAllKey() {
+		$.ajax({
+			url : "/fuzzysearch/redis/delete?keyPattern=*",
+			contentType : "application/x-www-form-urlencoded",
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
 
 	function buildIndex() {
 		$.ajax({
 			url : "/fuzzysearch/redis/buildIndex",
 			contentType : "application/x-www-form-urlencoded",
 			success : function(data) {
-				alert(data.toJSONString());
+				alert(data);
 			}
 		});
 	}
@@ -26,7 +36,7 @@
 			url : "/fuzzysearch/redis/queryAllIndex",
 			contentType : "application/x-www-form-urlencoded",
 			success : function(data) {
-				alert(data.toJSONString());
+				alert(data);
 			}
 		});
 	}
@@ -45,6 +55,7 @@
 </script>
 <body>
 
+<button type="button" onclick="deleteAllKey()">删除当前库的所有键</button><br/>
 <button type="button" onclick="buildIndex()">构建索引</button><br/>
 <button type="button" onclick="queryAllIndex()">查询索引</button><br/>
 
