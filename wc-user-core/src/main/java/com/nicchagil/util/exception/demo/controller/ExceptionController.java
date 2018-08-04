@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nicchagil.util.exception.BusinessException;
 import com.nicchagil.util.exception.ExceptionCodeEnum;
+import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
 @RequestMapping("/exception")
@@ -21,15 +22,19 @@ public class ExceptionController {
 	 * 异常抛出Mock接口
 	 */
 	@GetMapping("/exceptionMock") // http://127.0.0.1/i18n/exceptionMock?exceptionClassName=exceptionClassName
-	public void exceptionMock(HttpServletRequest request, String exceptionClassName) {
+	public StandardResponse<String> exceptionMock(HttpServletRequest request, String exceptionClassName) {
 		switch (exceptionClassName) {
 		case "BusinessException":
 			throw new BusinessException(ExceptionCodeEnum.MSG_00001);
 		case "IllegalArgumentException":
 			throw new IllegalArgumentException();
+		case "NoException":
+			return StandardResponse.getSuccessResponse("OK");
 		default:
 			break;
 		}
+		
+		return StandardResponse.getSuccessResponse("OK");
 	}
 	
 }
