@@ -1,5 +1,7 @@
 package com.nicchagil.util.dubbo.provider;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,12 @@ public class UserDubboServiceImpl implements UserDubboService {
 	@Override
 	public UserDubboOutput getByCriteria(UserDubboInput userDubboInput) {
 		logger.info("服务提供者被调用：{}", userDubboInput);
+		
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			throw new RuntimeException("模拟睡眠异常", e);
+		}
 		
 		if (userDubboInput == null || userDubboInput.getId() == null || StringUtils.isBlank(userDubboInput.getName())) {
 			throw new DubboRuntimeException("服务入参异常");

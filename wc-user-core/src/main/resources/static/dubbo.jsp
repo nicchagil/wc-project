@@ -12,28 +12,6 @@
 		// 空
 	});
 
-	function questConsumerParameterCorrect() {
-		$.ajax({
-			url : "/user/dubbo/getByCriteria?id=123&name=nk",
-			contentType : "application/x-www-form-urlencoded",
-			dataType : "json",
-			success : function(data) {
-				alert(data.code);
-			}
-		});
-	}
-
-	function questConsumerParameterError() {
-		$.ajax({
-			url : "/user/dubbo/getByCriteria",
-			contentType : "application/x-www-form-urlencoded",
-			dataType : "json",
-			success : function(data) {
-				alert(data.code);
-			}
-		});
-	}
-	
 </script>
 <body>
 
@@ -41,8 +19,9 @@
 <hr />
 
 请求消费者（此消费者会请求提供者）：
-<button type="button" onclick="questConsumerParameterCorrect()">请求（参数正确）</button>
-<button type="button" onclick="questConsumerParameterError()">请求（参数错误）</button>
+<button type="button" onclick="formAjax('/user/dubbo/getByCriteria?id=123&name=nk')">查询请求（参数正确）（此请求属幂等）</button>
+<button type="button" onclick="formAjax('/user/dubbo/getByCriteria')">查询请求（参数错误）</button>
+<button type="button" onclick="formAjax('/user/dubbo/insert')">插入请求（此请求属非幂等）</button>
 <hr />
 
 快速链接：<br/>
