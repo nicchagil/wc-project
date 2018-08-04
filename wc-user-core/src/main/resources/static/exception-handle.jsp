@@ -1,10 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>异常处理</title>
-	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-	<script src="/common/common.js"></script>
+	<title>异常处理</title>
+	<%@ include file="/common/header.jsp" %>
 </head>
 <script type="text/javascript">
 
@@ -64,8 +64,7 @@
 <button type="button" onclick="illegalArgumentException()">模拟运行时异常</button><br/>
 <button type="button" onclick="formAjax('/exception/exceptionMock?exceptionClassName=NoException')">模拟无异常</button><br/>
 
-快速链接：<br/>
-<a href="./console.html">返回Console主页</a>
+<%@ include file="/common/footer.jsp" %>
 
 </body>
 </html>
