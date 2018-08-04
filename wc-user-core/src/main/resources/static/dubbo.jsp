@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"> 
 	<title>Dubbo</title>
-	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<%@ include file="/common/header.jsp" %>
 </head>
 <script type="text/javascript">
 
@@ -36,15 +37,15 @@
 </script>
 <body>
 
-<a href="http://127.0.0.1:7001">Dubbo控制台（记得在本地安装启动dubbo-admin）</a>
+<a href="http://127.0.0.1:7001">Dubbo控制台（记得在本地安装启动dubbo-admin）</a>
 <hr />
 
-请求消费者（此消费者会请求提供者）：
-<button type="button" onclick="questConsumerParameterCorrect()">请求（参数正确）</button>
-<button type="button" onclick="questConsumerParameterError()">请求（参数错误）</button>
+请求消费者（此消费者会请求提供者）：
+<button type="button" onclick="questConsumerParameterCorrect()">请求（参数正确）</button>
+<button type="button" onclick="questConsumerParameterError()">请求（参数错误）</button>
 <hr />
 
-快速链接：<br/>
+快速链接：<br/>
 <a href="./console.html">返回Console主页</a>
 
 </body>
