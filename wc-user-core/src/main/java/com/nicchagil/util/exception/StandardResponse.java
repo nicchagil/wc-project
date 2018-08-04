@@ -72,5 +72,25 @@ public class StandardResponse <T> {
 		
 		return this;
 	}
+	
+	/**
+	 * 生成成功的标准响应对象
+	 */
+	public static <T> StandardResponse<T> getSuccessResponse(T t) {
+		StandardResponse<T> standardResponse = new StandardResponse<>();
+		standardResponse.setExceptionCodeEnum(ExceptionCodeEnum.SUCCESS_00001);
+		standardResponse.setData(t);
+		return standardResponse;
+	}
+	
+	/**
+	 * 生成失败的标准响应对象
+	 */
+	public static <T> StandardResponse<T> getErrorResponse(ExceptionCodeEnum exceptionCodeEnum, T t) {
+		StandardResponse<T> standardResponse = new StandardResponse<>();
+		standardResponse.setExceptionCodeEnum(exceptionCodeEnum);
+		standardResponse.setData(t);
+		return standardResponse;
+	}
 
 }
