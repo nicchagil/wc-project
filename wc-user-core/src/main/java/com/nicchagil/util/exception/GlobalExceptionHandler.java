@@ -13,14 +13,14 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(value = BusinessException.class)  
 	@ResponseBody
-	public StandardResponse handle(BusinessException e) {
-		return new StandardResponse().setExceptionCodeEnum(e.getExceptionCodeEnum());
+	public StandardResponse<Void> handle(BusinessException e) {
+		return new StandardResponse<Void>().setExceptionCodeEnum(e.getExceptionCodeEnum());
 	}
 	
 	@ExceptionHandler(value = Exception.class)  
     @ResponseBody
-    public StandardResponse handle(Exception e) {
-		return new StandardResponse().setExceptionCodeEnum(ExceptionCodeEnum.MSG_00002);
+    public StandardResponse<Void> handle(Exception e) {
+		return new StandardResponse<Void>().setExceptionCodeEnum(ExceptionCodeEnum.MSG_00002);
     }
 
 }
