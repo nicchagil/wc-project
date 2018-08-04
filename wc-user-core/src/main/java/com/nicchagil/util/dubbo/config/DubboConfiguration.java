@@ -4,7 +4,9 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
@@ -17,7 +19,8 @@ import com.nicchagil.util.dubbo.common.UserDubboService;
 import com.nicchagil.util.dubbo.provider.UserDubboServiceImpl;
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
-// @Configuration
+@Configuration
+@ConditionalOnProperty(name = "dubboEnable", havingValue = "true") // 如果配置项“dubboEnable”的值与“havingValue”的值一致，则为true，Configuration生效；否则为false，Configuration不生效
 public class DubboConfiguration {
 	
 	@Autowired
