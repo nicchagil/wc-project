@@ -1,4 +1,4 @@
-package com.nicchagil.util.quickfuzzysearch;
+package com.nicchagil.util.fuzzysearch;
 
 import java.util.List;
 import java.util.Map;
