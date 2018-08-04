@@ -7,7 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
-public class GlobalHttpReturn <T> {
+public class StandardResponse <T> {
 	
 	/** 提示代码 **/
 	private String code;
@@ -42,17 +42,17 @@ public class GlobalHttpReturn <T> {
 		this.data = data;
 	}
 	
-	public GlobalHttpReturn<T> withData(T data) {
+	public StandardResponse<T> withData(T data) {
 		this.data = data;
 		return this;
 	}
 
-	public GlobalHttpReturn<T> withCode(String code) {
+	public StandardResponse<T> withCode(String code) {
 		this.code = code;
 		return this;
 	}
 	
-	public GlobalHttpReturn<T> withMsg(String msg) {
+	public StandardResponse<T> withMsg(String msg) {
 		this.msg = msg;
 		return this;
 	}
@@ -60,7 +60,7 @@ public class GlobalHttpReturn <T> {
 	/**
 	 * 通过指定枚举设置代码和提示信息
 	 */
-	public GlobalHttpReturn<T> setExceptionCodeEnum(ExceptionCodeEnum exceptionCodeEnum) {
+	public StandardResponse<T> setExceptionCodeEnum(ExceptionCodeEnum exceptionCodeEnum) {
 		this.code = exceptionCodeEnum.name();
 		
 		/* 设置系统语言的提示信息 */

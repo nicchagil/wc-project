@@ -18,7 +18,7 @@ import com.nicchagil.util.enumeration.EnumUtils;
 import com.nicchagil.util.enumeration.StatusEnum;
 import com.nicchagil.util.exception.BusinessException;
 import com.nicchagil.util.exception.ExceptionCodeEnum;
-import com.nicchagil.util.exception.GlobalHttpReturn;
+import com.nicchagil.util.exception.StandardResponse;
 import com.nicchagil.util.map.NameClassMapUtils;
 
 @RestController
@@ -31,7 +31,7 @@ public class EnumerationController {
 	 * 根据枚举名称获取枚举所有值
 	 */
 	@GetMapping("/getEnum") // http://127.0.0.1/enum/getEnum?enumName=
-	public GlobalHttpReturn<?> getEnum(HttpServletRequest request, HttpServletResponse response, String enumName) {
+	public StandardResponse<?> getEnum(HttpServletRequest request, HttpServletResponse response, String enumName) {
 		/* 构建<Class的简单名称,Class>的Map */
 		List<Class<?>> classList = Lists.newArrayList(StatusEnum.class);
 		Map<String, Class<?>> map = NameClassMapUtils.generateClassNameAndClassMap(classList);
@@ -43,7 +43,7 @@ public class EnumerationController {
 		Class<?> clazz = map.get(enumName);
 		Object[] objs = EnumUtils.getEnumValuesByEnumClass(clazz);
 		
-		return new GlobalHttpReturn<Object[]>().withData(objs);
+		return new StandardResponse<Object[]>().withData(objs);
 	}
 	
 }

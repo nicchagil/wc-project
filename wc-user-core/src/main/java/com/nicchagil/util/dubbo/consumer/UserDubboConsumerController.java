@@ -10,7 +10,7 @@ import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
 import com.nicchagil.util.dubbo.common.UserDubboService;
 import com.nicchagil.util.exception.ExceptionCodeEnum;
-import com.nicchagil.util.exception.GlobalHttpReturn;
+import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
 @RequestMapping("/user/dubbo")
@@ -21,8 +21,8 @@ public class UserDubboConsumerController {
 	private UserDubboService userDubboService;
 
 	@GetMapping("/getByCriteria")
-    public GlobalHttpReturn<UserDubboOutput> getByCriteria(Integer id, String name) {
-		GlobalHttpReturn<UserDubboOutput> globalHttpReturn = new GlobalHttpReturn<>();
+    public StandardResponse<UserDubboOutput> getByCriteria(Integer id, String name) {
+		StandardResponse<UserDubboOutput> globalHttpReturn = new StandardResponse<>();
 		
 		return globalHttpReturn.withCode(ExceptionCodeEnum.SUCCESS_00001.name())
 				.withData(this.userDubboService.getByCriteria(new UserDubboInput(id, name)));
