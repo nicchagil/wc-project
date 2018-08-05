@@ -55,7 +55,7 @@ public class QuickFuzzySearchRedisService {
 		this.logger.info("删除原来的KEY完成，删除条数：{}", deleteNum);
 		
 		List<User> userList = Lists.newArrayList();
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 30000; i++) {
 			if (Integer.valueOf(66666).equals(i)) {
 				userList.add(new User(i, "nick"));
 			}
@@ -63,7 +63,7 @@ public class QuickFuzzySearchRedisService {
 				userList.add(new User(i, "viki"));
 			}
 			
-			userList.add(new User(i, RandomStringGenerater.generateRandomString(8, RandomStringGenerater.LETTER_AND_SYMBOL)));
+			userList.add(new User(i, RandomStringGenerater.generateRandomString(24, RandomStringGenerater.LETTER_AND_SYMBOL)));
 		}
 		this.logger.info("初始化模拟数据OK");
 		
