@@ -33,7 +33,7 @@ public class DubboConfiguration {
 	@Bean
 	public ApplicationConfig applicationConfig() {
 		ApplicationConfig applicationConfig = new ApplicationConfig();
-		applicationConfig.setName("wc-user-" + DateTimeUtils.format(new Date(), DateTimeUtils.COHERENT_TIME));
+		applicationConfig.setName(this.dubboProperties.getApplicationName() + "-" + DateTimeUtils.format(new Date(), DateTimeUtils.COHERENT_TIME));
 		return applicationConfig;
 	}
 	
@@ -124,8 +124,10 @@ public class DubboConfiguration {
 		referenceBean.setCheck(false);
 		
 		/* 直连提供者（绕过注册中心，直连提供者）（只可开发、测试环境使用，生产环境不能用） */
+		/*
 		referenceBean.setUrl("dubbo://127.0.0.1:28801");
 		referenceBean.setTimeout(5000);
+		*/
 		
 		return referenceBean;
 	}

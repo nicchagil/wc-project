@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "dubbo")
 public class DubboProperties {
 	
+	/** 应用名 **/
+	private String applicationName;
+	
 	/** 是否启用提供者（启动禁用主要用于调试、测试） **/
 	private boolean providerEnable;
 	
@@ -40,6 +43,14 @@ public class DubboProperties {
 	/** 服务版本 **/
 	public String serviceVersion;
 	
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+
 	public boolean isProviderEnable() {
 		return providerEnable;
 	}
