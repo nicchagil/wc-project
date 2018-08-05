@@ -52,6 +52,12 @@ public class DubboConfiguration {
 		ProtocolConfig protocolConfig = new ProtocolConfig();
 		protocolConfig.setName(this.dubboProperties.getRpcProtocol());
 		protocolConfig.setPort(this.dubboProperties.getRpcPort());
+		
+		/* 线程模型 */
+		protocolConfig.setDispatcher("all"); // 所有消息转发到线程池
+		protocolConfig.setThreadpool("fixed"); // 固定线程池大小
+		protocolConfig.setThreads(30); // 固定30个线程
+		
 		return protocolConfig;
 	}
 	
@@ -102,9 +108,9 @@ public class DubboConfiguration {
 		/* 是否设置固定Token，不设置的话，如setToken为true，则设置动态的Token */
 		if (this.dubboProperties.isTokenEnable() && StringUtils.isNotBlank(this.dubboProperties.getTokenPassword())) {
 			serviceBean.setToken(this.dubboProperties.getTokenPassword());
-			this.logger.info("set fixxed token");
+			this.logger.info("set fixed token");
 		} else {
-			this.logger.info("without set fixxed token");
+			this.logger.info("without set fixed token");
 		}
 		
 		return serviceBean;
@@ -116,6 +122,11 @@ public class DubboConfiguration {
 		referenceBean.setInterface(UserDubboService.class);
 		referenceBean.setVersion(this.dubboProperties.getServiceVersion());
 		referenceBean.setCheck(false);
+		
+		/* 直连提供者（绕过注册中心，直连提供者）（只可开发、测试环境使用，生产环境不能用） */
+		referenceBean.setUrl("dubbo://127.0.0.1:28801");
+		referenceBean.setTimeout(5000);
+		
 		return referenceBean;
 	}
 
