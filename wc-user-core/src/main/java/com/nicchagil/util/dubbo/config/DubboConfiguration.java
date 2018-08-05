@@ -62,7 +62,7 @@ public class DubboConfiguration {
 		serviceBean.setInterface(UserDubboService.class);
 		serviceBean.setRef(ApplicationContextUtils.getBean(UserDubboServiceImpl.class));
 		serviceBean.setVersion(this.dubboProperties.getServiceVersion());
-		serviceBean.setTimeout(1000);
+		serviceBean.setTimeout(5000);
 		
 		/* 集群容错 */
 		/* 故障转移 */
@@ -93,13 +93,18 @@ public class DubboConfiguration {
 		/* 是否暴露接口 */
 		serviceBean.setExport(this.dubboProperties.isProviderEnable());
 		
+		/* 负载均衡 */
+		serviceBean.setLoadbalance("random"); // 随机
+		
 		/* 是否TOKEN验证 */
 		serviceBean.setToken(this.dubboProperties.isTokenEnable());
+		
+		/* 是否设置固定Token，不设置的话，如setToken为true，则设置动态的Token */
 		if (this.dubboProperties.isTokenEnable() && StringUtils.isNotBlank(this.dubboProperties.getTokenPassword())) {
 			serviceBean.setToken(this.dubboProperties.getTokenPassword());
-			this.logger.info("set token OK");
+			this.logger.info("set fixxed token");
 		} else {
-			this.logger.info("without set token");
+			this.logger.info("without set fixxed token");
 		}
 		
 		return serviceBean;
