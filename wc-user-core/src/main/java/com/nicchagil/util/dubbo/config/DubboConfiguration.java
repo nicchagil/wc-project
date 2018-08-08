@@ -40,6 +40,12 @@ public class DubboConfiguration {
 		registryConfig.setAddress(this.dubboProperties.getRegistryAddress());
 		registryConfig.setClient(this.dubboProperties.getRegistryClient());
 		registryConfig.setCheck(false);
+		
+		/* 是否作为提供者 */
+		registryConfig.setRegister(this.dubboProperties.isProviderEnable());
+		/* 是否作为消费者 */
+		registryConfig.setSubscribe(this.dubboProperties.isConsumerEnable());
+		
 		return registryConfig;
 	}
 	

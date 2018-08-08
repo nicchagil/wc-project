@@ -16,7 +16,7 @@ import com.nicchagil.util.exception.StandardResponse;
 public class UserDubboConsumerController {
 	
 	@Autowired(required = false)
-    @Qualifier("userDubboConsumerService")
+    @Qualifier("userDubboServiceForConsumer")
 	private UserDubboService userDubboService;
 	
 	@GetMapping("/getByCriteria")
