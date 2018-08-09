@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
-import com.nicchagil.util.dubbo.common.UserDubboService;
+import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
 
 public class ConsumerTest {
 	

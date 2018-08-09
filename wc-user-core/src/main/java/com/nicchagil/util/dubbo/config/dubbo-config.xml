@@ -25,7 +25,7 @@
 	<dubbo:consumer check="${dubbo.consumerCheck}" />
 
 	<!-- 暴露的服务接口 -->
-	<dubbo:service interface="com.nicchagil.util.dubbo.common.UserDubboService" ref="userDubboServiceImpl" cluster="failover" >
+	<dubbo:service interface="com.nicchagil.util.dubbo.common.interfaces.UserDubboService" ref="userDubboServiceImpl" cluster="failover" >
 		<dubbo:method name="getByCriteria" retries="2" ></dubbo:method>
 		<dubbo:method name="insert" retries="0" ></dubbo:method>
 	</dubbo:service>

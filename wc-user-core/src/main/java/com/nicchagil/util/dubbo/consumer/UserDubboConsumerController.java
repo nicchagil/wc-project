@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
-import com.nicchagil.util.dubbo.common.UserDubboService;
+import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
 import com.nicchagil.util.exception.StandardResponse;
 
 @RestController

@@ -1,13 +1,16 @@
-package com.nicchagil.util.dubbo.provider;
+package com.nicchagil.util.dubbo.provider.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.dubbo.rpc.RpcContext;
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
-import com.nicchagil.util.dubbo.common.UserDubboService;
+import com.nicchagil.util.dubbo.common.constants.RpcContextConstants;
+import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
+import com.nicchagil.util.dubbo.provider.DubboRuntimeException;
 
 @Service
 public class UserDubboServiceImpl implements UserDubboService {
@@ -17,6 +20,7 @@ public class UserDubboServiceImpl implements UserDubboService {
 	@Override
 	public UserDubboOutput getByCriteria(UserDubboInput userDubboInput) {
 		logger.info("服务提供者被调用：{}", userDubboInput);
+		logger.info("隐式参数{}：{}", RpcContextConstants.SESSION_ID_KEY, RpcContext.getContext().getAttachment(RpcContextConstants.SESSION_ID_KEY));
 		
 		/*
 		try {

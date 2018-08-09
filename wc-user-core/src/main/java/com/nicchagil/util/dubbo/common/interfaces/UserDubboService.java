@@ -1,4 +1,7 @@
-package com.nicchagil.util.dubbo.common;
+package com.nicchagil.util.dubbo.common.interfaces;
+
+import com.nicchagil.util.dubbo.common.UserDubboInput;
+import com.nicchagil.util.dubbo.common.UserDubboOutput;
 
 public interface UserDubboService {
 	

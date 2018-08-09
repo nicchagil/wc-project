@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import com.alibaba.dubbo.config.spring.ServiceBean;
 import com.nicchagil.util.dubbo.DubboProperties;
-import com.nicchagil.util.dubbo.common.UserDubboService;
-import com.nicchagil.util.dubbo.provider.UserDubboServiceImpl;
+import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
+import com.nicchagil.util.dubbo.provider.service.UserDubboServiceImpl;
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
 // @Configuration
