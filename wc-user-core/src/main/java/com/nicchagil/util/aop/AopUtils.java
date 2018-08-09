@@ -10,9 +10,8 @@ public class AopUtils {
 
 	/**
 	 * 根据ProceedingJoinPoint获取AOP拦截的方法
-	 * @throws RuntimeException 如果此AOP不是用于方法拦截时，抛出此异常
 	 */
-	public static Method getMethod(ProceedingJoinPoint proceedingJoinPoint) throws RuntimeException {
+	public static Method getMethod(ProceedingJoinPoint proceedingJoinPoint) {
 		Signature signature = proceedingJoinPoint.getSignature();
 		
 		if (signature instanceof MethodSignature) {
@@ -26,9 +25,8 @@ public class AopUtils {
 	
 	/**
 	 * 根据ProceedingJoinPoint获取AOP拦截的方法名
-	 * @throws RuntimeException 如果此AOP不是用于方法拦截时，抛出此异常
 	 */
-	public static String getMethodName(ProceedingJoinPoint proceedingJoinPoint) throws RuntimeException {
+	public static String getMethodName(ProceedingJoinPoint proceedingJoinPoint) {
 		Method method = AopUtils.getMethod(proceedingJoinPoint);
 		
 		if (method == null) {
