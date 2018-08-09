@@ -1,5 +1,7 @@
 package com.nicchagil.util.dubbo.aop;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.nicchagil.util.dubbo.common.constants.RpcContextConstants;
@@ -24,7 +28,10 @@ public class RpcContextAop {
     @Around("dubboServiceMethodPointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     	
-    	RpcContext.getContext().setAttachment(RpcContextConstants.SESSION_ID_KEY, "123456");
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes();
+		HttpServletRequest request = requestAttributes.getRequest();
+    	RpcContext.getContext().setAttachment(RpcContextConstants.SESSION_ID_KEY, request.getSession().getId());
     	
     	Object result = proceedingJoinPoint.proceed();
     	return result;
