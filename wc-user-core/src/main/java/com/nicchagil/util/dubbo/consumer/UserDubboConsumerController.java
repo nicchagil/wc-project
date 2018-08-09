@@ -1,11 +1,10 @@
 package com.nicchagil.util.dubbo.consumer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.nicchagil.util.dubbo.common.UserDubboInput;
 import com.nicchagil.util.dubbo.common.UserDubboOutput;
 import com.nicchagil.util.dubbo.common.UserDubboService;
@@ -15,8 +14,7 @@ import com.nicchagil.util.exception.StandardResponse;
 @RequestMapping("/user/dubbo")
 public class UserDubboConsumerController {
 	
-	@Autowired(required = false)
-    @Qualifier("userDubboServiceForConsumer")
+	@Reference
 	private UserDubboService userDubboService;
 	
 	@GetMapping("/getByCriteria")

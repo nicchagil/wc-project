@@ -5,12 +5,33 @@
 		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://dubbo.apache.org/schema/dubbo
 		http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+		
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="${dubbo.applicationName}" />
+
+	<!-- 暴露服务地址 -->
+	<!-- 使用multicast广播注册中心，注册订阅失败时报错
+	<dubbo:registry address="multicast://224.5.6.7:1234" check="true" />
+	 -->
+	<!-- 使用ZooKeeper注册中心，注册订阅失败时报错 -->
+	<dubbo:registry address="${dubbo.registryProtocol}://${dubbo.registryAddress}?client=${dubbo.registryClient}" check="false"
+		register="${dubbo.providerEnable}" subscribe="${dubbo.consumerEnable}" />
+
+	<!-- 服务协议 -->
+	<!-- dubbo协议、20880端口 -->
+	<dubbo:protocol name="${dubbo.rpcProtocol}" port="${dubbo.rpcPort}" />
+	
+	<!-- 消费者 -->
+	<dubbo:consumer check="${dubbo.consumerCheck}" />
 
 	<!-- 暴露的服务接口 -->
 	<dubbo:service interface="com.nicchagil.util.dubbo.common.UserDubboService" ref="userDubboServiceImpl" cluster="failover" >
 		<dubbo:method name="getByCriteria" retries="2" ></dubbo:method>
 		<dubbo:method name="insert" retries="0" ></dubbo:method>
 	</dubbo:service>
+	
+	<!-- 使用注解方式创建远程服务的代理 -->
+	<dubbo:annotation package="com.nicchagil"/>
 	
 	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
 	<!-- 
