@@ -256,6 +256,12 @@
 		    <artifactId>curator-client</artifactId>
 		    <version>4.0.1</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.nicchagil.exercise</groupId>
+			<artifactId>dubbo-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
 	<profiles>

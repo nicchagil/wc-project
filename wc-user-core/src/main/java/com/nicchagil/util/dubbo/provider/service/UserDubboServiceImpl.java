@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.rpc.RpcContext;
-import com.nicchagil.util.dubbo.common.UserDubboInput;
-import com.nicchagil.util.dubbo.common.UserDubboOutput;
+import com.nicchagil.user.model.UserDubboInput;
+import com.nicchagil.user.model.UserDubboOutput;
 import com.nicchagil.util.dubbo.common.constants.RpcContextConstants;
 import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
 import com.nicchagil.util.dubbo.provider.DubboRuntimeException;
