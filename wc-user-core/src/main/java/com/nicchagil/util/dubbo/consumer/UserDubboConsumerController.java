@@ -1,5 +1,7 @@
 package com.nicchagil.util.dubbo.consumer;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +20,9 @@ public class UserDubboConsumerController {
 	private UserDubboService userDubboService;
 	
 	@GetMapping("/getByCriteria")
-	public StandardResponse<UserDubboOutput> getByCriteria(Integer id, String name) {
-		return StandardResponse.getSuccessResponse(this.userDubboService.getByCriteria(new UserDubboInput(id, name)));
+	public StandardResponse<UserDubboOutput> getByCriteria(HttpServletRequest request, Integer id, String name) {
+		UserDubboOutput userDubboOutput = this.userDubboService.getByCriteria(new UserDubboInput(id, name));
+		return StandardResponse.getSuccessResponse(userDubboOutput);
 	}
 
 	@GetMapping("/insert")

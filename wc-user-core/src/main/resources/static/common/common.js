@@ -12,3 +12,18 @@ function formAjax(url) {
 		}
 	});
 }
+
+function formAjaxByJson(url) {
+	$.ajax({
+		url : url,
+		contentType : "application/json; charset=utf-8",
+		success : function(data) {
+			if (data.code != 'SUCCESS_00001') {
+				alert(data.msg);
+				return;
+			}
+			
+			alert(data.data);
+		}
+	});
+}
