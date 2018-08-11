@@ -6,6 +6,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wc-user</name>
 	<description>wc-user</description>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.13.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
@@ -18,5 +26,72 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
+		<!-- 为使编译后不丢失xml文件 -->
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+	
+	<dependencies>
+	
+		<!-- Dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		
+		<!-- ZooKeeper -->
+		<dependency>
+		    <groupId>org.apache.zookeeper</groupId>
+		    <artifactId>zookeeper</artifactId>
+		    <version>3.4.13</version>
+		</dependency>
+		
+		<!-- zkclient -->
+		<dependency>
+		    <groupId>com.github.sgroschupf</groupId>
+		    <artifactId>zkclient</artifactId>
+		    <version>0.1</version>
+		</dependency>
+		
+		<!-- Curator -->
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-framework</artifactId>
+		    <version>4.0.1</version><!-- 我使用的ZooKeeper是3.4.12版本的 -->
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-recipes</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-client</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		
+		<!-- Spring Boot相关 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- Spring Boot Aop -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+	
+	</dependencies>
 </project>

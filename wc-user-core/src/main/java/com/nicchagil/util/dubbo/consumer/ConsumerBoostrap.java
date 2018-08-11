@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.nicchagil.user.interfaces.UserDubboService;
 import com.nicchagil.user.model.UserDubboInput;
 import com.nicchagil.user.model.UserDubboOutput;
-import com.nicchagil.util.dubbo.common.interfaces.UserDubboService;
 
 public class ConsumerBoostrap {
 	
