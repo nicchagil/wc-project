@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo
+		http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+		
+	<!-- 暴露的服务接口 -->
+	<dubbo:service interface="com.nicchagil.user.interfaces.UserDubboService" ref="userDubboServiceImpl" cluster="failover" >
+		<dubbo:method name="getByCriteria" retries="2" ></dubbo:method>
+		<dubbo:method name="insert" retries="0" ></dubbo:method>
+	</dubbo:service>
+	
+	<!-- 使用注解方式创建远程服务的代理 -->
+	<dubbo:annotation package="com.nicchagil"/>
+	
+	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
+	<!-- 
+    <dubbo:reference id="userDubboServiceForConsumer" interface="com.nicchagil.util.dubbo.common.UserDubboService" />
+     -->
+
+</beans>
