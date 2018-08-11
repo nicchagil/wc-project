@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.nicchagil.user.interfaces.UserDubboService;
-import com.nicchagil.user.model.UserDubboInput;
-import com.nicchagil.user.model.UserDubboOutput;
+import com.nicchagil.dubbo.interfaces.user.UserDubboService;
+import com.nicchagil.dubbo.model.user.UserDubboInput;
+import com.nicchagil.dubbo.model.user.UserDubboOutput;
 
 public class ConsumerTest {
 	

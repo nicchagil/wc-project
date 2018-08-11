@@ -11,7 +11,7 @@ cd %wc-all-dubbo-common-folder%
 call mvn clean install
 
 ::如果没有下载依赖的JAR，则下载
-cd %wc-user-folder%
+cd %wc-user-core-folder%
 call mvn dependency:copy-dependencies
 
 ::设置CLASSPATH，执行此脚本请确认已执行本项目的“export-jar.bat”脚本下载所依赖的JAR

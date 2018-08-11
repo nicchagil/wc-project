@@ -21,8 +21,8 @@ public class RpcContextAop {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
     
-	/* com.nicchagil.util.dubbo.common.interfaces包及其子包下的所有方法 */
-    @Pointcut("execution(* com.nicchagil.util.dubbo.common.interfaces..*.*(..))")
+	/* com.nicchagil.dubbo.interfaces包及其子包下的所有方法 */
+    @Pointcut("execution(* com.nicchagil.dubbo.interfaces..*.*(..))")
     public void dubboServiceMethodPointcut() {}
     
     @Around("dubboServiceMethodPointcut()")
