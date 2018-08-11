@@ -259,7 +259,7 @@
 		
 		<dependency>
 		    <groupId>com.nicchagil.exercise</groupId>
-			<artifactId>dubbo-common</artifactId>
+			<artifactId>wc-all-dubbo-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

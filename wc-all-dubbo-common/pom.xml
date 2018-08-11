@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nicchagil.exercise</groupId>
-	<artifactId>dubbo-common</artifactId>
+	<artifactId>wc-all-dubbo-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wc-user</name>
 	<description>wc-user</description>
