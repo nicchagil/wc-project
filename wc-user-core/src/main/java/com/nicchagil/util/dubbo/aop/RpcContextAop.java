@@ -28,6 +28,7 @@ public class RpcContextAop {
     @Around("dubboServiceMethodPointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     	
+    	/* TODO 不稳定，偶尔出现获取的requestAttributes为null的情况（貌似初次启动常获取为null，热部署常获取成功） */
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes();
 		HttpServletRequest request = requestAttributes.getRequest();
