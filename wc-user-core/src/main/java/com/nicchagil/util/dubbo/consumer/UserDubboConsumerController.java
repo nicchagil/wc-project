@@ -1,12 +1,12 @@
 package com.nicchagil.util.dubbo.consumer;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.nicchagil.dubbo.interfaces.user.UserDubboService;
 import com.nicchagil.dubbo.model.user.UserDubboInput;
 import com.nicchagil.dubbo.model.user.UserDubboOutput;
@@ -16,7 +16,7 @@ import com.nicchagil.util.exception.StandardResponse;
 @RequestMapping("/user/dubbo")
 public class UserDubboConsumerController {
 	
-	@Reference
+	@Resource(name = "userDubboService")
 	private UserDubboService userDubboService;
 	
 	@GetMapping("/getByCriteria")
