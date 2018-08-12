@@ -20,6 +20,7 @@
 	<!-- 服务协议 -->
 	<!-- dubbo协议、20880端口 -->
 	<dubbo:protocol name="${dubbo.rpcProtocol}" port="${dubbo.rpcPort}" />
+	<dubbo:protocol name="http" port="36680" server="servlet" contextpath="dubbo/http/service" />
 	
 	<!-- 消费者 -->
 	<dubbo:consumer check="${dubbo.consumerCheck}" />
