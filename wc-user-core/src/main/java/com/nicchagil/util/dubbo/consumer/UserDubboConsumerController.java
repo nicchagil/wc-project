@@ -27,7 +27,8 @@ public class UserDubboConsumerController {
 
 	@GetMapping("/insert")
     public StandardResponse<UserDubboOutput> insert(Integer id, String name) {
-		return StandardResponse.getSuccessResponse(this.userDubboService.insert(new UserDubboInput(id, name)));
+		UserDubboOutput userDubboOutput = this.userDubboService.insert(new UserDubboInput(id, name));
+		return StandardResponse.getSuccessResponse(userDubboOutput);
 	}
 
 }

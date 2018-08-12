@@ -23,17 +23,19 @@ public class LogAop {
     @Around("allMethodPointcut()")
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     	
-    	this.logger.info("方法（{}）被触发", AopUtils.getMethodName(proceedingJoinPoint));
+    	String methodName = proceedingJoinPoint.getTarget().getClass().getName() + "." + AopUtils.getMethodName(proceedingJoinPoint);
+    	
+    	this.logger.info("方法（{}）被触发", methodName);
     	
     	Object result = null;
     	try {
     		result = proceedingJoinPoint.proceed();
 		} catch (Throwable e) {
-			this.logger.info("方法（{}）发生异常（{}）", AopUtils.getMethodName(proceedingJoinPoint), e.getClass());
+			this.logger.info("方法（{}）发生异常（{}）", methodName, e.getClass());
 			throw e;
 		}
     	
-    	this.logger.info("方法（{}）执行结束", AopUtils.getMethodName(proceedingJoinPoint));
+    	this.logger.info("方法（{}）执行结束", methodName);
     	return result;
     }
 
