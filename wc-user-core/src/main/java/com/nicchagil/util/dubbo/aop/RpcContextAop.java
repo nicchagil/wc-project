@@ -31,6 +31,8 @@ public class RpcContextAop {
     	/* TODO 不稳定，偶尔出现获取的requestAttributes为null的情况（貌似初次启动常获取为null，热部署常获取成功） */
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes();
+		this.logger.info("+++++ requestAttributes : {}", proceedingJoinPoint.getTarget().getClass().getName() + "." + requestAttributes);
+		
 		HttpServletRequest request = requestAttributes.getRequest();
     	RpcContext.getContext().setAttachment(RpcContextConstants.SESSION_ID_KEY, request.getSession().getId());
     	
