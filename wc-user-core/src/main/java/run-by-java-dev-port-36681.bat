@@ -19,5 +19,14 @@ call mvn dependency:copy-dependencies
 
 ::设置CLASSPATH，执行此脚本请确认已执行本项目的“export-jar.bat”脚本下载所依赖的JAR
 cd %current_project_directory%/target/classes
+
+::设置编译路径
 set CLASSPATH=../dependency/*;./classes;%CLASSPATH%
-java com.nicchagil.WcUserApplication --spring.profiles.active=dev-port-36681
+
+::JAVA参数
+set vm_args=
+set vm_args=%vm_args% -Xms256m -Xmx256m -Xss512k
+::设置提供者直连
+set vm_args=%vm_args% -Ddubbo.resolve.file=%current_project_directory%/direct-provider.properties
+
+java %vm_args% com.nicchagil.WcUserApplication --spring.profiles.active=dev-port-36681
