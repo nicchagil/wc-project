@@ -15,7 +15,7 @@
 	 -->
 	<!-- 使用ZooKeeper注册中心，注册订阅失败时报错 -->
 	<dubbo:registry address="${dubbo.registryProtocol}://${dubbo.registryAddress}?client=${dubbo.registryClient}" check="false"
-		register="${dubbo.providerEnable}" subscribe="${dubbo.consumerEnable}" />
+		register="${dubbo.providerEnable}" subscribe="${dubbo.consumerEnable}" file="d:/dubbo/${dubbo.applicationName}/dubbo.cache" />
 
 	<!-- 服务协议 -->
 	<!-- dubbo协议、20880端口 -->
