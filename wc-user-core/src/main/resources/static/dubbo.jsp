@@ -22,9 +22,13 @@
 <button type="button" onclick="formAjaxByJson('/user/dubbo/getByCriteria?id=123&name=nk')">查询请求（参数正确）（此请求属幂等）</button>
 <button type="button" onclick="formAjaxByJson('/user/dubbo/getByCriteria')">查询请求（参数错误）</button>
 <button type="button" onclick="formAjaxByJson('/user/dubbo/insert')">插入请求（此请求属非幂等）</button>
+<button type="button" onclick="formAjaxByJson('/user/dubbo/echo')">回声测试</button>
+<button type="button" onclick="formAjaxByJson('/user/dubbo/sleep20Second')">耗时20S的请求</button>
+<button type="button" onclick="formAjaxByJson('/user/dubbo/occasionally')">偶发异常的请求</button>
+
+<br />
 <button type="button" onclick="formAjaxByJson('/session/springsession/buildSession?buildSession=true')">请求接口，创建Session</button>
 <button type="button" onclick="formAjaxByJson('/session/springsession/buildSession?buildSession=false')">请求接口，不创建Session</button>
-<button type="button" onclick="formAjaxByJson('/user/dubbo/echo')">回声测试</button>
 <hr />
 
 快速链接：<br/>

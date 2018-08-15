@@ -14,5 +14,15 @@ public interface UserDubboService {
 	 * 插入记录
 	 */
 	UserDubboOutput insert(UserDubboInput userDubboInput);
+	
+	/**
+	 * 模拟耗时20秒的服务
+	 */
+	public UserDubboOutput sleep20Second(UserDubboInput userDubboInput);
+	
+	/**
+	 * 模拟偶发异常
+	 */
+	public UserDubboOutput occasionally(UserDubboInput userDubboInput);
 
 }

@@ -38,5 +38,17 @@ public class UserDubboConsumerController {
 		Object echoResult = echoService.$echo("OK");
 		return StandardResponse.getSuccessResponse(echoResult);
 	}
+	
+	@GetMapping("/sleep20Second")
+	public StandardResponse<UserDubboOutput> sleep20Second(HttpServletRequest request, Integer id, String name) {
+		UserDubboOutput userDubboOutput = this.userDubboService.sleep20Second(new UserDubboInput(id, name));
+		return StandardResponse.getSuccessResponse(userDubboOutput);
+	}
+	
+	@GetMapping("/occasionally")
+	public StandardResponse<UserDubboOutput> occasionally(HttpServletRequest request, Integer id, String name) {
+		UserDubboOutput userDubboOutput = this.userDubboService.occasionally(new UserDubboInput(id, name));
+		return StandardResponse.getSuccessResponse(userDubboOutput);
+	}
 
 }
