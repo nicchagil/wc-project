@@ -24,6 +24,7 @@
 <button type="button" onclick="formAjaxByJson('/user/dubbo/insert')">插入请求（此请求属非幂等）</button>
 <button type="button" onclick="formAjaxByJson('/session/springsession/buildSession?buildSession=true')">请求接口，创建Session</button>
 <button type="button" onclick="formAjaxByJson('/session/springsession/buildSession?buildSession=false')">请求接口，不创建Session</button>
+<button type="button" onclick="formAjaxByJson('/user/dubbo/echo')">回声测试</button>
 <hr />
 
 快速链接：<br/>
