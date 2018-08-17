@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>快速模糊搜索</title>
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		// 空
+	});
+	
+	function deleteAllKey() {
+		$.ajax({
+			url : "/fuzzysearch/redis/delete?keyPattern=*",
+			contentType : "application/x-www-form-urlencoded",
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+
+	function buildIndex() {
+		$.ajax({
+			url : "/fuzzysearch/redis/buildIndex",
+			contentType : "application/x-www-form-urlencoded",
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+
+	function queryAllIndex() {
+		$.ajax({
+			url : "/fuzzysearch/redis/queryAllIndex",
+			contentType : "application/x-www-form-urlencoded",
+			success : function(data) {
+				alert(data);
+			}
+		});
+	}
+
+	function fuzzySearch() {
+		$.ajax({
+			url : "/fuzzysearch/redis/fuzzySearch?key=" + $('#codeId').val(),
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				$('#displayDiv').html("result" + " : " + eval(data));
+			}
+		});
+	}
+
+</script>
+<body>
+
+<button type="button" onclick="deleteAllKey()">删除当前库的所有键</button><br/>
+<button type="button" onclick="buildIndex()">构建索引</button><br/>
+<button type="button" onclick="queryAllIndex()">查询索引</button><br/>
+
+模糊搜索：
+<input type="text" id="codeId" onkeyup="fuzzySearch()"/>
+<div id="displayDiv" style="width: 500px; height: 500px;border: solid 1px; white-space:normal; word-break:break-all; word-wrap:break-word;">
+</div>
+
+快速链接：<br/>
+<a href="./console.html">返回Console主页</a>
+
+</body>
+</html>
