@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.nicchagil.exercise</groupId>
-	<artifactId>wc-user</artifactId>
+	<artifactId>wc-user-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
