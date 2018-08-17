@@ -10,7 +10,7 @@
 	
 	<modules>
 		<module>wc-all-dubbo-common</module>
-		<module>wc-user-core</module>
+		<module>wc-user</module>
 	</modules>
 	
 </project>
