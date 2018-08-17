@@ -4,7 +4,7 @@
 	<groupId>com.nicchagil.exercise</groupId>
 	<artifactId>wc-all-dubbo-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>wc-user</name>
+	<name>wc-all-dubbo-common</name>
 	<description>wc-user</description>
 	
 	<parent>

@@ -7,8 +7,7 @@
 	<artifactId>wc-user-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>wc-user</name>
+	<name>wc-user-core</name>
 	<description>一些工具类</description>
 
 	<parent>
