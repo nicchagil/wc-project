@@ -5,7 +5,7 @@
 	<artifactId>wc-all-dubbo-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wc-all-dubbo-common</name>
-	<description>wc-user</description>
+	<description>wc-all-dubbo-common</description>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>

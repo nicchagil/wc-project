@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.nicchagil.exercise</groupId>
-	<artifactId>wc-user-core</artifactId>
+	<artifactId>wc-user</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>wc-user-core</name>
-	<description>wc-user-core</description>
+	<name>wc-user</name>
+	<description>wc-user</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
