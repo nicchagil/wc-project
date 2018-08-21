@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 		return StandardResponse.getErrorResponse(e.getExceptionCodeEnum(), null);
 	}
 	
-	@ExceptionHandler(value = Exception.class)  
+	@ExceptionHandler(value = Exception.class)
     @ResponseBody
     public StandardResponse<Void> handle(Exception e) {
 		this.logger.error("全部异常处理器打印异常（Exception）：{}", e);
