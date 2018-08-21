@@ -7,7 +7,7 @@
 
 	<!-- 加载配置文件 -->
 	<properties
-		url="file:///D:/git_workspace/some-exercise/study-and-demo/wc-user/src/main/resources/generatorConfig.properties" />
+		url="file:///D:/git_workspace/wc-project/wc-user/src/main/resources/generatorConfig.properties" />
 
 	<!-- 数据库驱动包 -->
 	<classPathEntry
@@ -48,28 +48,29 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
+		<!-- 
 		<table tableName="t_user" domainObjectName="User">
-			<!-- 使用驼峰式属性命名 -->
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
 		<table tableName="t_role" domainObjectName="Role">
-			<!-- 使用驼峰式属性命名 -->
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
 		<table tableName="t_permission" domainObjectName="Permission">
-			<!-- 使用驼峰式属性命名 -->
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
 		<table tableName="t_user_role" domainObjectName="UserRole">
-			<!-- 使用驼峰式属性命名 -->
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
 		<table tableName="t_role_permission" domainObjectName="RolePermission">
-			<!-- 使用驼峰式属性命名 -->
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		 -->
+
+		<table tableName="t_mail_log" domainObjectName="MailLog">
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
