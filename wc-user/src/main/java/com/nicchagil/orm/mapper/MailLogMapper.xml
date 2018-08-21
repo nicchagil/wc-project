@@ -7,6 +7,8 @@
     <result column="recipients" property="recipients" jdbcType="VARCHAR" />
     <result column="ccs" property="ccs" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tries" property="tries" jdbcType="INTEGER" />
+    <result column="exception_msg" property="exceptionMsg" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.nicchagil.orm.entity.MailLog" extends="BaseResultMap" >
@@ -71,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, recipients, ccs, title, status
+    id, type, recipients, ccs, title, tries, exception_msg, status
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -126,11 +128,13 @@
   </delete>
   <insert id="insert" parameterType="com.nicchagil.orm.entity.MailLog" >
     insert into t_mail_log (id, type, recipients, 
-      ccs, title, status, 
-      content)
+      ccs, title, tries, 
+      exception_msg, status, content
+      )
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{recipients,jdbcType=VARCHAR}, 
-      #{ccs,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{ccs,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{tries,jdbcType=INTEGER}, 
+      #{exceptionMsg,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.nicchagil.orm.entity.MailLog" >
     insert into t_mail_log
@@ -149,6 +153,12 @@
       </if>
       <if test="title != null" >
         title,
+      </if>
+      <if test="tries != null" >
+        tries,
+      </if>
+      <if test="exceptionMsg != null" >
+        exception_msg,
       </if>
       <if test="status != null" >
         status,
@@ -172,6 +182,12 @@
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tries != null" >
+        #{tries,jdbcType=INTEGER},
+      </if>
+      <if test="exceptionMsg != null" >
+        #{exceptionMsg,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -205,6 +221,12 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.tries != null" >
+        tries = #{record.tries,jdbcType=INTEGER},
+      </if>
+      <if test="record.exceptionMsg != null" >
+        exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=VARCHAR},
       </if>
@@ -223,6 +245,8 @@
       recipients = #{record.recipients,jdbcType=VARCHAR},
       ccs = #{record.ccs,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
+      tries = #{record.tries,jdbcType=INTEGER},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -236,6 +260,8 @@
       recipients = #{record.recipients,jdbcType=VARCHAR},
       ccs = #{record.ccs,jdbcType=VARCHAR},
       title = #{record.title,jdbcType=VARCHAR},
+      tries = #{record.tries,jdbcType=INTEGER},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -256,6 +282,12 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="tries != null" >
+        tries = #{tries,jdbcType=INTEGER},
+      </if>
+      <if test="exceptionMsg != null" >
+        exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
@@ -271,6 +303,8 @@
       recipients = #{recipients,jdbcType=VARCHAR},
       ccs = #{ccs,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
+      tries = #{tries,jdbcType=INTEGER},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -281,6 +315,8 @@
       recipients = #{recipients,jdbcType=VARCHAR},
       ccs = #{ccs,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
+      tries = #{tries,jdbcType=INTEGER},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

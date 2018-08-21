@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nicchagil.orm.mapper.MailLogExtraMapper">
+
+	<update id="increaseTries" parameterType="com.nicchagil.orm.entity.MailLog">
+		update t_mail_log t set t.tries = tries + 1 where t.id = #{id,jdbcType=INTEGER}
+		<trim prefixOverrides="and">
+			<if test="tries != null">
+		      	<![CDATA[
+		        tries < #{tries,jdbcType=INTEGER}
+		        ]]>
+			</if>
+		</trim>
+	</update>
+	
+	<update id="updateStatus" parameterType="com.nicchagil.orm.entity.MailLog">
+		update t_mail_log t set t.status = 'Y' where t.id = #{id,jdbcType=INTEGER}
+		<trim prefixOverrides="and">
+			<if test="tries != null">
+		      	<![CDATA[
+		        t.tries < #{tries,jdbcType=INTEGER}
+		        ]]>
+			</if>
+			
+			<if test="status != null">
+		      	<![CDATA[
+		        t.status = #{status,jdbcType=VARCHAR}
+		        ]]>
+			</if>
+		</trim>
+	</update>
+	
+</mapper>

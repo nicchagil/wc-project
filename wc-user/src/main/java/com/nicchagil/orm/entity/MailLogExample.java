@@ -444,6 +444,136 @@ public class MailLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andTriesIsNull() {
+            addCriterion("tries is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesIsNotNull() {
+            addCriterion("tries is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesEqualTo(Integer value) {
+            addCriterion("tries =", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesNotEqualTo(Integer value) {
+            addCriterion("tries <>", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesGreaterThan(Integer value) {
+            addCriterion("tries >", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tries >=", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesLessThan(Integer value) {
+            addCriterion("tries <", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesLessThanOrEqualTo(Integer value) {
+            addCriterion("tries <=", value, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesIn(List<Integer> values) {
+            addCriterion("tries in", values, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesNotIn(List<Integer> values) {
+            addCriterion("tries not in", values, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesBetween(Integer value1, Integer value2) {
+            addCriterion("tries between", value1, value2, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andTriesNotBetween(Integer value1, Integer value2) {
+            addCriterion("tries not between", value1, value2, "tries");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgIsNull() {
+            addCriterion("exception_msg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgIsNotNull() {
+            addCriterion("exception_msg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgEqualTo(String value) {
+            addCriterion("exception_msg =", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgNotEqualTo(String value) {
+            addCriterion("exception_msg <>", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgGreaterThan(String value) {
+            addCriterion("exception_msg >", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgGreaterThanOrEqualTo(String value) {
+            addCriterion("exception_msg >=", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgLessThan(String value) {
+            addCriterion("exception_msg <", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgLessThanOrEqualTo(String value) {
+            addCriterion("exception_msg <=", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgLike(String value) {
+            addCriterion("exception_msg like", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgNotLike(String value) {
+            addCriterion("exception_msg not like", value, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgIn(List<String> values) {
+            addCriterion("exception_msg in", values, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgNotIn(List<String> values) {
+            addCriterion("exception_msg not in", values, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgBetween(String value1, String value2) {
+            addCriterion("exception_msg between", value1, value2, "exceptionMsg");
+            return (Criteria) this;
+        }
+
+        public Criteria andExceptionMsgNotBetween(String value1, String value2) {
+            addCriterion("exception_msg not between", value1, value2, "exceptionMsg");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

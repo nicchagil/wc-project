@@ -11,6 +11,10 @@ public class MailLog {
 
     private String title;
 
+    private Integer tries;
+
+    private String exceptionMsg;
+
     private String status;
 
     private String content;
@@ -53,6 +57,22 @@ public class MailLog {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public Integer getTries() {
+        return tries;
+    }
+
+    public void setTries(Integer tries) {
+        this.tries = tries;
+    }
+
+    public String getExceptionMsg() {
+        return exceptionMsg;
+    }
+
+    public void setExceptionMsg(String exceptionMsg) {
+        this.exceptionMsg = exceptionMsg == null ? null : exceptionMsg.trim();
     }
 
     public String getStatus() {
