@@ -1,4 +1,4 @@
-package com.nicchagil.util.cronjob.quartz;
+package com.nicchagil.util.quartz;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

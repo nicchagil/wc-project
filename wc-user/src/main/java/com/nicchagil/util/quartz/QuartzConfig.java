@@ -1,4 +1,4 @@
-package com.nicchagil.util.cronjob.quartz;
+package com.nicchagil.util.quartz;
 
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Qualifier;
