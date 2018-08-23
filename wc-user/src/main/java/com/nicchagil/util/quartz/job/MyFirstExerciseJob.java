@@ -1,4 +1,4 @@
-package com.nicchagil.util.quartz;
+package com.nicchagil.util.quartz.job;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableScheduling
-public class MySecondExerciseJob {
+public class MyFirstExerciseJob {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

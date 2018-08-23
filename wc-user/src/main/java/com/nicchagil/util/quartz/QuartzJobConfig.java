@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 
+import com.nicchagil.util.quartz.job.MyFirstExerciseJob;
+import com.nicchagil.util.quartz.job.MySecondExerciseJob;
+
 @Configuration
 public class QuartzJobConfig {
 
