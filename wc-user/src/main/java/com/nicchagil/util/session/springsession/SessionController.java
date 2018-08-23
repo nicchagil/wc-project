@@ -3,12 +3,14 @@ package com.nicchagil.util.session.springsession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nicchagil.util.exception.StandardResponse;
 
+@ConditionalOnProperty(name = "springSessionEnable", havingValue = "true")
 @RestController
 @RequestMapping("/session/springsession")
 public class SessionController {
