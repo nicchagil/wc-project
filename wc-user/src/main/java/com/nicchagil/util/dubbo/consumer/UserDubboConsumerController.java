@@ -3,6 +3,7 @@ package com.nicchagil.util.dubbo.consumer;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import com.nicchagil.dubbo.model.user.UserDubboInput;
 import com.nicchagil.dubbo.model.user.UserDubboOutput;
 import com.nicchagil.util.exception.StandardResponse;
 
+@ConditionalOnProperty(name = "dubboEnable", havingValue = "true")
 @RestController
 @RequestMapping("/user/dubbo")
 public class UserDubboConsumerController {
