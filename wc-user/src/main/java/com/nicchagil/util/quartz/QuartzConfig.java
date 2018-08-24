@@ -32,7 +32,7 @@ public class QuartzConfig {
 
         Properties p = new Properties();
         try {
-            p.load(this.getClass().getClassLoader().getResourceAsStream("quartz.properties"));
+            p.load(this.getClass().getClassLoader().getResourceAsStream("com/nicchagil/util/quartz/quartz.properties"));
         } catch (IOException e) {
            this.logger.error("加载quartz.properties失败", e);
            throw new Error(e);
