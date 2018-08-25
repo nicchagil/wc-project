@@ -8,7 +8,14 @@ import javax.sql.DataSource;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.assertj.core.util.Arrays;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import com.google.common.collect.Lists;
+import com.nicchagil.util.quartz.job.MyThirdExerciseJob;
 
 @Configuration
 public class QuartzConfig {
@@ -57,6 +65,38 @@ public class QuartzConfig {
         
         return bean;
     }
+    
+	/**
+	 * Quartz调度器
+	 */
+	@Bean
+	public Scheduler scheduler(Trigger... triggers) {
+		Scheduler scheduler = schedulerFactory(triggers).getScheduler();
+		
+		final String JOB_DETAIL_IDENTIRY = "MyThirdExerciseJob";
+		final String TRIGGER_IDENTITY = JOB_DETAIL_IDENTIRY + "Trigger";
+		
+		// 实例化任务
+		JobDetail jobDetail = JobBuilder.newJob(MyThirdExerciseJob.class)
+				.withIdentity(JOB_DETAIL_IDENTIRY, null).build();
+
+		// 实例化触发器
+		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(TRIGGER_IDENTITY, null)
+				.withSchedule(CronScheduleBuilder.cronSchedule("0/10 * * * * ?")).build();
+
+		/* 注册任务 */
+		try {
+			if (scheduler.checkExists(trigger.getKey())) {
+				scheduler.unscheduleJob(trigger.getKey());
+			}
+			
+			scheduler.scheduleJob(jobDetail, trigger);
+		} catch (SchedulerException e) {
+			throw new RuntimeException("创建定时任务失败", e);
+		}
+
+		return scheduler;
+	}
     
     /**
      * 合并数据 

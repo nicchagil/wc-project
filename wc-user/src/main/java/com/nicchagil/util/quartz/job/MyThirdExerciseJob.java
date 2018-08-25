@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableScheduling
-public class MySecondExerciseJob implements Job {
+public class MyThirdExerciseJob implements Job {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -19,7 +19,7 @@ public class MySecondExerciseJob implements Job {
     }
 
     public void myJobBusinessMethod() {
-        this.logger.info("贰，触发啦");
+        this.logger.info("叁，触发啦");
     }
 
 }

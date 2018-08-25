@@ -19,7 +19,7 @@ public class MyFirstExerciseJob implements Job {
     }
 
     public void myJobBusinessMethod() {
-        this.logger.info("哇被触发了哈哈哈哈哈");
+        this.logger.info("壹，触发啦");
     }
 
 }
