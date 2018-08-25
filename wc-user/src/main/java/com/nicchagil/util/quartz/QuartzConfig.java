@@ -32,7 +32,7 @@ public class QuartzConfig {
      * 调度器工厂Bean
      */
     @Bean(name = "schedulerFactory")
-    public SchedulerFactoryBean schedulerFactory(Trigger... fromSpringTriggers) {
+    public SchedulerFactoryBean schedulerFactory(Trigger... triggers) {
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
 
         Properties p = new Properties();
@@ -53,7 +53,7 @@ public class QuartzConfig {
         bean.setStartupDelay(15);
         
         /* 注册触发器 */
-        bean.setTriggers(this.mergeTriggers(fromSpringTriggers, this.getOriginalTriggers()));
+        bean.setTriggers(triggers);
         
         return bean;
     }
