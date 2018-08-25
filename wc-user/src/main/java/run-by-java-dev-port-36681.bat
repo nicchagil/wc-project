@@ -5,9 +5,9 @@ title APP-36681
 ::set dateTimeStr=%date:~0,4%-%date:~5,2%-%date:~8,2%T%time:~0,2%:%time:~3,2%:%time:~6,2%
 
 ::依赖的项目的根目录
-set dependent_project_a_directory=D:/git_workspace/wc-user/wc-all-dubbo-common
+set dependent_project_a_directory=D:/git_workspace/wc-project/wc-all-dubbo-common
 ::当前项目的根目录
-set current_project_directory=D:/git_workspace/wc-user/wc-user-core
+set current_project_directory=D:/git_workspace/wc-project/wc-user
 
 ::安装依赖的项目（保证依赖的项目本地仓库安装的版本是最新的）
 cd %dependent_project_a_directory%
