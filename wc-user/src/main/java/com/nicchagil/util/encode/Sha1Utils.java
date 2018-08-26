@@ -11,6 +11,14 @@ public class Sha1Utils {
 		String sha1Result = new SimpleHash("SHA-1", source).toString();
 		return sha1Result;
 	}
+	
+	/**
+	 * 摘要
+	 */
+	public static String encode(String source, String salt) {
+		String sha1Result = new SimpleHash("SHA-1", source, salt).toString();
+		return sha1Result;
+	}
 
 	public static void main(String[] args) {
 		String s1 = "d9dhff7fkf8f62h48f7gjfg1679418881527002495";
