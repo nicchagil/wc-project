@@ -4,10 +4,10 @@
 
 	<update id="increaseTries" parameterType="com.nicchagil.orm.entity.MailLog">
 		update t_mail_log t set t.tries = tries + 1 where t.id = #{id,jdbcType=INTEGER}
-		<trim prefixOverrides="and">
+		<trim>
 			<if test="tries != null">
 		      	<![CDATA[
-		        tries < #{tries,jdbcType=INTEGER}
+		        and tries < #{tries,jdbcType=INTEGER}
 		        ]]>
 			</if>
 		</trim>
@@ -15,16 +15,16 @@
 	
 	<update id="updateStatus" parameterType="com.nicchagil.orm.entity.MailLog">
 		update t_mail_log t set t.status = 'Y' where t.id = #{id,jdbcType=INTEGER}
-		<trim prefixOverrides="and">
+		<trim>
 			<if test="tries != null">
 		      	<![CDATA[
-		        t.tries < #{tries,jdbcType=INTEGER}
+		        and t.tries < #{tries,jdbcType=INTEGER}
 		        ]]>
 			</if>
 			
 			<if test="status != null">
 		      	<![CDATA[
-		        t.status = #{status,jdbcType=VARCHAR}
+		        and t.status = #{status,jdbcType=VARCHAR}
 		        ]]>
 			</if>
 		</trim>
