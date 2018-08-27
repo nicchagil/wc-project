@@ -1,16 +1,19 @@
 package com.nicchagil.util.mail.reliability;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.orm.entity.MailLog;
+import com.nicchagil.orm.entity.MailLogExample;
 import com.nicchagil.orm.mapper.MailLogExtraMapper;
 import com.nicchagil.orm.mapper.MailLogMapper;
 
 @Service
-public class MailLogSendOpsService {
+public class MailLogBatchSendService {
 	
 	@Autowired
 	private MailLogMapper mailLogMapper;
@@ -26,6 +29,29 @@ public class MailLogSendOpsService {
 	 */
 	public int insert(MailLog record) {
 		return this.mailLogMapper.insert(record);
+	}
+	
+	/**
+	 * 发送需要发送的此批次邮件
+	 */
+	public void sendRemainMail() {
+		List<MailLog> list = this.getSendMailList();
+		
+		for (MailLog mailLog : list) {
+			this.mailSendService.send(mailLog);
+		}
+	}
+	
+	/**
+	 * 查询需要发送的此批次邮件列表
+	 */
+	public List<MailLog> getSendMailList() {
+		MailLogExample e = new MailLogExample();
+		e.createCriteria().andStatusEqualTo("N").andTriesLessThan(3);
+		e.setOrderByClause("id desc");
+		
+		List<MailLog> list = this.mailLogMapper.selectByExample(e);
+		return list;
 	}
 	
 	/**
