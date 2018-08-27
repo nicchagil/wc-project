@@ -13,7 +13,7 @@ import com.nicchagil.orm.mapper.MailLogExtraMapper;
 import com.nicchagil.orm.mapper.MailLogMapper;
 
 @Service
-public class MailLogService {
+public class MailLogSendOpsService {
 	
 	@Autowired
 	private MailLogMapper mailLogMapper;
@@ -22,7 +22,7 @@ public class MailLogService {
 	private MailLogExtraMapper mailLogExtraMapper;
 	
 	@Autowired
-	private MailSendRecordOpsService mailSendService;
+	private MailSendService mailSendService;
 	
 	/**
 	 * 新增

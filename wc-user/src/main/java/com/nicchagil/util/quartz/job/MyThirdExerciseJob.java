@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.nicchagil.util.mail.reliability.MailLogService;
+import com.nicchagil.util.mail.reliability.MailLogSendOpsService;
 import com.nicchagil.util.spring.ApplicationContextUtils;
 
 @Component
@@ -21,7 +21,7 @@ public class MyThirdExerciseJob implements Job {
 
     public void myJobBusinessMethod() {
         this.logger.info("叁，触发啦");
-        MailLogService mailLogService = ApplicationContextUtils.getBean(MailLogService.class);
+        MailLogSendOpsService mailLogService = ApplicationContextUtils.getBean(MailLogSendOpsService.class);
         mailLogService.sendRemainMail();
     }
 
