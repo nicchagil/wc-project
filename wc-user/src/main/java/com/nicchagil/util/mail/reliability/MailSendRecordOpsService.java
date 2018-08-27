@@ -10,7 +10,7 @@ import com.nicchagil.orm.entity.MailLog;
 import com.nicchagil.util.random.RandomUtils;
 
 @Service
-public class MailSendService {
+public class MailSendRecordOpsService {
 	
 	@Autowired
 	private MailLogService mailLogService;

@@ -22,7 +22,7 @@ public class MailLogService {
 	private MailLogExtraMapper mailLogExtraMapper;
 	
 	@Autowired
-	private MailSendService mailSendService;
+	private MailSendRecordOpsService mailSendService;
 	
 	/**
 	 * 新增
