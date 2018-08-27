@@ -70,7 +70,7 @@
 		</table>
 		 -->
 
-		<table tableName="t_mail_log" domainObjectName="MailLog">
+		<table tableName="t_message_send_log" domainObjectName="MessageSendLog">
 			<property name="useActualColumnNames" value="false" />
 		</table>
 
