@@ -504,6 +504,66 @@ public class MailLogExample {
             return (Criteria) this;
         }
 
+        public Criteria andTrieslimitIsNull() {
+            addCriterion("triesLimit is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitIsNotNull() {
+            addCriterion("triesLimit is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitEqualTo(Integer value) {
+            addCriterion("triesLimit =", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitNotEqualTo(Integer value) {
+            addCriterion("triesLimit <>", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitGreaterThan(Integer value) {
+            addCriterion("triesLimit >", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitGreaterThanOrEqualTo(Integer value) {
+            addCriterion("triesLimit >=", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitLessThan(Integer value) {
+            addCriterion("triesLimit <", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitLessThanOrEqualTo(Integer value) {
+            addCriterion("triesLimit <=", value, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitIn(List<Integer> values) {
+            addCriterion("triesLimit in", values, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitNotIn(List<Integer> values) {
+            addCriterion("triesLimit not in", values, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitBetween(Integer value1, Integer value2) {
+            addCriterion("triesLimit between", value1, value2, "trieslimit");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrieslimitNotBetween(Integer value1, Integer value2) {
+            addCriterion("triesLimit not between", value1, value2, "trieslimit");
+            return (Criteria) this;
+        }
+
         public Criteria andExceptionMsgIsNull() {
             addCriterion("exception_msg is null");
             return (Criteria) this;

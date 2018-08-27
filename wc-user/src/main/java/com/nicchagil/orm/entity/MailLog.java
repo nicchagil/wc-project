@@ -13,6 +13,8 @@ public class MailLog {
 
     private Integer tries;
 
+    private Integer trieslimit;
+
     private String exceptionMsg;
 
     private String status;
@@ -65,6 +67,14 @@ public class MailLog {
 
     public void setTries(Integer tries) {
         this.tries = tries;
+    }
+
+    public Integer getTrieslimit() {
+        return trieslimit;
+    }
+
+    public void setTrieslimit(Integer trieslimit) {
+        this.trieslimit = trieslimit;
     }
 
     public String getExceptionMsg() {
