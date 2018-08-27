@@ -31,6 +31,9 @@ public class MailLogService {
 		return this.mailLogMapper.insert(record);
 	}
 	
+	/**
+	 * 发送需要发送的此批次邮件
+	 */
 	public void sendRemainMail() {
 		List<MailLog> list = this.getSendMailList();
 		
@@ -39,6 +42,9 @@ public class MailLogService {
 		}
 	}
 	
+	/**
+	 * 查询需要发送的此批次邮件列表
+	 */
 	public List<MailLog> getSendMailList() {
 		MailLogExample e = new MailLogExample();
 		e.createCriteria().andStatusEqualTo("N").andTriesLessThan(3);
