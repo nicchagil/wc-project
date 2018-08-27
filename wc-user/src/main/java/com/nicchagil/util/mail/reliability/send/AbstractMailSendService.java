@@ -1,4 +1,4 @@
-package com.nicchagil.util.mail.reliability;
+package com.nicchagil.util.mail.reliability.send;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.nicchagil.orm.entity.MailLog;
+import com.nicchagil.util.mail.reliability.MailLogSendOpsService;
 import com.nicchagil.util.random.RandomUtils;
 
 @Service
-public class MailSendService {
+public class AbstractMailSendService {
 	
 	@Autowired
 	private MailLogSendOpsService mailLogService;

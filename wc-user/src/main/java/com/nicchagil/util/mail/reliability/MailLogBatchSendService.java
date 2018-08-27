@@ -11,6 +11,7 @@ import com.nicchagil.orm.entity.MailLog;
 import com.nicchagil.orm.entity.MailLogExample;
 import com.nicchagil.orm.mapper.MailLogExtraMapper;
 import com.nicchagil.orm.mapper.MailLogMapper;
+import com.nicchagil.util.mail.reliability.send.AbstractMailSendService;
 
 @Service
 public class MailLogBatchSendService {
@@ -22,7 +23,7 @@ public class MailLogBatchSendService {
 	private MailLogExtraMapper mailLogExtraMapper;
 	
 	@Autowired
-	private MailSendService mailSendService;
+	private AbstractMailSendService mailSendService;
 	
 	/**
 	 * 新增
