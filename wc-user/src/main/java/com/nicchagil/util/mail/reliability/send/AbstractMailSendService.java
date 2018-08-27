@@ -8,13 +8,17 @@ import org.springframework.util.Assert;
 
 import com.nicchagil.orm.entity.MailLog;
 import com.nicchagil.util.mail.reliability.MailLogSendOpsService;
-import com.nicchagil.util.random.RandomUtils;
 
 @Service
-public class AbstractMailSendService {
+public abstract class AbstractMailSendService {
 	
 	@Autowired
 	private MailLogSendOpsService mailLogService;
+	
+	/**
+	 * 实际的发送方法
+	 */
+	public abstract void doSend(MailLog record) throws RuntimeException;
 
 	/**
 	 * 发送邮件
@@ -39,11 +43,7 @@ public class AbstractMailSendService {
 			int updateStatusNum = this.mailLogService.updateStatusInRequiredTransaction(updateStatusNumRecord);
 			Assert.isTrue(increaseNum == 1, "更新状态为成功异常：" + updateStatusNum);
 			
-			/* 模拟发送邮件，偶有异常
-			 * 注：发送失败，会抛出异常，导致回滚“当前事务中”的数据库操作，但不会回滚“新事务”的数据库操作 */
-			if (0 == RandomUtils.getRandomNumber(2)) {
-				throw new RuntimeException("模拟异常");
-			}
+			this.doSend(record);
 		} catch (Exception e) {
 			
 			/* 递增尝试次数（新事务） */
