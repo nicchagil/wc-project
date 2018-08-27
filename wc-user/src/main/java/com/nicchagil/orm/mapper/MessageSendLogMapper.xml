@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nicchagil.orm.mapper.MessageSendLogMapper" >
+  <resultMap id="BaseResultMap" type="com.nicchagil.orm.entity.MessageSendLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="recipients" property="recipients" jdbcType="VARCHAR" />
+    <result column="ccs" property="ccs" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tries" property="tries" jdbcType="INTEGER" />
+    <result column="triesLimit" property="trieslimit" jdbcType="INTEGER" />
+    <result column="exception_msg" property="exceptionMsg" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.nicchagil.orm.entity.MessageSendLog" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, recipients, ccs, title, tries, triesLimit, exception_msg, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.nicchagil.orm.entity.MessageSendLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_message_send_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nicchagil.orm.entity.MessageSendLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_message_send_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_message_send_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_message_send_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nicchagil.orm.entity.MessageSendLogExample" >
+    delete from t_message_send_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nicchagil.orm.entity.MessageSendLog" >
+    insert into t_message_send_log (id, type, recipients, 
+      ccs, title, tries, 
+      triesLimit, exception_msg, status, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{recipients,jdbcType=VARCHAR}, 
+      #{ccs,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{tries,jdbcType=INTEGER}, 
+      #{trieslimit,jdbcType=INTEGER}, #{exceptionMsg,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nicchagil.orm.entity.MessageSendLog" >
+    insert into t_message_send_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="recipients != null" >
+        recipients,
+      </if>
+      <if test="ccs != null" >
+        ccs,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="tries != null" >
+        tries,
+      </if>
+      <if test="trieslimit != null" >
+        triesLimit,
+      </if>
+      <if test="exceptionMsg != null" >
+        exception_msg,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null" >
+        #{recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="ccs != null" >
+        #{ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tries != null" >
+        #{tries,jdbcType=INTEGER},
+      </if>
+      <if test="trieslimit != null" >
+        #{trieslimit,jdbcType=INTEGER},
+      </if>
+      <if test="exceptionMsg != null" >
+        #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nicchagil.orm.entity.MessageSendLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_message_send_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_message_send_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recipients != null" >
+        recipients = #{record.recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ccs != null" >
+        ccs = #{record.ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tries != null" >
+        tries = #{record.tries,jdbcType=INTEGER},
+      </if>
+      <if test="record.trieslimit != null" >
+        triesLimit = #{record.trieslimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.exceptionMsg != null" >
+        exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_message_send_log
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      recipients = #{record.recipients,jdbcType=VARCHAR},
+      ccs = #{record.ccs,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      tries = #{record.tries,jdbcType=INTEGER},
+      triesLimit = #{record.trieslimit,jdbcType=INTEGER},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_message_send_log
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      recipients = #{record.recipients,jdbcType=VARCHAR},
+      ccs = #{record.ccs,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      tries = #{record.tries,jdbcType=INTEGER},
+      triesLimit = #{record.trieslimit,jdbcType=INTEGER},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nicchagil.orm.entity.MessageSendLog" >
+    update t_message_send_log
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="recipients != null" >
+        recipients = #{recipients,jdbcType=VARCHAR},
+      </if>
+      <if test="ccs != null" >
+        ccs = #{ccs,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tries != null" >
+        tries = #{tries,jdbcType=INTEGER},
+      </if>
+      <if test="trieslimit != null" >
+        triesLimit = #{trieslimit,jdbcType=INTEGER},
+      </if>
+      <if test="exceptionMsg != null" >
+        exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nicchagil.orm.entity.MessageSendLog" >
+    update t_message_send_log
+    set type = #{type,jdbcType=VARCHAR},
+      recipients = #{recipients,jdbcType=VARCHAR},
+      ccs = #{ccs,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      tries = #{tries,jdbcType=INTEGER},
+      triesLimit = #{trieslimit,jdbcType=INTEGER},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nicchagil.orm.entity.MessageSendLog" >
+    update t_message_send_log
+    set type = #{type,jdbcType=VARCHAR},
+      recipients = #{recipients,jdbcType=VARCHAR},
+      ccs = #{ccs,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      tries = #{tries,jdbcType=INTEGER},
+      triesLimit = #{trieslimit,jdbcType=INTEGER},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
