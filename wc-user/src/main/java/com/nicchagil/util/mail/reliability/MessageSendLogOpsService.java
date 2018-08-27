@@ -1,20 +1,17 @@
 package com.nicchagil.util.mail.reliability;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.orm.entity.MessageSendLog;
-import com.nicchagil.orm.entity.MessageSendLogExample;
 import com.nicchagil.orm.mapper.MessageSendLogExtraMapper;
 import com.nicchagil.orm.mapper.MessageSendLogMapper;
-import com.nicchagil.util.mail.reliability.send.MailSendService;
+import com.nicchagil.util.mail.reliability.send.AbstractMessageSendService;
 
 @Service
-public class MailLogBatchSendService {
+public class MessageSendLogOpsService {
 	
 	@Autowired
 	private MessageSendLogMapper messageSendLogMapper;
@@ -23,36 +20,13 @@ public class MailLogBatchSendService {
 	private MessageSendLogExtraMapper messageSendLogExtraMapper;
 	
 	@Autowired
-	private MailSendService mailSendService;
+	private AbstractMessageSendService mailSendService;
 	
 	/**
 	 * 新增
 	 */
 	public int insert(MessageSendLog record) {
 		return this.messageSendLogMapper.insert(record);
-	}
-	
-	/**
-	 * 发送需要发送的此批次邮件
-	 */
-	public void sendRemainMail() {
-		List<MessageSendLog> list = this.getSendMailList();
-		
-		for (MessageSendLog mailLog : list) {
-			this.mailSendService.send(mailLog);
-		}
-	}
-	
-	/**
-	 * 查询需要发送的此批次邮件列表
-	 */
-	public List<MessageSendLog> getSendMailList() {
-		MessageSendLogExample e = new MessageSendLogExample();
-		e.createCriteria().andStatusEqualTo("N").andTriesLessThan(3);
-		e.setOrderByClause("id desc");
-		
-		List<MessageSendLog> list = this.messageSendLogMapper.selectByExample(e);
-		return list;
 	}
 	
 	/**

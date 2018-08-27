@@ -6,51 +6,51 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.nicchagil.orm.entity.MailLog;
-import com.nicchagil.util.mail.reliability.MailLogSendOpsService;
+import com.nicchagil.orm.entity.MessageSendLog;
+import com.nicchagil.util.mail.reliability.MessageSendLogOpsService;
 
 @Service
-public abstract class AbstractMailSendService {
+public abstract class AbstractMessageSendService {
 	
 	@Autowired
-	private MailLogSendOpsService mailLogService;
+	private MessageSendLogOpsService messageSendLogService;
 	
 	/**
 	 * 实际的发送方法
 	 */
-	public abstract void doSend(MailLog record) throws RuntimeException;
+	public abstract void doSend(MessageSendLog record) throws RuntimeException;
 
 	/**
 	 * 发送邮件
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void send(MailLog record) {
+	public void send(MessageSendLog record) {
 		Exception exception = null;
 		
 		try {
 			/* 递增尝试次数（新事务） */
-			MailLog increaseNumRecord = new MailLog();
+			MessageSendLog increaseNumRecord = new MessageSendLog();
 			increaseNumRecord.setId(record.getId());
 			increaseNumRecord.setTries(3);
-			int increaseNum = this.mailLogService.increaseTriesInNewTransaction(increaseNumRecord);
+			int increaseNum = this.messageSendLogService.increaseTriesInNewTransaction(increaseNumRecord);
 			Assert.isTrue(increaseNum == 1, "递增尝试次数异常：" + increaseNum);
 			
 			/* 更新状态为成功（当前事务中） */
-			MailLog updateStatusNumRecord = new MailLog();
+			MessageSendLog updateStatusNumRecord = new MessageSendLog();
 			updateStatusNumRecord.setId(record.getId());
 			updateStatusNumRecord.setTries(3);
 			updateStatusNumRecord.setStatus("N");
-			int updateStatusNum = this.mailLogService.updateStatusInRequiredTransaction(updateStatusNumRecord);
+			int updateStatusNum = this.messageSendLogService.updateStatusInRequiredTransaction(updateStatusNumRecord);
 			Assert.isTrue(increaseNum == 1, "更新状态为成功异常：" + updateStatusNum);
 			
 			this.doSend(record);
 		} catch (Exception e) {
 			
 			/* 递增尝试次数（新事务） */
-			MailLog exceptionRecord = new MailLog();
+			MessageSendLog exceptionRecord = new MessageSendLog();
 			exceptionRecord.setId(record.getId());
 			exceptionRecord.setExceptionMsg(e.getMessage());
-			this.mailLogService.updateExceptionMsgInNewTransaction(exceptionRecord);
+			this.messageSendLogService.updateExceptionMsgInNewTransaction(exceptionRecord);
 			
 			exception = e;
 			throw new RuntimeException(exception);

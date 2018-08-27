@@ -3,7 +3,7 @@
 <mapper namespace="com.nicchagil.orm.mapper.MailLogExtraMapper">
 
 	<update id="increaseTries" parameterType="com.nicchagil.orm.entity.MailLog">
-		update t_mail_log t set t.tries = tries + 1 where t.id = #{id,jdbcType=INTEGER}
+		update t_message_send_log t set t.tries = tries + 1 where t.id = #{id,jdbcType=INTEGER}
 		<trim>
 			<if test="tries != null">
 		      	<![CDATA[
@@ -14,7 +14,7 @@
 	</update>
 	
 	<update id="updateStatus" parameterType="com.nicchagil.orm.entity.MailLog">
-		update t_mail_log t set t.status = 'Y' where t.id = #{id,jdbcType=INTEGER}
+		update t_message_send_log t set t.status = 'Y' where t.id = #{id,jdbcType=INTEGER}
 		<trim>
 			<if test="tries != null">
 		      	<![CDATA[
