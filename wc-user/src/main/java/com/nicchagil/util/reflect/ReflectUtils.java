@@ -39,14 +39,31 @@ public class ReflectUtils {
 		Assert.hasText(fieldName, "反射获取属性值，属性名不可为空");
 		
 		Field f = ReflectUtils.getFieldByName(obj, fieldName);
-		if (f == null) {
-			return null;
-		}
+		Assert.notNull(f, "反射获取指定属性对象失败：" + fieldName);
 		
 		/* JDK9以后有可能不能用此方法获取属性值 */
 		f.setAccessible(true);
 		try {
 			return f.get(obj);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * 设置属性值（JDK9以后有可能不能用此方法获取属性值）
+	 */
+	public static void setFieldValue(Object obj, String fieldName, Object value) {
+		Assert.notNull(obj, "反射获取属性值，入参对象不可为空");
+		Assert.hasText(fieldName, "反射获取属性值，属性名不可为空");
+		
+		Field f = ReflectUtils.getFieldByName(obj, fieldName);
+		Assert.notNull(f, "反射获取指定属性对象失败：" + fieldName);
+		
+		/* JDK9以后有可能不能用此方法获取属性值 */
+		f.setAccessible(true);
+		try {
+			f.set(obj, value);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
