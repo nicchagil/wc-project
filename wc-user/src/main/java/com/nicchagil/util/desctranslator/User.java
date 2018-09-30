@@ -5,6 +5,10 @@ public class User {
 	private String userId;
 
 	private String userIdDesc;
+	
+	private String creatorId;
+	
+	private String creatorIdDesc;
 
 	public String getUserId() {
 		return userId;
@@ -20,6 +24,22 @@ public class User {
 
 	public void setUserIdDesc(String userIdDesc) {
 		this.userIdDesc = userIdDesc;
+	}
+	
+	public String getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(String creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public String getCreatorIdDesc() {
+		return creatorIdDesc;
+	}
+
+	public void setCreatorIdDesc(String creatorIdDesc) {
+		this.creatorIdDesc = creatorIdDesc;
 	}
 
 	@Override

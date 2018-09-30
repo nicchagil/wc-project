@@ -23,11 +23,6 @@ public class UserIdToUserNameVoSingleFieldTranslator extends AbstractVoSingleFie
 		return map;
 	}
 
-	@Override
-	public String valueFieldName() {
-		return "userId";
-	}
-	
 	@Test
 	public void translateTest() {
 		UserIdToUserNameVoSingleFieldTranslator t = new UserIdToUserNameVoSingleFieldTranslator();
@@ -42,7 +37,7 @@ public class UserIdToUserNameVoSingleFieldTranslator extends AbstractVoSingleFie
 		user.setUserId("1");
 		
 		UserIdToUserNameVoSingleFieldTranslator t = new UserIdToUserNameVoSingleFieldTranslator();
-		t.translateVo(user);
+		t.translateVo(user, "userId");
 		
 		logger.info("result -> {}", user);
 	}
@@ -58,7 +53,7 @@ public class UserIdToUserNameVoSingleFieldTranslator extends AbstractVoSingleFie
 		List<User> userList = Lists.newArrayList(user1, user2);
 		
 		UserIdToUserNameVoSingleFieldTranslator t = new UserIdToUserNameVoSingleFieldTranslator();
-		t.translateVoList(userList);
+		t.translateVoList(userList, "userId");
 		
 		logger.info("result -> {}", userList);
 	}

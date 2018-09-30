@@ -31,13 +31,13 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 	}
 
 	@Override
-	public List<VO> translateVoList(List<VO> voList) {
+	public List<VO> translateVoList(List<VO> voList, String valueFieldName) {
 		if (CollectionUtils.isEmpty(voList)) {
 			return null; // 置为NULL
 		}
 		
 		/* 根据VO集合获取值集合 */
-		List<String> valueList = this.getValueListByVoList(voList);
+		List<String> valueList = this.getValueListByVoList(voList, valueFieldName);
 		
 		if (CollectionUtils.isEmpty(valueList)) {
 			return voList; // 没有可以转换的值，返回原集合
@@ -50,7 +50,6 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 			return voList; // 没有可以转换的值，返回原集合
 		}
 		
-		String valueFieldName = this.valueFieldName();
 		String descFieldName = new StringBuffer(valueFieldName).append("Desc").toString();
 		
 		for (VO v : voList) {
@@ -78,7 +77,7 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 	}
 	
 	@Override
-	public VO translateVo(VO vo) {
+	public VO translateVo(VO vo, String valueFieldName) {
 		if (vo == null) {
 			return null;
 		}
@@ -86,7 +85,7 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 		List<VO> voList = new ArrayList<>();
 		voList.add(vo);
 		
-		this.translateVoList(voList);
+		this.translateVoList(voList, valueFieldName);
 		
 		return vo;
 	}
@@ -94,12 +93,10 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 	/**
 	 * 根据VO集合获取值集合
 	 */
-	public List<String> getValueListByVoList(List<VO> voList) {
+	public List<String> getValueListByVoList(List<VO> voList, String valueFieldName) {
 		if (CollectionUtils.isEmpty(voList)) {
 			return null;
 		}
-		
-		String valueFieldName = this.valueFieldName();
 		
 		List<String> valueList = Lists.newLinkedList();
 		for (VO vo : voList) {
@@ -121,9 +118,4 @@ public abstract class AbstractVoSingleFieldTranslator<VO> implements IVoListSing
 	 */
 	public abstract Map<String, String> getValueDescMapByValueList(List<String> valueList);
 	
-	/**
-	 * 需转换的值的属性名
-	 */
-	public abstract String valueFieldName();
-
 }
