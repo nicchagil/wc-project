@@ -2,7 +2,9 @@ package com.nicchagil.util.mail.reliability.send;
 
 import com.nicchagil.orm.entity.MessageSendLog;
 import com.nicchagil.util.random.RandomUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MailSendService extends AbstractMessageSendService {
 
 	@Override
