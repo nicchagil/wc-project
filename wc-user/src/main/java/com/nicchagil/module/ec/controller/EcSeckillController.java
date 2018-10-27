@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nicchagil.module.ec.service.EcSeckillRedisService;
 import com.nicchagil.module.ec.service.EcSeckillService;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
@@ -17,6 +18,9 @@ public class EcSeckillController {
 	
 	@Autowired
 	private EcSeckillService service;
+	
+	@Autowired
+	private EcSeckillRedisService ecSeckillRedisService;
 	
 	/**
 	 * 添加秒杀
@@ -42,4 +46,14 @@ public class EcSeckillController {
 		return StandardResponse.getSuccessResponse("OK");
 	}
 
+
+	/**
+	 * 同步秒杀到Redis
+	 */
+	@GetMapping("/syncToRedis")
+	public StandardResponse<String> syncToRedis() {
+		this.ecSeckillRedisService.syncToRedis();
+		return StandardResponse.getSuccessResponse("OK");
+	}
+	
 }

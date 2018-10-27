@@ -102,6 +102,21 @@
 			}
 		});
 	}
+	
+	// 同步秒杀到Redis
+	function syncToRedis() {
+		var url = "/ec/seckill/syncToRedis";
+		
+		$.ajax({
+			url : url,
+			
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				getSeckillList();
+			}
+		});
+	}
 
 </script>
 <body>
@@ -122,6 +137,7 @@
 商品：<input type="text" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum"/><br/>
 <button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button><br/>
 <button type="button" onclick="getSeckillList();">刷新列表</button><br/>
+<button type="button" onclick="syncToRedis();">同步秒杀数据到Redis</button><br/>
 <table border="1" id="seckillTable">
   <tr id="seckillTableHead">
     <th>秒杀活动ID</th>
