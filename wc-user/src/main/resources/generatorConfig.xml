@@ -68,11 +68,28 @@
 		<table tableName="t_role_permission" domainObjectName="RolePermission">
 			<property name="useActualColumnNames" value="false" />
 		</table>
-		 -->
 
 		<table tableName="t_message_send_log" domainObjectName="MessageSendLog">
 			<property name="useActualColumnNames" value="false" />
 		</table>
-
+		
+		 -->
+		
+		<table tableName="ec_goods" domainObjectName="EcGoods">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="ec_order" domainObjectName="EcOrder">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="ec_seckill" domainObjectName="EcSeckill">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table tableName="ec_seckill_detail" domainObjectName="EcSeckillDetail">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
 	</context>
 </generatorConfiguration>
