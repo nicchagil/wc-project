@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -27,6 +28,7 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import com.google.common.collect.Lists;
 import com.nicchagil.util.quartz.job.MyThirdExerciseJob;
 
+@ConditionalOnProperty(name = "quartzEnable", havingValue = "true")
 @Configuration
 public class QuartzConfig {
 
