@@ -1,4 +1,4 @@
-# wc-user
+# wc-project
 ## 描述
 此项目集成本人开发中常用的框架集合。
 - Spring Boot
