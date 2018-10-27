@@ -2,21 +2,103 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>枚举</title>
+	<title>快速模糊搜索</title>
 	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		// 空
+		// 缓存表格头HTML
+		goodsTableHeadHtml = $("#goodsTableHead").html();
+		seckillTableHeadHtml = $("#seckillTableHead").html();
 	});
-
-	function getEnum() {
+	
+	// 查询商品列表
+	function queryGoodsList() {
 		$.ajax({
-			url : "/enum/getEnum?enumName=" + $('#enumId').val(),
+			url : "/ec/goods/getList",
 			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
 			success : function(data) {
-				alert(data.toJSONString());
+				$("#goodsTable").html('');
+				$("#goodsTable").append(goodsTableHeadHtml);
+				
+				if (!data) {
+					return;
+				}
+				
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					html = html + "<tr>";
+					html = html + "<td>" + data[i].id + "</td>";
+					html = html + "<td>" + data[i].name + "</td>";
+					html = html + "<td>" + data[i].description + "</td>";
+					html = html + "</tr>";
+				}
+				
+				$("#goodsTable").append(html);
+			}
+		});
+	}
+	
+	// 查询
+	function addSeckill() {
+		var url = "/ec/seckill/add?goodsId=" + $("#goodsId").val() + "&goodsNum=" + $("#goodsNum").val();
+		
+		$.ajax({
+			url : url,
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				getSeckillList();
+			}
+		});
+	}
+	
+	// 查询
+	function getSeckillList() {
+		var url = "/ec/seckill/getList";
+		
+		$.ajax({
+			url : url,
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				$("#seckillTable").html('');
+				$("#seckillTable").append(seckillTableHeadHtml);
+				
+				if (!data) {
+					return;
+				}
+				
+				var html = "";
+				for (var i = 0; i < data.length; i++) {
+					html = html + "<tr>";
+					html = html + "<td>" + data[i].seckillId + "</td>";
+					html = html + "<td>" + data[i].goodsName + "</td>";
+					html = html + "<td>" + data[i].num + "</td>";
+					html = html + "<td>" + data[i].startTime + "</td>";
+					html = html + "<td>" + data[i].endTime + "</td>";
+					html = html + "<td><button type='button' onclick='deleteSeckill(" + data[i].seckillId + ")''>删除</button></td>";
+					html = html + "</tr>";
+				}
+				
+				$("#seckillTable").append(html);
+			}
+		});
+	}
+	
+	// 删除秒杀
+	function deleteSeckill(id) {
+		var url = "/ec/seckill/deleteById?id=" + id;
+		
+		$.ajax({
+			url : url,
+			
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				getSeckillList();
 			}
 		});
 	}
@@ -24,12 +106,35 @@
 </script>
 <body>
 
-获取枚举值：
-<select id="enumId">
-  <option value ="StatusEnum">StatusEnum</option>
-</select>
-<button type="button" onclick="getEnum()">获取</button>
-<hr />
+<button type="button" onclick="queryGoodsList()">查询商品列表</button><br/>
+<table border="1" id="goodsTable">
+  <tr id="goodsTableHead">
+    <th>id</th>
+    <th>商品名</th>
+    <th>描述</th>
+  </tr>
+</table>
+
+<br/>
+======
+<br/>
+
+商品：<input type="text" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum"/><br/>
+<button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button><br/>
+<button type="button" onclick="getSeckillList();">刷新列表</button><br/>
+<table border="1" id="seckillTable">
+  <tr id="seckillTableHead">
+    <th>秒杀活动ID</th>
+    <th>商品名</th>
+    <th>数量</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>操作</th>
+  </tr>
+</table>
+<br/>
+
+
 
 快速链接：<br/>
 <a href="./console.html">返回Console主页</a>
