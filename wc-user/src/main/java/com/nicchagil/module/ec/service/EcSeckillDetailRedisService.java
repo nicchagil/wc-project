@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.util.Assert;
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,13 @@ import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
+import com.nicchagil.orm.entity.EcOrder;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
@@ -40,9 +43,14 @@ public class EcSeckillDetailRedisService {
 	
 	@Resource(name = "redisTemplate")
 	private RedisTemplate<String, Long> redisLongTemplate;
-
+	
 	@Resource(name = "redisTemplate")
 	private RedisTemplate<String, Object> redisStringTemplate;
+	
+	private StringRedisTemplate stringRedisTemplate;
+
+	@Autowired
+	private EcOrderService ecOrderService;
 	
 	/**
 	 * 检查库存
@@ -67,17 +75,8 @@ public class EcSeckillDetailRedisService {
 			throw new RuntimeException("秒杀活动还没开始，请稍后再试");
 		}
 		
-		String goodsNumKey = this.getGoodsNumKey(vo);
-		
-		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
-		
-		if (currentNum == null) {
-			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");
-		}
-		
-		if (currentNum.longValue() < num.longValue()) {
-			throw new RuntimeException("商品已卖完，请下次再来");
-		}
+		// 减去库存，提交订单
+		this.substract(goodsId, num);
 	}
 	
 	/**
@@ -214,6 +213,46 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		return voList;
+	}
+	
+	/**
+	 * 减去库存
+	 */
+	public void substract(Long goodsId, Long num) {
+		SeckillDisplayVo vo = new SeckillDisplayVo();
+		vo.setGoodsId(goodsId);
+		
+		String goodsNumKey = this.getGoodsNumKey(vo);
+		
+		/* 校验库存 */
+		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
+		
+		if (currentNum == null) {
+			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");
+		}
+		
+		if (currentNum.longValue() < num.longValue()) {
+			throw new RuntimeException("商品已卖完，请下次再来");
+		}
+		
+		/* Redis原子操作减库存 */
+		Long result = this.redisLongTemplate.opsForValue().increment(goodsNumKey, num * -1);
+		this.logger.info("substract result : {}", result);
+		
+		if (result.longValue() < 0) {
+			throw new RuntimeException("商品已卖完，请下次再来");
+		}
+		
+		/* MySQL减库存 */
+		int substractRecordNum = this.ecSeckillDetailService.substract(goodsId, currentNum);
+		Assert.isTrue(substractRecordNum == 1, "减去库存失败");
+		
+		/* 添加库存 */
+		EcOrder order = new EcOrder();
+		order.setUserId(999999L);
+		order.setGoodsId(goodsId);
+		order.setNum(num);
+		this.ecOrderService.insert(order);
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.nicchagil.orm.mapper.ext;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
@@ -13,5 +14,8 @@ public interface EcSeckillExtMapper {
 			"inner join ec_goods gd on skd.goods_id = gd.id " + 
 			"order by skd.start_time asc")
 	List<SeckillDisplayVo> getList();
+    
+	@Select("update ec_seckill_detail t set t.`num` = t.`num` - #{num} where t.`goods_id` = #{goodsId}")
+	int substract(@Param("goodsId") Long goodsId, @Param("num") Long num);
 	
 }

@@ -83,5 +83,13 @@ public class EcSeckillDetailService {
 	public void deleteById(Long id) {
 		this.mapper.deleteByPrimaryKey(id);
 	}
-
+	
+	/**
+	 * 减去库存
+	 */
+	public int substract(Long goodsId, Long num) {
+		int updateNum = this.ecSeckillExtMapper.substract(goodsId, num);
+		return updateNum;
+	}
+	
 }

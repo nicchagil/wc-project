@@ -200,6 +200,10 @@
 			success : function(data) {
 				/* 错误信息提示与数据处理 */
 				if (!data || data.code != SUCCESS_00001) {
+					
+					// 重新同步数据库
+					syncToRedis();
+					
 					if (data && data.msg) {
 						alert(data.msg);
 						return;
