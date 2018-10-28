@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
+import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
 
@@ -32,9 +32,9 @@ public class EcSeckillController {
 	}
 	
 	@GetMapping("/getList")
-	public List<SeckillDisplayVo> getList() {
+	public StandardResponse<List<SeckillDisplayVo>> getList() {
 		List<SeckillDisplayVo> list = this.ecSeckillDetailService.getList();
-		return list;
+		return StandardResponse.getSuccessResponse(list);
 	}
 
 	/**

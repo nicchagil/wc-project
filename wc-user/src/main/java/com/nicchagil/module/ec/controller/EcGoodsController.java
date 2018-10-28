@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nicchagil.module.ec.service.EcGoodsService;
 import com.nicchagil.orm.entity.EcGoods;
+import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
 @RequestMapping("/ec/goods")
@@ -21,9 +22,9 @@ public class EcGoodsController {
 	 * 查询全部商品
 	 */
 	@GetMapping("/getList")
-	public List<EcGoods> getList() {
+	public StandardResponse<List<EcGoods>> getList() {
 		List<EcGoods> list = this.service.getList();
-		return list;
+		return StandardResponse.getSuccessResponse(list);
 	}
 
 }

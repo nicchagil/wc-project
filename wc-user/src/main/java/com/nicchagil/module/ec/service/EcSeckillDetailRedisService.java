@@ -51,7 +51,7 @@ public class EcSeckillDetailRedisService {
 			throw new RuntimeException("数据异常，缺少秒杀开始时间");
 		}
 		
-		if (startDate.before(new Date())) {
+		if (startDate.after(new Date())) {
 			throw new RuntimeException("秒杀活动还没开始，请稍后再试");
 		}
 		
@@ -129,7 +129,7 @@ public class EcSeckillDetailRedisService {
 			}
 			
 			/* 写入开始时间 */
-			// this.redisLongTemplate.opsForValue().set(key, vo.getNum());
+			this.redisLongTemplate.opsForValue().set(key, vo.getNum());
 			this.logger.info("写入完毕{} : {}", key, vo.getNum());
 		}
 	}
@@ -138,7 +138,7 @@ public class EcSeckillDetailRedisService {
 	 * 开始时间的KEY
 	 */
 	public String getStartTimeKey(SeckillDisplayVo vo) {
-		String key = new StringBuffer().append("StartTime").append(KEY_SPLITER).append(vo.getSeckillId()).append(KEY_SPLITER).append(vo.getGoodsId()).toString();
+		String key = new StringBuffer().append("StartTime").append(KEY_SPLITER).append(vo.getGoodsId()).toString();
 		return key;
 	}
 	
@@ -146,7 +146,7 @@ public class EcSeckillDetailRedisService {
 	 * 商品数量的KEY
 	 */
 	public String getGoodsNumKey(SeckillDisplayVo vo) {
-		String key = new StringBuffer().append("GoodsNum").append(KEY_SPLITER).append(vo.getSeckillId()).append(KEY_SPLITER).append(vo.getGoodsId()).toString();
+		String key = new StringBuffer().append("GoodsNum").append(KEY_SPLITER).append(vo.getGoodsId()).toString();
 		return key;
 	}
 	

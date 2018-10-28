@@ -7,10 +7,19 @@
 </head>
 <script type="text/javascript">
 
+	var SUCCESS_00001 = "SUCCESS_00001";
+
 	$(document).ready(function() {
 		// 缓存表格头HTML
 		goodsTableHeadHtml = $("#goodsTableHead").html();
 		seckillTableHeadHtml = $("#seckillTableHead").html();
+		
+		/* 初始化数据 */
+		// 查询商品列表
+		queryGoodsList();
+		// 查询秒杀数据
+		getSeckillList();
+		
 	});
 	
 	// 查询商品列表
@@ -20,6 +29,17 @@
 			contentType : "application/x-www-form-urlencoded",
 			dataType : "json",
 			success : function(data) {
+				/* 错误信息提示与数据处理 */
+				if (!data || data.code != SUCCESS_00001) {
+					if (data && data.msg) {
+						alert(data.msg);
+						return;
+					}
+					alert("系统异常");
+					return;
+				}
+				data = data.data;
+				
 				$("#goodsTable").html('');
 				$("#goodsTable").append(goodsTableHeadHtml);
 				
@@ -55,7 +75,7 @@
 		});
 	}
 	
-	// 查询
+	// 查询秒杀数据
 	function getSeckillList() {
 		var url = "/ec/seckill/getList";
 		
@@ -64,6 +84,17 @@
 			contentType : "application/x-www-form-urlencoded",
 			dataType : "json",
 			success : function(data) {
+				/* 错误信息提示与数据处理 */
+				if (!data || data.code != SUCCESS_00001) {
+					if (data && data.msg) {
+						alert(data.msg);
+						return;
+					}
+					alert("系统异常");
+					return;
+				}
+				data = data.data;
+				
 				$("#seckillTable").html('');
 				$("#seckillTable").append(seckillTableHeadHtml);
 				
@@ -98,6 +129,17 @@
 			contentType : "application/x-www-form-urlencoded",
 			dataType : "json",
 			success : function(data) {
+				/* 错误信息提示与数据处理 */
+				if (!data || data.code != SUCCESS_00001) {
+					if (data && data.msg) {
+						alert(data.msg);
+						return;
+					}
+					alert("系统异常");
+					return;
+				}
+				data = data.data;
+				
 				getSeckillList();
 			}
 		});
@@ -113,6 +155,43 @@
 			contentType : "application/x-www-form-urlencoded",
 			dataType : "json",
 			success : function(data) {
+				/* 错误信息提示与数据处理 */
+				if (!data || data.code != SUCCESS_00001) {
+					if (data && data.msg) {
+						alert(data.msg);
+						return;
+					}
+					alert("系统异常");
+					return;
+				}
+				data = data.data;
+				
+				getSeckillList();
+			}
+		});
+	}
+	
+	// 抢购
+	function buy() {
+		var url = "/ec/seckill/buy?goodsId=" + $("#buyGoodsId").val() + "&goodsNum=" + $("#buyGoodsNum").val();
+		
+		$.ajax({
+			url : url,
+			
+			contentType : "application/x-www-form-urlencoded",
+			dataType : "json",
+			success : function(data) {
+				/* 错误信息提示与数据处理 */
+				if (!data || data.code != SUCCESS_00001) {
+					if (data && data.msg) {
+						alert(data.msg);
+						return;
+					}
+					alert("系统异常");
+					return;
+				}
+				data = data.data;
+				
 				getSeckillList();
 			}
 		});
@@ -134,7 +213,7 @@
 ======
 <br/>
 
-商品：<input type="text" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum"/><br/>
+商品：<input type="text" value="10000" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum"/><br/>
 <button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button><br/>
 <button type="button" onclick="getSeckillList();">刷新列表</button><br/>
 <button type="button" onclick="syncToRedis();">同步秒杀数据到Redis</button><br/>
@@ -154,8 +233,8 @@
 <br/>
 
 抢购商品：
-
-
+商品：<input type="text" value="10000" id="buyGoodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="buyGoodsNum"/><br/>
+<button type="button" onclick="buy();">抢购</button><br/>
 
 
 快速链接：<br/>
