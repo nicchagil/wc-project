@@ -33,6 +33,42 @@ public class EcSeckillRedisService {
 	private RedisTemplate<String, Long> redisLongTemplate;
 	
 	/**
+	 * 检查库存
+	 */
+	public void check(Long goodsId, Long num) {
+		if (goodsId == null || num == null) {
+			throw new RuntimeException("请传入正确的参数");
+		}
+		
+		SeckillDisplayVo vo = new SeckillDisplayVo();
+		vo.setGoodsId(goodsId);
+		vo.setNum(num);
+		
+		String startTimeKey = this.getStartTimeKey(vo);
+		
+		Date startDate = this.redisStringTemplate.opsForValue().get(startTimeKey);
+		if (startDate == null) {
+			throw new RuntimeException("数据异常，缺少秒杀开始时间");
+		}
+		
+		if (startDate.before(new Date())) {
+			throw new RuntimeException("秒杀活动还没开始，请稍后再试");
+		}
+		
+		String goodsNumKey = this.getGoodsNumKey(vo);
+		
+		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
+		
+		if (currentNum == null) {
+			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");
+		}
+		
+		if (currentNum.longValue() < num.longValue()) {
+			throw new RuntimeException("商品已卖完，请下次再来");
+		}
+	}
+	
+	/**
 	 * 秒杀数据同步到Redis
 	 */
 	public void syncToRedis() {

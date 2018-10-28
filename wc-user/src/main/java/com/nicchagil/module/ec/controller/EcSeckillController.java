@@ -56,4 +56,13 @@ public class EcSeckillController {
 		return StandardResponse.getSuccessResponse("OK");
 	}
 	
+	/**
+	 * 购买
+	 */
+	@GetMapping("/buy")
+	public StandardResponse<String> buy(Long goodsId, Long goodsNum) {
+		this.ecSeckillRedisService.check(goodsId, goodsNum);
+		return StandardResponse.getSuccessResponse("OK");
+	}
+	
 }
