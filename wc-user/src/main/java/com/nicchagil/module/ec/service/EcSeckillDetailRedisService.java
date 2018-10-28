@@ -17,14 +17,14 @@ import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
-public class EcSeckillRedisService {
+public class EcSeckillDetailRedisService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public static final String KEY_SPLITER = ":";
 	
 	@Autowired
-	private EcSeckillService ecSeckillService;
+	private EcSeckillDetailService ecSeckillDetailService;
 	
 	@Resource(name = "redisTemplate")
 	private RedisTemplate<String, Date> redisStringTemplate;
@@ -72,7 +72,7 @@ public class EcSeckillRedisService {
 	 * 秒杀数据同步到Redis
 	 */
 	public void syncToRedis() {
-		List<SeckillDisplayVo> list = this.ecSeckillService.getList();
+		List<SeckillDisplayVo> list = this.ecSeckillDetailService.getList();
 		
 		if (CollectionUtils.isEmpty(list)) {
 			this.logger.info("无秒杀数据，无须同步缓存");

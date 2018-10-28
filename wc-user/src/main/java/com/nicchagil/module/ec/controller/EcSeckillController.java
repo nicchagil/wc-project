@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nicchagil.module.ec.service.EcSeckillRedisService;
-import com.nicchagil.module.ec.service.EcSeckillService;
+import com.nicchagil.module.ec.service.EcSeckillDetailService;
+import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
 
@@ -17,23 +17,23 @@ import com.nicchagil.util.exception.StandardResponse;
 public class EcSeckillController {
 	
 	@Autowired
-	private EcSeckillService service;
+	private EcSeckillDetailService ecSeckillDetailService;
 	
 	@Autowired
-	private EcSeckillRedisService ecSeckillRedisService;
+	private EcSeckillDetailRedisService ecSeckillRedisService;
 	
 	/**
 	 * 添加秒杀
 	 */
 	@GetMapping("/add")
 	public StandardResponse<String> add(Long goodsId, Long goodsNum) {
-		this.service.add(goodsId, goodsNum);
+		this.ecSeckillDetailService.add(goodsId, goodsNum);
 		return StandardResponse.getSuccessResponse("OK");
 	}
 	
 	@GetMapping("/getList")
 	public List<SeckillDisplayVo> getList() {
-		List<SeckillDisplayVo> list = this.service.getList();
+		List<SeckillDisplayVo> list = this.ecSeckillDetailService.getList();
 		return list;
 	}
 
@@ -42,7 +42,7 @@ public class EcSeckillController {
 	 */
 	@GetMapping("/deleteById")
 	public StandardResponse<String> deleteById(Long id) {
-		this.service.deleteById(id);
+		this.ecSeckillDetailService.deleteById(id);
 		return StandardResponse.getSuccessResponse("OK");
 	}
 
