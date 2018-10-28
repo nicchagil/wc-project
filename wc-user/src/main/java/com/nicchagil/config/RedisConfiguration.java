@@ -8,9 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@ConditionalOnProperty(name = "redisEnable", havingValue = "true") // 如果配置项“dubboEnable”的值与“havingValue”的值一致，则为true，Configuration生效；否则为false，Configuration不生效
+@ConditionalOnProperty(name = "redisEnable", havingValue = "true")
 public class RedisConfiguration {
 
 	@Bean
@@ -18,6 +24,25 @@ public class RedisConfiguration {
 			throws UnknownHostException {
 		RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
 		template.setConnectionFactory(redisConnectionFactory);
+		
+		/* 设置序列化 */
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		
+		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+		
+		template.setKeySerializer(new StringRedisSerializer());
+		/*
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		template.setHashKeySerializer(jackson2JsonRedisSerializer);
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+		template.setDefaultSerializer(jackson2JsonRedisSerializer);
+		template.setEnableDefaultSerializer(true);
+		template.afterPropertiesSet();
+		*/
+		
 		return template;
 	}
 
@@ -26,6 +51,23 @@ public class RedisConfiguration {
 			throws UnknownHostException {
 		StringRedisTemplate template = new StringRedisTemplate();
 		template.setConnectionFactory(redisConnectionFactory);
+		
+		/* 设置序列化 */
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		
+		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+		jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
+		
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		template.setHashKeySerializer(jackson2JsonRedisSerializer);
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+		template.setDefaultSerializer(jackson2JsonRedisSerializer);
+		template.setEnableDefaultSerializer(true);
+		template.afterPropertiesSet();
+		
 		return template;
 	}
 
