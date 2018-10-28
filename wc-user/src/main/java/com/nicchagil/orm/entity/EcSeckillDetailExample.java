@@ -165,66 +165,6 @@ public class EcSeckillDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andSeckillIdIsNull() {
-            addCriterion("seckill_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdIsNotNull() {
-            addCriterion("seckill_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdEqualTo(Long value) {
-            addCriterion("seckill_id =", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdNotEqualTo(Long value) {
-            addCriterion("seckill_id <>", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdGreaterThan(Long value) {
-            addCriterion("seckill_id >", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("seckill_id >=", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdLessThan(Long value) {
-            addCriterion("seckill_id <", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdLessThanOrEqualTo(Long value) {
-            addCriterion("seckill_id <=", value, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdIn(List<Long> values) {
-            addCriterion("seckill_id in", values, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdNotIn(List<Long> values) {
-            addCriterion("seckill_id not in", values, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdBetween(Long value1, Long value2) {
-            addCriterion("seckill_id between", value1, value2, "seckillId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSeckillIdNotBetween(Long value1, Long value2) {
-            addCriterion("seckill_id not between", value1, value2, "seckillId");
-            return (Criteria) this;
-        }
-
         public Criteria andGoodsIdIsNull() {
             addCriterion("goods_id is null");
             return (Criteria) this;
