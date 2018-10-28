@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
+import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
@@ -63,6 +64,15 @@ public class EcSeckillController {
 	public StandardResponse<String> buy(Long goodsId, Long goodsNum) {
 		this.ecSeckillRedisService.check(goodsId, goodsNum);
 		return StandardResponse.getSuccessResponse("OK");
+	}
+	
+	/**
+	 * 查询Redis的所有数据
+	 */
+	@GetMapping("/getSeckillRedisDisplayVo")
+	public StandardResponse<List<SeckillRedisDisplayVo>> getSeckillRedisDisplayVo() {
+		List<SeckillRedisDisplayVo> list = this.ecSeckillRedisService.getSeckillRedisDisplayVo();
+		return StandardResponse.getSuccessResponse(list);
 	}
 	
 }
