@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nicchagil.module.ec.vo.SeckillAddReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.orm.entity.EcSeckillDetail;
 import com.nicchagil.orm.entity.EcSeckillDetailExample;
@@ -30,7 +31,10 @@ public class EcSeckillDetailService {
 	/**
 	 * 添加秒杀商品
 	 */
-	public void add(Long goodsId, Long num) {
+	public void add(SeckillAddReqVo seckillAddReqVo) {
+		Long goodsId = seckillAddReqVo.getGoodsId();
+		Long num = seckillAddReqVo.getNum();
+		
 		EcSeckillDetail detail = this.getByGoodsId(goodsId);
 		
 		if (detail == null) {

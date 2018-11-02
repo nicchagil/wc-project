@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
+import com.nicchagil.module.ec.vo.SeckillAddReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
@@ -26,9 +29,9 @@ public class EcSeckillController {
 	/**
 	 * 添加秒杀
 	 */
-	@GetMapping("/add")
-	public StandardResponse<String> add(Long goodsId, Long goodsNum) {
-		this.ecSeckillDetailService.add(goodsId, goodsNum);
+	@PostMapping("/add")
+	public StandardResponse<String> add(@RequestBody SeckillAddReqVo seckillAddReqVo) {
+		this.ecSeckillDetailService.add(seckillAddReqVo);
 		return StandardResponse.getSuccessResponse("OK");
 	}
 	
