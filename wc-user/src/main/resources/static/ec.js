@@ -1,5 +1,16 @@
 var SUCCESS_00001 = "SUCCESS_00001";
 
+$.ajaxSetup({
+	async : true, // 是否异步，默认true
+	timeout : 10000, // 超时时间，单位毫秒，0表示不设置超时
+	dataType : "json", // 服务端返回类型
+	success : function(data, textStatus, jqXhr) { // 调用成功的回调方法，参数分别为：data（根据dataType和dataFilter确定而来）、textStatus、jqXhr
+	},
+	error : function(jrXhr, textStatus, errThrown) { // 系统异常
+		alert('系统异常');
+	}
+});
+
 $(document).ready(function() {
 	// 缓存表格头HTML
 	goodsTableHeadHtml = $("#goodsTableHead").html();
@@ -62,13 +73,11 @@ function addSeckill() {
 	$.ajax({
 		url : url,
 		type : "POST", // 请求方法
-		async : true, // 是否异步，默认true
 		contentType : "application/json", // 请求类型
 		data : JSON.stringify({ // 内置的JSON转换方法
 			goodsId : $("#goodsId").val(),
 			num : $("#goodsNum").val()
 		}),
-		timeout : 10000, // 超时时间，单位毫秒，0表示不设置超时
 		dataType : "json", // 服务端返回类型
 		success : function(data, textStatus, jqXhr) { // 调用成功的回调方法，参数分别为：data（根据dataType和dataFilter确定而来）、textStatus、jqXhr
 			getSeckillList();
