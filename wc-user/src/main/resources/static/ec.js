@@ -16,6 +16,7 @@ $(document).ready(function() {
 	goodsTableHeadHtml = $("#goodsTableHead").html();
 	seckillTableHeadHtml = $("#seckillTableHead").html();
 	seckillRedisTableHeadHtml = $("#seckillRedisTableHead").html();
+	orderTableHeadHtml = $("#orderTableHead").html();
 	
 	/* 初始化数据 */
 	// 查询商品列表
@@ -24,6 +25,8 @@ $(document).ready(function() {
 	getSeckillList();
 	// 查询秒杀Redis数据
 	getSeckillRedisDisplayVo();
+	// 查询订单数据
+	getOrderList();
 	
 });
 
@@ -132,6 +135,50 @@ function getSeckillList() {
 	});
 }
 
+// 查询订单记录
+function getOrderList() {
+	var url = "/ec/order/getList";
+	
+	$.ajax({
+		url : url,
+		type : "POST",
+		contentType : "application/x-www-form-urlencoded",
+		dataType : "json",
+		success : function(data) {
+			/* 错误信息提示与数据处理 */
+			if (!data || data.code != SUCCESS_00001) {
+				if (data && data.msg) {
+					alert(data.msg);
+					return;
+				}
+				alert("系统异常");
+				return;
+			}
+			data = data.data;
+			
+			$("#orderTable").html('');
+			$("#orderTable").append(orderTableHeadHtml);
+			
+			if (!data) {
+				return;
+			}
+			
+			var html = "";
+			for (var i = 0; i < data.length; i++) {
+				html = html + "<tr>";
+				html = html + "<td>" + data[i].id + "</td>";
+				html = html + "<td>" + data[i].userId + "</td>";
+				html = html + "<td>" + data[i].goodsName + "</td>";
+				html = html + "<td>" + data[i].num + "</td>";
+				html = html + "<td>" + data[i].orderTime + "</td>";
+				html = html + "</tr>";
+			}
+			
+			$("#orderTable").append(html);
+		}
+	});
+}
+
 // 查询秒杀Redis数据
 function getSeckillRedisDisplayVo() {
 	var url = "/ec/seckill/getSeckillRedisDisplayVo";
@@ -175,6 +222,40 @@ function getSeckillRedisDisplayVo() {
 // 删除全部redis记录
 function deleteAllRedisRecord() {
 	var url = "/redis/deleteAll";
+	
+	$.ajax({
+		url : url,
+		type : "POST", // 请求方法
+		contentType : "application/json", // 请求类型
+		data : JSON.stringify({ // 内置的JSON转换方法
+			goodsId : $("#goodsId").val(),
+			num : $("#goodsNum").val()
+		}),
+		dataType : "json", // 服务端返回类型
+		success : function(data, textStatus, jqXhr) { // 调用成功的回调方法，参数分别为：data（根据dataType和dataFilter确定而来）、textStatus、jqXhr
+			/* 错误信息提示与数据处理 */
+			if (!data || data.code != SUCCESS_00001) {
+				if (data && data.msg) {
+					alert(data.msg);
+					return;
+				}
+				alert("系统异常");
+				return;
+			}
+			data = data.data;
+			
+			getSeckillRedisDisplayVo();
+			alert("删除成功");
+		},
+		error : function(jrXhr, textStatus, errThrown) { // 系统异常
+			alert('系统异常');
+		}
+	});
+}
+
+//删除全部订单记录
+function deleteAllOrderRecord() {
+	var url = "/ec/order/deleteAll";
 	
 	$.ajax({
 		url : url,

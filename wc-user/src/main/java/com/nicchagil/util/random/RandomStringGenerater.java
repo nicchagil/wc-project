@@ -12,6 +12,7 @@ public class RandomStringGenerater {
 	public static final char[] LOWERCASE_26 = new char[26];
 	public static final char[] UPPERCASE_26 = new char[26];
 	public static final char[] LETTER_AND_SYMBOL = new char[94];
+	public static final char[] NUMBER_10 = new char[10];
 	
 	static {
 		int lowercase26ArrayIndex = 0;
@@ -28,6 +29,10 @@ public class RandomStringGenerater {
 		for (int i = 33; i <= 126; i++) {
 			LETTER_AND_SYMBOL[letterAndSymbolArrayIndex++] = (char)i;
 		}
+		
+		for (int i = 0; i <= 9; i++) {
+			NUMBER_10[i] = String.valueOf(i).charAt(0);
+		}
 	}
 	
 	@Test
@@ -35,6 +40,7 @@ public class RandomStringGenerater {
 		this.logger.info("LOWERCASE_26 : {}", LOWERCASE_26);
 		this.logger.info("UPPERCASE_26 : {}", UPPERCASE_26);
 		this.logger.info("LETTER_AND_SYMBOL : {}", LETTER_AND_SYMBOL);
+		this.logger.info("NUMBER_10 : {}", NUMBER_10);
 	}
 	
 	/**
@@ -60,7 +66,7 @@ public class RandomStringGenerater {
 	@Test
 	public void generateRandomStringTest() {
 		for (int i = 0; i < 10; i++) {
-			this.logger.info("RandomString : {}", RandomStringGenerater.generateRandomString(8, RandomStringGenerater.LETTER_AND_SYMBOL));
+			this.logger.info("RandomString : {}", RandomStringGenerater.generateRandomString(8, RandomStringGenerater.NUMBER_10));
 		}
 	}
 

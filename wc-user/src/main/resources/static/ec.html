@@ -57,6 +57,25 @@
 商品：<input type="text" value="10000" id="buyGoodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="buyGoodsNum" value="1" /><br/>
 <button type="button" onclick="buy();">抢购</button><br/>
 
+<br/>
+======
+<br/>
+
+<button type="button" onclick="getOrderList();">查询订单列表</button>&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="deleteAllOrderRecord();">删除全部订单记录</button><br/>
+<table border="1" id="orderTable">
+  <tr id="orderTableHead">
+    <th>订单ID</th>
+    <th>购买人（模拟请求用户的编号）</th>
+    <th>商品名</th>
+    <th>数量</th>
+    <th>下单时间</th>
+  </tr>
+</table>
+
+<br/>
+======
+<br/>
 
 快速链接：<br/>
 <a href="./console.html">返回Console主页</a>

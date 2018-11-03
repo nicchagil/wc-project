@@ -16,12 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.orm.entity.EcOrder;
 import com.nicchagil.util.datetime.DateTimeUtils;
+import com.nicchagil.util.random.RandomStringGenerater;
 
 @Service
 public class EcSeckillDetailRedisService {
@@ -51,6 +53,7 @@ public class EcSeckillDetailRedisService {
 	/**
 	 * 检查库存
 	 */
+	@Transactional
 	public void check(SeckillBuyReqVo reqVo) {
 		Assert.notNull(reqVo, "请传入正确的参数");
 		Assert.notNull(reqVo.getGoodsId(), "请传入正确的参数");
@@ -144,9 +147,12 @@ public class EcSeckillDetailRedisService {
 		
 		/* 添加库存 */
 		EcOrder order = new EcOrder();
-		order.setUserId(999999L);
+		order.setUserId(Long.valueOf(RandomStringGenerater.generateRandomString(6, RandomStringGenerater.NUMBER_10))); // 随机生成数字
 		order.setGoodsId(goodsId);
 		order.setNum(num);
+		Date currentDate = new Date();
+		order.setCreateTime(currentDate);
+		order.setUpdateTime(currentDate);
 		this.ecOrderService.insert(order);
 	}
 	
