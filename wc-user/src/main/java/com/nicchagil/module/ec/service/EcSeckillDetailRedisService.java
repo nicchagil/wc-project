@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
+import com.nicchagil.module.ec.vo.RedisKeyValueVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
@@ -78,7 +78,7 @@ public class EcSeckillDetailRedisService {
 	/**
 	 * 查询Redis的所有数据
 	 */
-	public List<SeckillRedisDisplayVo> getSeckillRedisDisplayVo() {
+	public List<RedisKeyValueVo> getSeckillRedisDisplayVo() {
 		Set<String> keys = this.redisService.keys("*");
 		this.logger.info("redis keys : {}", keys);
 		
@@ -89,11 +89,11 @@ public class EcSeckillDetailRedisService {
 		List<String> keyList = Lists.newArrayList(keys);
 		Collections.sort(keyList);
 		
-		List<SeckillRedisDisplayVo> voList = Lists.newArrayList();
+		List<RedisKeyValueVo> voList = Lists.newArrayList();
 		for (String key : keyList) {
 			Object value = this.stringRedisTemplate.opsForValue().get(key);
 			
-			SeckillRedisDisplayVo vo = new SeckillRedisDisplayVo();
+			RedisKeyValueVo vo = new RedisKeyValueVo();
 			vo.setKey(key);
 			if (value != null) {
 				vo.setValue(value.toString());

@@ -3,7 +3,7 @@ package com.nicchagil.module.ec.vo;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class SeckillRedisDisplayVo {
+public class RedisKeyValueVo {
 
 	private String key;
 	private String value;

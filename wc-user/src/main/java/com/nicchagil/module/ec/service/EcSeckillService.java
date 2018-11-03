@@ -9,4 +9,6 @@ public class EcSeckillService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	/* 此类用于扩展，比如秒杀商品关联活动 */
+	
 }
