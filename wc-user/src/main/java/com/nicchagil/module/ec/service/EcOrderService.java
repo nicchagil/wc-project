@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nicchagil.dubbo.interfaces.ec.IEcOrderDubboService;
 import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.OrderDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
@@ -23,7 +24,7 @@ import com.nicchagil.orm.mapper.ext.EcOrderExtMapper;
 import com.nicchagil.util.random.RandomStringGenerater;
 
 @Service
-public class EcOrderService {
+public class EcOrderService implements IEcOrderDubboService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -45,6 +46,7 @@ public class EcOrderService {
 	/**
 	 * 处理订单
 	 */
+	@Override
 	@Transactional
 	public void doOrder(SeckillOrderReqVo reqVo) {
 		Long goodsId = reqVo.getGoodsId();

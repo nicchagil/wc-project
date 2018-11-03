@@ -1,11 +1,14 @@
 package com.nicchagil.module.ec.service;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nicchagil.dubbo.interfaces.ec.IEcOrderDubboService;
 import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 
 @Service
@@ -18,6 +21,9 @@ public class EcSeckillOrderService {
 	
 	@Autowired
 	private EcOrderService ecOrderService;
+	
+	@Resource(name = "ecOrderDubboService")
+	private IEcOrderDubboService ecOrderDubboService;
 	
 	/**
 	 * 处理秒杀订单

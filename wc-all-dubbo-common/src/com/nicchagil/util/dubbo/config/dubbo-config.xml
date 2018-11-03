@@ -27,6 +27,9 @@
 	<dubbo:consumer check="${dubbo.consumerCheck}" />
 	
 	<!-- 引入具体的服务、引用配置 -->
+	<!-- 修改为各项目自行引入 -->
+	<!-- 
 	<import resource="classpath*:com/nicchagil/util/dubbo/config/dubbo-service-reference-config.xml" />
+	 -->
 
 </beans>

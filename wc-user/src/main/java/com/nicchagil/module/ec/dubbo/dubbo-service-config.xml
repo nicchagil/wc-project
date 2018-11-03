@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo
+		http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+		
+	<!-- 暴露的服务接口 -->
+	<dubbo:service interface="com.nicchagil.dubbo.interfaces.ec.IEcOrderDubboService" ref="ecOrderService" cluster="failover" loadbalance="roundrobin" actives="1" timeout="60000" version="${dubbo.providerServiceVersion}" token="${dubbo.token}" >
+		<dubbo:method name="doOrder" retries="0" ></dubbo:method>
+	</dubbo:service>
+	
+</beans>
