@@ -152,6 +152,7 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		/* MySQL减库存 */
+		this.logger.info("substract : {}, {}", goodsId, currentNum);
 		int substractRecordNum = this.ecSeckillDetailService.substract(goodsId, currentNum);
 		Assert.isTrue(substractRecordNum == 1, "减去库存失败");
 		

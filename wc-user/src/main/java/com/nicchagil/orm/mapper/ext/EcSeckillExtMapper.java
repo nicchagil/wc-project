@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 
@@ -15,7 +16,7 @@ public interface EcSeckillExtMapper {
 			"order by skd.start_time asc")
 	List<SeckillDisplayVo> getList();
     
-	@Select("update ec_seckill_detail t set t.`num` = t.`num` - #{num} where t.`goods_id` = #{goodsId}")
+	@Update("update ec_seckill_detail t set t.`num` = t.`num` - #{num} where t.`goods_id` = #{goodsId}")
 	int substract(@Param("goodsId") Long goodsId, @Param("num") Long num);
 	
 }
