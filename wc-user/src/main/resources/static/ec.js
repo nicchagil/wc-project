@@ -93,7 +93,7 @@ function addSeckill() {
 
 // 查询秒杀数据
 function getSeckillList() {
-	var url = "/ec/seckill/getList";
+	var url = "/redis/getAllRedisKeyValueVo";
 	
 	$.ajax({
 		url : url,

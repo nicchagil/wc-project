@@ -1,15 +1,10 @@
 package com.nicchagil.module.ec.service;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.util.Assert;
-import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.RedisKeyValueVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
@@ -73,35 +67,6 @@ public class EcSeckillDetailRedisService {
 		
 		// 减去库存，提交订单
 		this.ecOrderService.substract(goodsId, num);
-	}
-	
-	/**
-	 * 查询Redis的所有数据
-	 */
-	public List<RedisKeyValueVo> getAllRedisKeyValueVo() {
-		Set<String> keys = this.redisService.keys("*");
-		this.logger.info("redis keys : {}", keys);
-		
-		if (CollectionUtils.isEmpty(keys)) {
-			return null;
-		}
-		
-		List<String> keyList = Lists.newArrayList(keys);
-		Collections.sort(keyList);
-		
-		List<RedisKeyValueVo> voList = Lists.newArrayList();
-		for (String key : keyList) {
-			Object value = this.stringRedisTemplate.opsForValue().get(key);
-			
-			RedisKeyValueVo vo = new RedisKeyValueVo();
-			vo.setKey(key);
-			if (value != null) {
-				vo.setValue(value.toString());
-			}
-			voList.add(vo);
-		}
-		
-		return voList;
 	}
 	
 }

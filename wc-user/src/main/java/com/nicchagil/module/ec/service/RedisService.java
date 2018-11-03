@@ -1,8 +1,11 @@
 package com.nicchagil.module.ec.service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
+import com.nicchagil.module.ec.vo.RedisKeyValueVo;
 
 @Service
 public class RedisService {
@@ -47,6 +51,35 @@ public class RedisService {
 		});
 		
 		return keys;
+	}
+	
+	/**
+	 * 查询Redis的所有数据
+	 */
+	public List<RedisKeyValueVo> getAllRedisKeyValueVo() {
+		Set<String> keys = this.keys("*");
+		this.logger.info("redis keys : {}", keys);
+		
+		if (CollectionUtils.isEmpty(keys)) {
+			return null;
+		}
+		
+		List<String> keyList = Lists.newArrayList(keys);
+		Collections.sort(keyList);
+		
+		List<RedisKeyValueVo> voList = Lists.newArrayList();
+		for (String key : keyList) {
+			Object value = this.stringRedisTemplate.opsForValue().get(key);
+			
+			RedisKeyValueVo vo = new RedisKeyValueVo();
+			vo.setKey(key);
+			if (value != null) {
+				vo.setValue(value.toString());
+			}
+			voList.add(vo);
+		}
+		
+		return voList;
 	}
 	
 	/**

@@ -15,7 +15,6 @@ import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.RedisKeyValueVo;
 import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
@@ -72,15 +71,6 @@ public class EcSeckillController {
 	public StandardResponse<String> buy(@RequestBody SeckillBuyReqVo reqVo) {
 		this.ecSeckillRedisService.check(reqVo);
 		return StandardResponse.getSuccessResponse("OK");
-	}
-	
-	/**
-	 * 查询Redis的所有数据
-	 */
-	@GetMapping("/getSeckillRedisDisplayVo")
-	public StandardResponse<List<RedisKeyValueVo>> getSeckillRedisDisplayVo() {
-		List<RedisKeyValueVo> list = this.ecSeckillRedisService.getAllRedisKeyValueVo();
-		return StandardResponse.getSuccessResponse(list);
 	}
 	
 }
