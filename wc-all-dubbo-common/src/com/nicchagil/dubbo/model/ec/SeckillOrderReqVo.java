@@ -1,4 +1,4 @@
-package com.nicchagil.module.ec.vo;
+package com.nicchagil.dubbo.model.ec;
 
 import java.util.Date;
 

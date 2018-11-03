@@ -14,9 +14,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.OrderDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.orm.entity.EcOrder;
 import com.nicchagil.orm.entity.EcOrderExample;
 import com.nicchagil.orm.mapper.ext.EcOrderExtMapper;

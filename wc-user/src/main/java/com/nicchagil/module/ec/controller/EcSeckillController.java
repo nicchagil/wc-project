@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisSyncService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.service.EcSeckillOrderService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.util.exception.ExceptionCodeEnum;
 import com.nicchagil.util.exception.StandardResponse;
 

@@ -11,8 +11,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service

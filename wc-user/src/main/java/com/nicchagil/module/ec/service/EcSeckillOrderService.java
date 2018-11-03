@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
+import com.nicchagil.dubbo.model.ec.SeckillOrderReqVo;
 
 @Service
 public class EcSeckillOrderService {
