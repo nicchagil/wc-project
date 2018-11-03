@@ -13,7 +13,7 @@ import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisSyncService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
-import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
+import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
 
@@ -68,7 +68,7 @@ public class EcSeckillController {
 	 * 购买
 	 */
 	@PostMapping("/buy")
-	public StandardResponse<String> buy(@RequestBody SeckillBuyReqVo reqVo) {
+	public StandardResponse<String> buy(@RequestBody SeckillOrderReqVo reqVo) {
 		this.ecSeckillRedisService.check(reqVo);
 		return StandardResponse.getSuccessResponse("OK");
 	}

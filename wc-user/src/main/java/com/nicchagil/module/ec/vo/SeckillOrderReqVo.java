@@ -3,7 +3,7 @@ package com.nicchagil.module.ec.vo;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class SeckillBuyReqVo {
+public class SeckillOrderReqVo {
 
 	private Long goodsId;
 	private Long num;

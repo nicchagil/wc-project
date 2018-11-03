@@ -41,9 +41,9 @@ public class EcOrderService {
 	private EcSeckillDetailService ecSeckillDetailService;
 	
 	/**
-	 * 减去库存
+	 * 处理订单
 	 */
-	public void substract(Long goodsId, Long num) {
+	public void doOrder(Long goodsId, Long num) {
 		SeckillDisplayVo vo = new SeckillDisplayVo();
 		vo.setGoodsId(goodsId);
 		

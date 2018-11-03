@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
+import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
@@ -43,7 +43,7 @@ public class EcSeckillDetailRedisService {
 	 * 检查库存
 	 */
 	@Transactional
-	public void check(SeckillBuyReqVo reqVo) {
+	public void check(SeckillOrderReqVo reqVo) {
 		Assert.notNull(reqVo, "请传入正确的参数");
 		Assert.notNull(reqVo.getGoodsId(), "请传入正确的参数");
 		Assert.notNull(reqVo.getNum(), "请传入正确的参数");
@@ -66,7 +66,7 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		// 减去库存，提交订单
-		this.ecOrderService.substract(goodsId, num);
+		this.ecOrderService.doOrder(goodsId, num);
 	}
 	
 }
