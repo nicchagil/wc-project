@@ -13,16 +13,10 @@ import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.google.common.collect.Sets;
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
@@ -47,9 +41,12 @@ public class EcSeckillDetailRedisService {
 	
 	@Autowired
 	private EcSeckillDetailRedisSyncService ecSeckillDetailRedisSyncService;
-
+	
 	@Autowired
 	private EcOrderService ecOrderService;
+
+	@Autowired
+	private RedisService redisService;
 	
 	/**
 	 * 检查库存
@@ -84,21 +81,7 @@ public class EcSeckillDetailRedisService {
 	 * 查询Redis的所有数据
 	 */
 	public List<SeckillRedisDisplayVo> getSeckillRedisDisplayVo() {
-		Set<String> keys = this.stringRedisTemplate.execute(new RedisCallback<Set<String>>() {
-
-			@Override
-			public Set<String> doInRedis(RedisConnection connection) throws DataAccessException {
-				Set<String> keys = Sets.newHashSet();
-				
-				Cursor<byte[]> cursor = connection.scan(new ScanOptions.ScanOptionsBuilder().match("*").count(1000).build());
-				while (cursor.hasNext()) {
-					keys.add(new String(cursor.next()));
-				}
-				
-				return keys;
-			}
-			
-		});
+		Set<String> keys = this.redisService.keys("*");
 		this.logger.info("redis keys : {}", keys);
 		
 		if (CollectionUtils.isEmpty(keys)) {

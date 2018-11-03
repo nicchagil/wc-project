@@ -36,6 +36,9 @@ public class EcSeckillDetailRedisSyncService {
 	@Autowired
 	private EcOrderService ecOrderService;
 	
+	@Autowired
+	private RedisService redisService;
+	
 	/**
 	 * 秒杀数据同步到Redis
 	 */
@@ -66,7 +69,7 @@ public class EcSeckillDetailRedisSyncService {
 			/* 删除指定的KEY */
 			Set<String> keys = this.stringRedisTemplate.keys(key);
 			if (CollectionUtils.isNotEmpty(keys)) {
-				this.removeKeys(keys);
+				this.redisService.removeKeys(keys);
 			}
 			
 			/* 写入开始时间 */
@@ -93,7 +96,7 @@ public class EcSeckillDetailRedisSyncService {
 			/* 删除指定的KEY */
 			Set<String> keys = this.stringRedisTemplate.keys(key);
 			if (CollectionUtils.isNotEmpty(keys)) {
-				this.removeKeys(keys);
+				this.redisService.removeKeys(keys);
 			}
 			
 			/* 写入开始库存 */
@@ -116,17 +119,6 @@ public class EcSeckillDetailRedisSyncService {
 	public String getGoodsNumKey(SeckillDisplayVo vo) {
 		String key = new StringBuffer().append("GoodsNum").append(KEY_SPLITER).append(vo.getGoodsId()).toString();
 		return key;
-	}
-	
-	/**
-	 * 删除指定的KEY
-	 */
-	public void removeKeys(Set<String> keys) {
-		if (CollectionUtils.isEmpty(keys)) {
-			return;
-		}
-		
-		this.stringRedisTemplate.delete(keys);
 	}
 	
 }
