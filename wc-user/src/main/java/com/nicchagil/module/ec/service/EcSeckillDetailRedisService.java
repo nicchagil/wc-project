@@ -19,7 +19,6 @@ import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
@@ -27,7 +26,6 @@ import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.orm.entity.EcOrder;
-import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
 public class EcSeckillDetailRedisService {
@@ -48,7 +46,8 @@ public class EcSeckillDetailRedisService {
 	@Resource(name = "redisTemplate")
 	private RedisTemplate<String, Object> redisStringTemplate;
 	
-	private StringRedisTemplate stringRedisTemplate;
+	@Autowired
+	private EcSeckillDetailRedisSyncService ecSeckillDetailRedisSyncService;
 
 	@Autowired
 	private EcOrderService ecOrderService;
@@ -68,7 +67,7 @@ public class EcSeckillDetailRedisService {
 		vo.setGoodsId(goodsId);
 		vo.setNum(num);
 		
-		String startTimeKey = this.getStartTimeKey(vo);
+		String startTimeKey = this.ecSeckillDetailRedisSyncService.getStartTimeKey(vo);
 		
 		Date startDate = this.redisDateTemplate.opsForValue().get(startTimeKey);
 		if (startDate == null) {
@@ -81,99 +80,6 @@ public class EcSeckillDetailRedisService {
 		
 		// 减去库存，提交订单
 		this.substract(goodsId, num);
-	}
-	
-	/**
-	 * 秒杀数据同步到Redis
-	 */
-	public void syncToRedis() {
-		List<SeckillDisplayVo> list = this.ecSeckillDetailService.getList();
-		
-		if (CollectionUtils.isEmpty(list)) {
-			this.logger.info("无秒杀数据，无须同步缓存");
-			return;
-		}
-		
-		/* 写入Redis：[StartTime]:SeckillId:GoodsId : startDate */
-		for (SeckillDisplayVo vo : list) {
-			if (vo == null || vo.getSeckillId() == null || vo.getGoodsId() == null || vo.getStartTime() == null) {
-				this.logger.info("秒杀详情数据异常：{}", vo);
-				continue;
-			}
-			
-			/* 转换开始时间格式 */
-			Date startTime = DateTimeUtils.parse(vo.getStartTime(), DateTimeUtils.STANDARD_DATE_TIME);
-			if (startTime == null) {
-				this.logger.info("秒杀详情的开始时间数据异常：{}", vo);
-				continue;
-			}
-			
-			String key = this.getStartTimeKey(vo);
-			
-			/* 删除指定的KEY */
-			Set<String> keys = this.redisDateTemplate.keys(key);
-			if (CollectionUtils.isNotEmpty(keys)) {
-				this.removeKeys(keys);
-			}
-			
-			/* 写入开始时间 */
-			this.redisDateTemplate.opsForValue().set(key, startTime);
-			this.logger.info("写入完毕{} : {}", key, vo.getStartTime());
-		}
-		
-		/* 写入Redis：[GoodsNum]:SeckillId:GoodsId : startDate */
-		for (SeckillDisplayVo vo : list) {
-			if (vo == null || vo.getSeckillId() == null || vo.getGoodsId() == null || vo.getNum() == null) {
-				this.logger.info("秒杀详情数据异常：{}", vo);
-				continue;
-			}
-			
-			/* 转换开始时间格式 */
-			Date startTime = DateTimeUtils.parse(vo.getStartTime(), DateTimeUtils.STANDARD_DATE_TIME);
-			if (startTime == null) {
-				this.logger.info("秒杀详情的开始时间数据异常：{}", vo);
-				continue;
-			}
-			
-			String key = this.getGoodsNumKey(vo);
-			
-			/* 删除指定的KEY */
-			Set<String> keys = this.redisDateTemplate.keys(key);
-			if (CollectionUtils.isNotEmpty(keys)) {
-				this.removeKeys(keys);
-			}
-			
-			/* 写入开始时间 */
-			this.redisLongTemplate.opsForValue().set(key, vo.getNum());
-			this.logger.info("写入完毕{} : {}", key, vo.getNum());
-		}
-	}
-	
-	/**
-	 * 开始时间的KEY
-	 */
-	public String getStartTimeKey(SeckillDisplayVo vo) {
-		String key = new StringBuffer().append("StartTime").append(KEY_SPLITER).append(vo.getGoodsId()).toString();
-		return key;
-	}
-	
-	/**
-	 * 商品数量的KEY
-	 */
-	public String getGoodsNumKey(SeckillDisplayVo vo) {
-		String key = new StringBuffer().append("GoodsNum").append(KEY_SPLITER).append(vo.getGoodsId()).toString();
-		return key;
-	}
-	
-	/**
-	 * 删除指定的KEY
-	 */
-	public void removeKeys(Set<String> keys) {
-		if (CollectionUtils.isEmpty(keys)) {
-			return;
-		}
-		
-		this.redisDateTemplate.delete(keys);
 	}
 	
 	/**
@@ -226,7 +132,7 @@ public class EcSeckillDetailRedisService {
 		SeckillDisplayVo vo = new SeckillDisplayVo();
 		vo.setGoodsId(goodsId);
 		
-		String goodsNumKey = this.getGoodsNumKey(vo);
+		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
 		
 		/* 校验库存 */
 		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);

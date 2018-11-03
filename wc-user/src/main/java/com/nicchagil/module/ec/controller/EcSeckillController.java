@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
+import com.nicchagil.module.ec.service.EcSeckillDetailRedisSyncService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
 import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
@@ -23,6 +24,9 @@ public class EcSeckillController {
 	
 	@Autowired
 	private EcSeckillDetailService ecSeckillDetailService;
+	
+	@Autowired
+	private EcSeckillDetailRedisSyncService ecSeckillDetailRedisSyncService;
 	
 	@Autowired
 	private EcSeckillDetailRedisService ecSeckillRedisService;
@@ -57,7 +61,7 @@ public class EcSeckillController {
 	 */
 	@PostMapping("/syncToRedis")
 	public StandardResponse<String> syncToRedis() {
-		this.ecSeckillRedisService.syncToRedis();
+		this.ecSeckillDetailRedisSyncService.syncToRedis();
 		return StandardResponse.getSuccessResponse("OK");
 	}
 	
