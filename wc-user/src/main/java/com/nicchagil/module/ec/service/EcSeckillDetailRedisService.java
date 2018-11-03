@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.util.Assert;
 import org.assertj.core.util.Lists;
@@ -15,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,9 @@ public class EcSeckillDetailRedisService {
 	
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+	
+	@Resource(name = "redisLongTemplate")
+	private RedisTemplate<String, Long> redisLongTemplate;
 	
 	@Autowired
 	private EcSeckillDetailRedisSyncService ecSeckillDetailRedisSyncService;
@@ -127,8 +133,7 @@ public class EcSeckillDetailRedisService {
 		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
 		
 		/* 校验库存 */
-		String currentNumStr = this.stringRedisTemplate.opsForValue().get(goodsNumKey);
-		Long currentNum = Long.valueOf(currentNumStr);
+		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
 		
 		if (currentNum == null) {
 			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");

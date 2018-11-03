@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,9 @@ public class EcSeckillDetailRedisSyncService {
 	
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+	
+	@Resource(name = "redisLongTemplate")
+	private RedisTemplate<String, Long> redisLongTemplate;
 
 	@Autowired
 	private EcOrderService ecOrderService;
@@ -90,8 +96,8 @@ public class EcSeckillDetailRedisSyncService {
 				this.removeKeys(keys);
 			}
 			
-			/* 写入开始时间 */
-			this.stringRedisTemplate.opsForValue().set(key, vo.getNum().toString());
+			/* 写入开始库存 */
+			this.redisLongTemplate.opsForValue().set(key, vo.getNum());
 			this.logger.info("写入完毕{} : {}", key, vo.getNum());
 		}
 	}
