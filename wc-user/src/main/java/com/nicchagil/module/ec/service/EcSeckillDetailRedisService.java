@@ -44,6 +44,7 @@ public class EcSeckillDetailRedisService {
 		if (reqVo == null || reqVo.getGoodsId() == null || reqVo.getNum() == null) {
 			return "请传入正确的参数";
 		}
+		reqVo.setOrderDate(new Date()); // 记录请求时刻的时间（避免后面请求阻塞、开启事务后再取得当前时间较不准确）
 		
 		Long goodsId = reqVo.getGoodsId();
 		Long num = reqVo.getNum();

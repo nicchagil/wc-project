@@ -76,9 +76,8 @@ public class EcOrderService {
 		order.setUserId(Long.valueOf(RandomStringGenerater.generateRandomString(6, RandomStringGenerater.NUMBER_10))); // 随机生成数字
 		order.setGoodsId(goodsId);
 		order.setNum(num);
-		Date currentDate = new Date();
-		order.setCreateTime(currentDate);
-		order.setUpdateTime(currentDate);
+		order.setCreateTime(reqVo.getOrderDate());
+		order.setUpdateTime(new Date());
 		this.insert(order);
 	}
 

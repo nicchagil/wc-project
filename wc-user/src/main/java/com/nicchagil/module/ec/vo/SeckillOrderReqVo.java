@@ -1,5 +1,7 @@
 package com.nicchagil.module.ec.vo;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -7,6 +9,7 @@ public class SeckillOrderReqVo {
 
 	private Long goodsId;
 	private Long num;
+	private Date orderDate;
 
 	@Override
 	public String toString() {
@@ -29,4 +32,12 @@ public class SeckillOrderReqVo {
 		this.num = num;
 	}
 
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	
 }
