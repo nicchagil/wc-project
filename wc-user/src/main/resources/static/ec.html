@@ -21,7 +21,7 @@
 ======
 <br/>
 
-商品：<input type="text" value="10000" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum" value="100" /><br/>
+商品：<select id="goodsId" ></select>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum" value="100" /><br/>
 <button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="getSeckillList();">刷新列表</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="syncToRedis();">同步秒杀数据到Redis</button>&nbsp;&nbsp;&nbsp;
@@ -54,7 +54,7 @@
 <br/>
 
 抢购商品：
-商品：<input type="text" value="10000" id="buyGoodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="buyGoodsNum" value="1" /><br/>
+商品：<select id="buyGoodsId" ></select>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="buyGoodsNum" value="1" /><br/>
 <button type="button" onclick="buy();">抢购</button><br/>
 
 <br/>

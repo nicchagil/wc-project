@@ -55,6 +55,7 @@ function queryGoodsList() {
 				return;
 			}
 			
+			/* 商品列表 */
 			var html = "";
 			for (var i = 0; i < data.length; i++) {
 				html = html + "<tr>";
@@ -65,6 +66,15 @@ function queryGoodsList() {
 			}
 			
 			$("#goodsTable").append(html);
+			
+			/* 商品选项 */
+			var optionnHtml = "";
+			for (var i = 0; i < data.length; i++) {
+				optionnHtml = optionnHtml + "<option value ='" + data[i].id + "'>" + data[i].name + "</option>";
+			}
+			
+			$("#goodsId").append(optionnHtml);
+			$("#buyGoodsId").append(optionnHtml);
 		}
 	});
 }
