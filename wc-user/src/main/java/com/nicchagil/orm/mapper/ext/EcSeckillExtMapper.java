@@ -16,7 +16,7 @@ public interface EcSeckillExtMapper {
 			"order by skd.start_time asc")
 	List<SeckillDisplayVo> getList();
     
-	@Update("update ec_seckill_detail t set t.`num` = t.`num` - #{num} where t.`goods_id` = #{goodsId}")
+	@Update("update ec_seckill_detail t set t.num = t.num - #{num} where t.`goods_id` = #{goodsId} and t.num >= #{num} ")
 	int substract(@Param("goodsId") Long goodsId, @Param("num") Long num);
 	
 }
