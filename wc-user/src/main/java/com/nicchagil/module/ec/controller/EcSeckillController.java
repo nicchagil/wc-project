@@ -80,7 +80,7 @@ public class EcSeckillController {
 		if (StringUtils.isBlank(msg)) {
 			return StandardResponse.getSuccessResponse("OK");
 		} else {
-			return StandardResponse.getErrorResponse(ExceptionCodeEnum.MSG_00001, msg);
+			return StandardResponse.getDiyResponse(ExceptionCodeEnum.MSG_00001.name(), msg, null);
 		}
 	}
 	

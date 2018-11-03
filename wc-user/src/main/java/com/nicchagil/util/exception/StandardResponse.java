@@ -92,5 +92,16 @@ public class StandardResponse <T> {
 		standardResponse.setData(t);
 		return standardResponse;
 	}
+	
+	/**
+	 * 生成失败的标准响应对象
+	 */
+	public static <T> StandardResponse<T> getDiyResponse(String code, String msg, T t) {
+		StandardResponse<T> standardResponse = new StandardResponse<>();
+		standardResponse.setCode(code);
+		standardResponse.setMsg(msg);
+		standardResponse.setData(t);
+		return standardResponse;
+	}
 
 }
