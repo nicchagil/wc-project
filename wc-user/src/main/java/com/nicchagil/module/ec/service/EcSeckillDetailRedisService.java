@@ -4,17 +4,15 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.apache.shiro.util.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
+import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
@@ -42,15 +40,15 @@ public class EcSeckillDetailRedisService {
 	/**
 	 * 检查库存
 	 */
-	@Transactional
-	public void check(SeckillOrderReqVo reqVo) {
-		Assert.notNull(reqVo, "请传入正确的参数");
-		Assert.notNull(reqVo.getGoodsId(), "请传入正确的参数");
-		Assert.notNull(reqVo.getNum(), "请传入正确的参数");
+	public String check(SeckillOrderReqVo reqVo) {
+		if (reqVo == null || reqVo.getGoodsId() == null || reqVo.getNum() == null) {
+			return "请传入正确的参数";
+		}
 		
 		Long goodsId = reqVo.getGoodsId();
 		Long num = reqVo.getNum();
 		
+		/* 校验秒杀开始时间 */
 		SeckillDisplayVo vo = new SeckillDisplayVo();
 		vo.setGoodsId(goodsId);
 		vo.setNum(num);
@@ -59,14 +57,27 @@ public class EcSeckillDetailRedisService {
 		
 		String startDateStr = this.stringRedisTemplate.opsForValue().get(startTimeKey);
 		Date startDate = DateTimeUtils.parse(startDateStr, DateTimeUtils.STANDARD_DATE_TIME);
-		Assert.notNull(startDate, "Redis数据异常，缺少秒杀开始时间");
-		
-		if (startDate.after(new Date())) {
-			throw new RuntimeException("秒杀活动还没开始，请稍后再试");
+		if (startDate == null) {
+			return "Redis数据异常，缺少秒杀开始时间";
 		}
 		
-		// 减去库存，提交订单
-		this.ecOrderService.doOrder(goodsId, num);
+		if (startDate.after(new Date())) {
+			return "秒杀活动还没开始，请稍后再试";
+		}
+		
+		/* 校验库存 */
+		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
+		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
+		
+		if (currentNum == null) {
+			return "数据异常，缺少秒杀商品库存数量";
+		}
+		
+		if (currentNum.longValue() < num.longValue()) {
+			return "商品已卖完，请下次再来";
+		}
+		
+		return null;
 	}
 	
 }

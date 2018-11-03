@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nicchagil.module.ec.vo.OrderDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
+import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.orm.entity.EcOrder;
 import com.nicchagil.orm.entity.EcOrderExample;
 import com.nicchagil.orm.mapper.ext.EcOrderExtMapper;
@@ -43,26 +45,19 @@ public class EcOrderService {
 	/**
 	 * 处理订单
 	 */
-	public void doOrder(Long goodsId, Long num) {
-		SeckillDisplayVo vo = new SeckillDisplayVo();
-		vo.setGoodsId(goodsId);
-		
-		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
-		
-		/* 校验库存 */
-		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
-		
-		if (currentNum == null) {
-			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");
-		}
-		
-		if (currentNum.longValue() < num.longValue()) {
-			throw new RuntimeException("商品已卖完，请下次再来");
-		}
+	@Transactional
+	public void doOrder(SeckillOrderReqVo reqVo) {
+		Long goodsId = reqVo.getGoodsId();
+		Long num = reqVo.getNum();
 		
 		/* Redis原子操作减库存 */
 		Long substractNum = num * -1;
 		this.logger.info("substract num : {}", substractNum);
+		
+		SeckillDisplayVo vo = new SeckillDisplayVo();
+		vo.setGoodsId(goodsId);
+		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
+		
 		Long result = this.stringRedisTemplate.opsForValue().increment(goodsNumKey, substractNum);
 		Assert.isTrue(result.longValue() >= 0, "商品已卖完，请下次再来");
 		this.logger.info("substract result : {}", result);

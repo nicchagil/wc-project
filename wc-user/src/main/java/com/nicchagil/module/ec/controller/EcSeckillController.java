@@ -2,6 +2,7 @@ package com.nicchagil.module.ec.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisSyncService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
+import com.nicchagil.module.ec.service.EcSeckillOrderService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
-import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
+import com.nicchagil.module.ec.vo.SeckillOrderReqVo;
+import com.nicchagil.util.exception.ExceptionCodeEnum;
 import com.nicchagil.util.exception.StandardResponse;
 
 @RestController
@@ -29,6 +32,9 @@ public class EcSeckillController {
 	
 	@Autowired
 	private EcSeckillDetailRedisService ecSeckillRedisService;
+	
+	@Autowired
+	private EcSeckillOrderService ecSeckillOrderService;
 	
 	/**
 	 * 添加秒杀
@@ -69,8 +75,13 @@ public class EcSeckillController {
 	 */
 	@PostMapping("/buy")
 	public StandardResponse<String> buy(@RequestBody SeckillOrderReqVo reqVo) {
-		this.ecSeckillRedisService.check(reqVo);
-		return StandardResponse.getSuccessResponse("OK");
+		String msg = this.ecSeckillOrderService.order(reqVo);
+		
+		if (StringUtils.isBlank(msg)) {
+			return StandardResponse.getSuccessResponse("OK");
+		} else {
+			return StandardResponse.getErrorResponse(ExceptionCodeEnum.MSG_00001, msg);
+		}
 	}
 	
 }
