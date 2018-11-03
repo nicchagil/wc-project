@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.util.Assert;
 import org.assertj.core.util.Lists;
@@ -17,8 +15,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
@@ -26,6 +24,7 @@ import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.orm.entity.EcOrder;
+import com.nicchagil.util.datetime.DateTimeUtils;
 
 @Service
 public class EcSeckillDetailRedisService {
@@ -37,14 +36,8 @@ public class EcSeckillDetailRedisService {
 	@Autowired
 	private EcSeckillDetailService ecSeckillDetailService;
 	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Date> redisDateTemplate;
-	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Long> redisLongTemplate;
-	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Object> redisStringTemplate;
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
 	
 	@Autowired
 	private EcSeckillDetailRedisSyncService ecSeckillDetailRedisSyncService;
@@ -69,10 +62,9 @@ public class EcSeckillDetailRedisService {
 		
 		String startTimeKey = this.ecSeckillDetailRedisSyncService.getStartTimeKey(vo);
 		
-		Date startDate = this.redisDateTemplate.opsForValue().get(startTimeKey);
-		if (startDate == null) {
-			throw new RuntimeException("数据异常，缺少秒杀开始时间");
-		}
+		String startDateStr = this.stringRedisTemplate.opsForValue().get(startTimeKey);
+		Date startDate = DateTimeUtils.parse(startDateStr, DateTimeUtils.STANDARD_DATE_TIME);
+		Assert.notNull(startDate, "Redis数据异常，缺少秒杀开始时间");
 		
 		if (startDate.after(new Date())) {
 			throw new RuntimeException("秒杀活动还没开始，请稍后再试");
@@ -86,7 +78,7 @@ public class EcSeckillDetailRedisService {
 	 * 查询Redis的所有数据
 	 */
 	public List<SeckillRedisDisplayVo> getSeckillRedisDisplayVo() {
-		Set<String> keys = this.redisStringTemplate.execute(new RedisCallback<Set<String>>() {
+		Set<String> keys = this.stringRedisTemplate.execute(new RedisCallback<Set<String>>() {
 
 			@Override
 			public Set<String> doInRedis(RedisConnection connection) throws DataAccessException {
@@ -112,7 +104,7 @@ public class EcSeckillDetailRedisService {
 		
 		List<SeckillRedisDisplayVo> voList = Lists.newArrayList();
 		for (String key : keyList) {
-			Object value = this.redisStringTemplate.opsForValue().get(key);
+			Object value = this.stringRedisTemplate.opsForValue().get(key);
 			
 			SeckillRedisDisplayVo vo = new SeckillRedisDisplayVo();
 			vo.setKey(key);
@@ -135,7 +127,8 @@ public class EcSeckillDetailRedisService {
 		String goodsNumKey = this.ecSeckillDetailRedisSyncService.getGoodsNumKey(vo);
 		
 		/* 校验库存 */
-		Long currentNum = this.redisLongTemplate.opsForValue().get(goodsNumKey);
+		String currentNumStr = this.stringRedisTemplate.opsForValue().get(goodsNumKey);
+		Long currentNum = Long.valueOf(currentNumStr);
 		
 		if (currentNum == null) {
 			throw new RuntimeException("数据异常，缺少秒杀商品库存数量");
@@ -146,7 +139,7 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		/* Redis原子操作减库存 */
-		Long result = this.redisLongTemplate.opsForValue().increment(goodsNumKey, num * -1);
+		Long result = this.stringRedisTemplate.opsForValue().increment(goodsNumKey, num * -1);
 		this.logger.info("substract result : {}", result);
 		
 		if (result.longValue() < 0) {

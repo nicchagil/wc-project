@@ -4,13 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +24,7 @@ public class EcSeckillDetailRedisSyncService {
 	@Autowired
 	private EcSeckillDetailService ecSeckillDetailService;
 	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Date> redisDateTemplate;
-	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Long> redisLongTemplate;
-	
-	@Resource(name = "redisTemplate")
-	private RedisTemplate<String, Object> redisStringTemplate;
-	
+	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
 	@Autowired
@@ -59,7 +48,7 @@ public class EcSeckillDetailRedisSyncService {
 				continue;
 			}
 			
-			/* 转换开始时间格式 */
+			/* 校验开始时间格式 */
 			Date startTime = DateTimeUtils.parse(vo.getStartTime(), DateTimeUtils.STANDARD_DATE_TIME);
 			if (startTime == null) {
 				this.logger.info("秒杀详情的开始时间数据异常：{}", vo);
@@ -69,13 +58,13 @@ public class EcSeckillDetailRedisSyncService {
 			String key = this.getStartTimeKey(vo);
 			
 			/* 删除指定的KEY */
-			Set<String> keys = this.redisDateTemplate.keys(key);
+			Set<String> keys = this.stringRedisTemplate.keys(key);
 			if (CollectionUtils.isNotEmpty(keys)) {
 				this.removeKeys(keys);
 			}
 			
 			/* 写入开始时间 */
-			this.redisDateTemplate.opsForValue().set(key, startTime);
+			this.stringRedisTemplate.opsForValue().set(key, vo.getStartTime());
 			this.logger.info("写入完毕{} : {}", key, vo.getStartTime());
 		}
 		
@@ -96,13 +85,13 @@ public class EcSeckillDetailRedisSyncService {
 			String key = this.getGoodsNumKey(vo);
 			
 			/* 删除指定的KEY */
-			Set<String> keys = this.redisDateTemplate.keys(key);
+			Set<String> keys = this.stringRedisTemplate.keys(key);
 			if (CollectionUtils.isNotEmpty(keys)) {
 				this.removeKeys(keys);
 			}
 			
 			/* 写入开始时间 */
-			this.redisLongTemplate.opsForValue().set(key, vo.getNum());
+			this.stringRedisTemplate.opsForValue().set(key, vo.getNum().toString());
 			this.logger.info("写入完毕{} : {}", key, vo.getNum());
 		}
 	}
@@ -131,7 +120,7 @@ public class EcSeckillDetailRedisSyncService {
 			return;
 		}
 		
-		this.redisDateTemplate.delete(keys);
+		this.stringRedisTemplate.delete(keys);
 	}
 	
 }
