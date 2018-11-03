@@ -223,7 +223,8 @@ function syncToRedis() {
 			}
 			
 			data = data.data;
-			getSeckillList();
+			getSeckillList(); // 查询秒杀MySQL列表
+			getSeckillRedisDisplayVo(); // 查询Redis列表
 			alert('同步成功');
 		}
 	});
@@ -254,7 +255,9 @@ function buy() {
 			}
 			data = data.data;
 			
-			getSeckillList();
+			getSeckillList(); // 查询秒杀MySQL列表
+			getSeckillRedisDisplayVo(); // 查询Redis列表
+			alert("购买成功");
 		}
 	});
 }
