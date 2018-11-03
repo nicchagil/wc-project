@@ -20,7 +20,7 @@ public class EcGoodsService {
 	 */
 	public List<EcGoods> getList() {
 		EcGoodsExample e = new EcGoodsExample();
-		e.setOrderByClause("id desc");
+		e.setOrderByClause("id asc");
 		
 		List<EcGoods> list = this.mapper.selectByExample(e);
 		return list;
