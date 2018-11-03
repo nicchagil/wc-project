@@ -23,6 +23,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
+import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.orm.entity.EcOrder;
@@ -55,10 +56,13 @@ public class EcSeckillDetailRedisService {
 	/**
 	 * 检查库存
 	 */
-	public void check(Long goodsId, Long num) {
-		if (goodsId == null || num == null) {
-			throw new RuntimeException("请传入正确的参数");
-		}
+	public void check(SeckillBuyReqVo reqVo) {
+		Assert.notNull(reqVo, "请传入正确的参数");
+		Assert.notNull(reqVo.getGoodsId(), "请传入正确的参数");
+		Assert.notNull(reqVo.getNum(), "请传入正确的参数");
+		
+		Long goodsId = reqVo.getGoodsId();
+		Long num = reqVo.getNum();
 		
 		SeckillDisplayVo vo = new SeckillDisplayVo();
 		vo.setGoodsId(goodsId);

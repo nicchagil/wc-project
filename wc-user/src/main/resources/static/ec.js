@@ -178,7 +178,7 @@ function deleteSeckill(id) {
 	
 	$.ajax({
 		url : url,
-		
+		type : "POST",
 		contentType : "application/x-www-form-urlencoded",
 		dataType : "json",
 		success : function(data) {
@@ -204,7 +204,7 @@ function syncToRedis() {
 	
 	$.ajax({
 		url : url,
-		
+		type : "POST",
 		contentType : "application/x-www-form-urlencoded",
 		dataType : "json",
 		success : function(data) {
@@ -221,21 +221,26 @@ function syncToRedis() {
 				alert("系统异常");
 				return;
 			}
-			data = data.data;
 			
+			data = data.data;
 			getSeckillList();
+			alert('同步成功');
 		}
 	});
 }
 
 // 抢购
 function buy() {
-	var url = "/ec/seckill/buy?goodsId=" + $("#buyGoodsId").val() + "&goodsNum=" + $("#buyGoodsNum").val();
+	var url = "/ec/seckill/buy";
 	
 	$.ajax({
 		url : url,
-		
-		contentType : "application/x-www-form-urlencoded",
+		type : "POST",
+		data : JSON.stringify({ // 内置的JSON转换方法
+			goodsId : $("#buyGoodsId").val(),
+			num : $("#buyGoodsNum").val()
+		}),
+		contentType : "application/json",
 		dataType : "json",
 		success : function(data) {
 			/* 错误信息提示与数据处理 */

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nicchagil.module.ec.service.EcSeckillDetailRedisService;
 import com.nicchagil.module.ec.service.EcSeckillDetailService;
 import com.nicchagil.module.ec.vo.SeckillAddReqVo;
+import com.nicchagil.module.ec.vo.SeckillBuyReqVo;
 import com.nicchagil.module.ec.vo.SeckillDisplayVo;
 import com.nicchagil.module.ec.vo.SeckillRedisDisplayVo;
 import com.nicchagil.util.exception.StandardResponse;
@@ -44,7 +45,7 @@ public class EcSeckillController {
 	/**
 	 * 删除秒杀
 	 */
-	@GetMapping("/deleteById")
+	@PostMapping("/deleteById")
 	public StandardResponse<String> deleteById(Long id) {
 		this.ecSeckillDetailService.deleteById(id);
 		return StandardResponse.getSuccessResponse("OK");
@@ -54,7 +55,7 @@ public class EcSeckillController {
 	/**
 	 * 同步秒杀到Redis
 	 */
-	@GetMapping("/syncToRedis")
+	@PostMapping("/syncToRedis")
 	public StandardResponse<String> syncToRedis() {
 		this.ecSeckillRedisService.syncToRedis();
 		return StandardResponse.getSuccessResponse("OK");
@@ -63,9 +64,9 @@ public class EcSeckillController {
 	/**
 	 * 购买
 	 */
-	@GetMapping("/buy")
-	public StandardResponse<String> buy(Long goodsId, Long goodsNum) {
-		this.ecSeckillRedisService.check(goodsId, goodsNum);
+	@PostMapping("/buy")
+	public StandardResponse<String> buy(@RequestBody SeckillBuyReqVo reqVo) {
+		this.ecSeckillRedisService.check(reqVo);
 		return StandardResponse.getSuccessResponse("OK");
 	}
 	
