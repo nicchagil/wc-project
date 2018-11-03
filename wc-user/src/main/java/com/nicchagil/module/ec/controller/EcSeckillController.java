@@ -79,7 +79,7 @@ public class EcSeckillController {
 	 */
 	@GetMapping("/getSeckillRedisDisplayVo")
 	public StandardResponse<List<RedisKeyValueVo>> getSeckillRedisDisplayVo() {
-		List<RedisKeyValueVo> list = this.ecSeckillRedisService.getSeckillRedisDisplayVo();
+		List<RedisKeyValueVo> list = this.ecSeckillRedisService.getAllRedisKeyValueVo();
 		return StandardResponse.getSuccessResponse(list);
 	}
 	

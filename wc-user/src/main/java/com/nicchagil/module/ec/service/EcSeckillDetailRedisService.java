@@ -78,7 +78,7 @@ public class EcSeckillDetailRedisService {
 	/**
 	 * 查询Redis的所有数据
 	 */
-	public List<RedisKeyValueVo> getSeckillRedisDisplayVo() {
+	public List<RedisKeyValueVo> getAllRedisKeyValueVo() {
 		Set<String> keys = this.redisService.keys("*");
 		this.logger.info("redis keys : {}", keys);
 		
