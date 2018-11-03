@@ -34,9 +34,6 @@ public class EcSeckillDetailRedisSyncService {
 	private RedisTemplate<String, Long> redisLongTemplate;
 
 	@Autowired
-	private EcOrderService ecOrderService;
-	
-	@Autowired
 	private RedisService redisService;
 	
 	/**
