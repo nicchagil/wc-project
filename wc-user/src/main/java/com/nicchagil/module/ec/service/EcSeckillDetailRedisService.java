@@ -130,6 +130,7 @@ public class EcSeckillDetailRedisService {
 		Long substractNum = num * -1;
 		this.logger.info("substract num : {}", substractNum);
 		Long result = this.stringRedisTemplate.opsForValue().increment(goodsNumKey, substractNum);
+		Assert.isTrue(result.longValue() >= 0, "商品已卖完，请下次再来");
 		this.logger.info("substract result : {}", result);
 		
 		if (result.longValue() < 0) {
