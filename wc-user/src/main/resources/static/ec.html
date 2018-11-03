@@ -21,7 +21,7 @@
 ======
 <br/>
 
-商品：<input type="text" value="10000" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum" value="1" /><br/>
+商品：<input type="text" value="10000" id="goodsId"/>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum" value="100" /><br/>
 <button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="getSeckillList();">刷新列表</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="syncToRedis();">同步秒杀数据到Redis</button>&nbsp;&nbsp;&nbsp;
@@ -65,6 +65,7 @@
 <button type="button" onclick="deleteAllOrderRecord();">删除全部订单记录</button><br/>
 <table border="1" id="orderTable">
   <tr id="orderTableHead">
+    <th>行数</th>
     <th>订单ID</th>
     <th>购买人（模拟请求用户的编号）</th>
     <th>商品名</th>

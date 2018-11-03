@@ -164,8 +164,10 @@ function getOrderList() {
 			}
 			
 			var html = "";
+			var rowNum = 0;
 			for (var i = 0; i < data.length; i++) {
 				html = html + "<tr>";
+				html = html + "<td>" + (++rowNum) + "</td>";
 				html = html + "<td>" + data[i].id + "</td>";
 				html = html + "<td>" + data[i].userId + "</td>";
 				html = html + "<td>" + data[i].goodsName + "</td>";
@@ -279,6 +281,7 @@ function deleteAllOrderRecord() {
 			data = data.data;
 			
 			getSeckillRedisDisplayVo();
+			getOrderList(); // 查询订单数据
 			alert("删除成功");
 		},
 		error : function(jrXhr, textStatus, errThrown) { // 系统异常
@@ -373,6 +376,7 @@ function buy() {
 			
 			getSeckillList(); // 查询秒杀MySQL列表
 			getSeckillRedisDisplayVo(); // 查询Redis列表
+			getOrderList(); // 查询订单数据
 			alert("购买成功");
 		}
 	});
