@@ -144,7 +144,9 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		/* Redis原子操作减库存 */
-		Long result = this.stringRedisTemplate.opsForValue().increment(goodsNumKey, num * -1);
+		Long substractNum = num * -1;
+		this.logger.info("substract num : {}", substractNum);
+		Long result = this.stringRedisTemplate.opsForValue().increment(goodsNumKey, substractNum);
 		this.logger.info("substract result : {}", result);
 		
 		if (result.longValue() < 0) {
@@ -152,9 +154,9 @@ public class EcSeckillDetailRedisService {
 		}
 		
 		/* MySQL减库存 */
-		this.logger.info("substract : {}, {}", goodsId, currentNum);
-		int substractRecordNum = this.ecSeckillDetailService.substract(goodsId, currentNum);
-		Assert.isTrue(substractRecordNum == 1, "减去库存失败");
+		this.logger.info("substract : {}, {}", goodsId, num);
+		int substractRecordNum = this.ecSeckillDetailService.substract(goodsId, num);
+		Assert.isTrue(substractRecordNum == 1, "MySQL减去库存失败");
 		
 		/* 添加库存 */
 		EcOrder order = new EcOrder();
