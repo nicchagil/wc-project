@@ -33,7 +33,7 @@ $(document).ready(function() {
 // 查询商品列表
 function queryGoodsList() {
 	$.ajax({
-		url : "/ec/goods/getList",
+		url : "ec/goods/getList",
 		contentType : "application/x-www-form-urlencoded",
 		dataType : "json",
 		success : function(data) {
@@ -81,7 +81,7 @@ function queryGoodsList() {
 
 // 添加秒杀记录
 function addSeckill() {
-	var url = "/ec/seckill/add";
+	var url = "ec/seckill/add";
 	
 	$.ajax({
 		url : url,
@@ -103,7 +103,7 @@ function addSeckill() {
 
 // 查询秒杀数据
 function getSeckillList() {
-	var url = "/ec/seckill/getList";
+	var url = "ec/seckill/getList";
 	
 	$.ajax({
 		url : url,
@@ -147,7 +147,7 @@ function getSeckillList() {
 
 // 查询订单记录
 function getOrderList() {
-	var url = "/ec/order/getList";
+	var url = "ec/order/getList";
 	
 	$.ajax({
 		url : url,
@@ -193,7 +193,7 @@ function getOrderList() {
 
 // 查询秒杀Redis数据
 function getSeckillRedisDisplayVo() {
-	var url = "/redis/getAllRedisKeyValueVo";
+	var url = "redis/getAllRedisKeyValueVo";
 	
 	$.ajax({
 		url : url,
@@ -267,7 +267,7 @@ function deleteAllRedisRecord() {
 
 //删除全部订单记录
 function deleteAllOrderRecord() {
-	var url = "/ec/order/deleteAll";
+	var url = "ec/order/deleteAll";
 	
 	$.ajax({
 		url : url,
@@ -302,7 +302,7 @@ function deleteAllOrderRecord() {
 
 // 删除秒杀
 function deleteSeckill(id) {
-	var url = "/ec/seckill/deleteById?id=" + id;
+	var url = "ec/seckill/deleteById?id=" + id;
 	
 	$.ajax({
 		url : url,
@@ -329,7 +329,7 @@ function deleteSeckill(id) {
 
 // 同步秒杀到Redis
 function syncToRedis() {
-	var url = "/ec/seckill/syncToRedis";
+	var url = "ec/seckill/syncToRedis";
 	
 	$.ajax({
 		url : url,
@@ -361,7 +361,7 @@ function syncToRedis() {
 
 // 抢购
 function buy() {
-	var url = "/ec/seckill/buy";
+	var url = "ec/seckill/buy";
 	
 	$.ajax({
 		url : url,
