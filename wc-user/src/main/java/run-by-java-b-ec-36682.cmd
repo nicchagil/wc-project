@@ -1,5 +1,5 @@
 @echo off
-title APP-EC-36682
+title APP-EC-36681
 
 @rem set dateTimeStr=%date:~0,4%-%date:~5,2%-%date:~8,2%T%time:~0,2%:%time:~3,2%:%time:~6,2%
 
@@ -20,4 +20,4 @@ set vm_args=
 set vm_args=%vm_args% -Xms256m -Xmx256m -Xss512k
 set vm_args=%vm_args% -Ddubbo.resolve.file=%current_project_directory%/direct-provider.properties
 
-java %vm_args% com.nicchagil.WcUserApplication --spring.profiles.active=dev-port-36682
+java %vm_args% com.nicchagil.WcUserApplication --spring.profiles.active=dev-port-36681

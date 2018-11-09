@@ -191,6 +191,52 @@ function getOrderList() {
 	});
 }
 
+//查询订单记录
+function getOrderListFromMgr() {
+	var url = "/mgr/ec/order/getList";
+	
+	$.ajax({
+		url : url,
+		type : "POST",
+		contentType : "application/x-www-form-urlencoded",
+		dataType : "json",
+		success : function(data) {
+			/* 错误信息提示与数据处理 */
+			if (!data || data.code != SUCCESS_00001) {
+				if (data && data.msg) {
+					alert(data.msg);
+					return;
+				}
+				alert("系统异常");
+				return;
+			}
+			data = data.data;
+			
+			$("#orderTable").html('');
+			$("#orderTable").append(orderTableHeadHtml);
+			
+			if (!data) {
+				return;
+			}
+			
+			var html = "";
+			var rowNum = 0;
+			for (var i = 0; i < data.length; i++) {
+				html = html + "<tr>";
+				html = html + "<td>" + (++rowNum) + "</td>";
+				html = html + "<td>" + data[i].id + "</td>";
+				html = html + "<td>" + data[i].userId + "</td>";
+				html = html + "<td>" + data[i].goodsName + "</td>";
+				html = html + "<td>" + data[i].num + "</td>";
+				html = html + "<td>" + data[i].orderTime + "</td>";
+				html = html + "</tr>";
+			}
+			
+			$("#orderTable").append(html);
+		}
+	});
+}
+
 // 查询秒杀Redis数据
 function getSeckillRedisDisplayVo() {
 	var url = "redis/getAllRedisKeyValueVo";
