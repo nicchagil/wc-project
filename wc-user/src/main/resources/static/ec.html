@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<button type="button" onclick="queryGoodsList()">查询商品列表</button><br/>
+<p>商品后台管理</p>
+<button type="button" onclick="queryGoodsList()">1、查询商品列表</button><br/>
 <table border="1" id="goodsTable">
   <tr id="goodsTableHead">
     <th>id</th>
@@ -17,14 +18,11 @@
   </tr>
 </table>
 
-<br/>
-======
-<br/>
-
+<p>秒杀商品活动后台管理</p>
 商品：<select id="goodsId" ></select>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="goodsNum" value="100" /><br/>
-<button type="button" onclick="addSeckill();">加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button>&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="addSeckill();">2、加入秒杀活动（为了演示效果，加入后5秒后活动开始）</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="getSeckillList();">刷新列表</button>&nbsp;&nbsp;&nbsp;
-<button type="button" onclick="syncToRedis();">同步秒杀数据到Redis</button>&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="syncToRedis();">3、同步秒杀数据到Redis</button>&nbsp;&nbsp;&nbsp;
 <table border="1" id="seckillTable">
   <tr id="seckillTableHead">
     <th>秒杀活动ID</th>
@@ -36,11 +34,8 @@
   </tr>
 </table>
 
-<br/>
-======
-<br/>
-
-<button type="button" onclick="getSeckillRedisDisplayVo();">查询Redis数据</button>&nbsp;&nbsp;&nbsp;
+<p>Redis缓存后台管理</p>
+<button type="button" onclick="getSeckillRedisDisplayVo();">4、查询Redis数据</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="deleteAllRedisRecord();">删除全部Redis记录</button>
 <table border="1" id="seckillRedisTable">
   <tr id="seckillRedisTableHead">
@@ -49,20 +44,13 @@
   </tr>
 </table>
 
-<br/>
-======
-<br/>
-
-抢购商品：
+<p>抢购商品功能</p>
 商品：<select id="buyGoodsId" ></select>&nbsp;&nbsp;&nbsp;数量：<input type="text" id="buyGoodsNum" value="1" /><br/>
-<button type="button" onclick="buy();">抢购</button><br/>
+<button type="button" onclick="buy();">6、抢购</button><br/>
 
-<br/>
-======
-<br/>
-
-<button type="button" onclick="getOrderList();">查询订单列表</button>&nbsp;&nbsp;&nbsp;
-<button type="button" onclick="getOrderListFromMgr();">查询订单列表（MGR）</button>&nbsp;&nbsp;&nbsp;
+<p>订单信息后台管理</p>
+<button type="button" onclick="getOrderList();">7、查询订单列表</button>&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="getOrderListFromMgr();">8、查询订单列表（MGR）</button>&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="deleteAllOrderRecord();">删除全部订单记录</button><br/>
 <table border="1" id="orderTable">
   <tr id="orderTableHead">
