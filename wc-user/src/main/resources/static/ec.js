@@ -279,7 +279,7 @@ function getSeckillRedisDisplayVo() {
 
 // 删除全部redis记录
 function deleteAllRedisRecord() {
-	var url = "/redis/deleteAll";
+	var url = "redis/deleteAll";
 	
 	$.ajax({
 		url : url,
