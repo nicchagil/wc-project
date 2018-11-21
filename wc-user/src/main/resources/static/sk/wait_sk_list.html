@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 基本的表格</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="padding:10px">
+
+<table class="table">
+	<ul class="breadcrumb">
+    	<li><a href="#">即将开始的商品秒杀</a></li>
+	</ul>
+   <thead>
+      <tr>
+         <th>名字</th>
+         <th>库存</th>
+         <th>开始时间</th>
+         <th>结束时间</th>
+         <th>操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td class="btn-link" style="vertical-align:middle">深入理解计算机系统</td>
+         <td style="vertical-align:middle">100</td>
+         <td style="vertical-align:middle">2018-11-11 00:00:00</td>
+         <td style="vertical-align:middle">2018-11-12 00:00:00</td>
+         <td><button type="button" class="btn btn-default btn-lg disabled" data-toggle="modal" data-target="#myModal" >抢购</button></td>
+      </tr>
+      <tr>
+         <td class="btn-link" style="vertical-align:middle">高可用MySQL</td>
+         <td style="vertical-align:middle">50</td>
+         <td style="vertical-align:middle">2018-11-11 00:00:00</td>
+         <td style="vertical-align:middle">2018-11-12 00:00:00</td>
+         <td><button type="button" class="btn btn-default btn-lg disabled" data-toggle="modal" data-target="#myModal" >抢购</button></td>
+      </tr>
+   </tbody>
+</table>
+	
+<ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">&raquo;</a></li>
+</ul>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					购买商品
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">商品</label>
+						<div class="col-sm-10">
+							<button type="button" class="btn btn-default dropdown-toggle" 
+									data-toggle="dropdown">
+								深入理解计算机系统 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">深入理解计算机系统</a></li>
+								<li><a href="#">高可用MySQL</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label">库存</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="firstname" 
+								   placeholder="请输入库存">
+						</div>
+					</div>
+					
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary">
+					提交
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+</body>
+</html>
